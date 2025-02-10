@@ -11,6 +11,5 @@ public class Relation {
         this.amicale = amicale;
         this.familiale = familiale;
         this.pro = pro;
-        int caca = 2;
     }
 }

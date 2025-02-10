@@ -11,6 +11,6 @@ public class Relation {
         this.amicale = amicale;
         this.familiale = familiale;
         this.pro = pro;
-        int pipi = 6;
+        int popo = 9;
     }
 }

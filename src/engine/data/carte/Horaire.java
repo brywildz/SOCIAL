@@ -1,4 +1,4 @@
-package carte;
+package engine.data.carte;
 
 public class Horaire {
     private int heure;

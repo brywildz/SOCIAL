@@ -1,4 +1,4 @@
-package carte;
+package engine.data.carte;
 
 public class EspaceVital extends Espace{
     private String typeInfrastrucutre;

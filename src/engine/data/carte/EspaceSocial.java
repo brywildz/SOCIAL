@@ -1,4 +1,4 @@
-package carte;
+package engine.data.carte;
 
 public class EspaceSocial extends Espace{
     private String typeLieu;

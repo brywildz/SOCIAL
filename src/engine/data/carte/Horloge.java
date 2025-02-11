@@ -1,4 +1,4 @@
-package carte;
+package engine.data.carte;
 
 public class Horloge {
     private static Horloge instance = new Horloge();

@@ -48,6 +48,11 @@ public class ActionManager implements MouvementIndividu{
         return individu;
     }
 
+    @Override
+    public void set(Individu individu) {
+        this.individu = individu;
+    }
+
     public void setIndividu(Individu individu) {
         this.individu = individu;
     }

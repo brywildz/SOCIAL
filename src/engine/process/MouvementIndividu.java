@@ -7,4 +7,6 @@ public interface MouvementIndividu {
 
     public Individu getIndividu();
 
+    void set(Individu individu);
+
 }

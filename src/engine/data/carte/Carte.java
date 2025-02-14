@@ -71,4 +71,8 @@ public class Carte {
     public void setIndividus(HashMap<Block, Individu> individus) {
         this.individus = individus;
     }
+
+    public Block getBlock(int x, int y){
+        return blocks[x][y];
+    }
 }

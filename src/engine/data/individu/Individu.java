@@ -11,13 +11,14 @@ public class Individu {
     private Relation relation;
     private Block location;
 
-    public Individu(String nom, int age, String statutSocial, Personnalite perso, Etat etat, Relation relation) {
+    public Individu(String nom, int age, String statutSocial, Personnalite perso, Etat etat, Relation relation, Block location) {
         this.nom = nom;
         this.age = age;
         this.statutSocial = statutSocial;
         this.perso = perso;
         this.etat = etat;
         this.relation = relation;
+        this.location = location;
     }
 
     public String getStatutSocial() {

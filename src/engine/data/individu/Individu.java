@@ -1,6 +1,7 @@
 package engine.data.individu;
 
 import engine.data.carte.Block;
+import engine.data.evenement.Evenement;
 
 public class Individu {
     private String nom;
@@ -10,6 +11,7 @@ public class Individu {
     private Etat etat;
     private Relation relation;
     private Block location;
+    private Evenement currentEvent = null;
 
     public Individu(String nom, int age, String statutSocial, Personnalite perso, Etat etat, Relation relation, Block location) {
         this.nom = nom;
@@ -75,5 +77,23 @@ public class Individu {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public void setCurrentEvent(Evenement currentEvent) {
+        this.currentEvent = currentEvent;
+    }
+
+    @Override
+    public String toString() {
+        return "Individu{" +
+                "nom='" + nom + '\'' +
+                ", age=" + age +
+                ", statutSocial='" + statutSocial + '\'' +
+                ", perso=" + perso +
+                ", etat=" + etat +
+                ", relation=" + relation +
+                ", location=" + location +
+                ", currentEvent=" + currentEvent +
+                '}';
     }
 }

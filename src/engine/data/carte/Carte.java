@@ -1,43 +1,38 @@
 package engine.data.carte;
 
 import engine.data.individu.Individu;
+import engine.process.IndividuRepository;
 
 import java.util.HashMap;
 
 public class Carte {
-    private int largeur;
-    private int hauteur;
+    private int lineCount;
+    private int columnCount;
     private double echelle;
     private HashMap<Integer, String> espaces;
     private Block[][] blocks;
     private HashMap<Block, Individu> individus;
 
     public Carte(int largeur, int hauteur){
-        this.hauteur = hauteur;
-        this.largeur = largeur;
+        this.columnCount = hauteur;
+        this.lineCount = largeur;
+        this.individus = IndividuRepository.getInstance().getIndividus();
         blocks = new Block[largeur][hauteur];
 
-        for(int i=0; i<largeur; i++){
-            for(int j=0; j<hauteur; j++){
-                blocks[largeur][hauteur] = new Block(largeur, hauteur);
+        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                blocks[lineIndex][columnIndex] = new Block(lineIndex, columnIndex);
             }
         }
     }
 
-    public int getLargeur() {
-        return largeur;
-    }
+    private void init(int lineCount, int columnCount) {
+        this.lineCount = lineCount;
+        this.columnCount = columnCount;
 
-    public void setLargeur(int largeur) {
-        this.largeur = largeur;
-    }
+        blocks = new Block[lineCount][columnCount];
 
-    public int getHauteur() {
-        return hauteur;
-    }
 
-    public void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
     }
 
     public double getEchelle() {
@@ -74,5 +69,13 @@ public class Carte {
 
     public Block getBlock(int x, int y){
         return blocks[x][y];
+    }
+
+    public int getLineCount() {
+        return lineCount;
+    }
+
+    public int getColumnCount() {
+        return columnCount;
     }
 }

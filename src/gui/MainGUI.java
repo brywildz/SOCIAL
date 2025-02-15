@@ -1,14 +1,17 @@
 package gui;
 
+import config.GameConfiguration;
 import engine.data.carte.Block;
 import engine.data.carte.Carte;
-import engine.process.MouvementIndividu;
+import engine.data.individu.Individu;
+import engine.process.MobileInterface;
 import engine.process.GameBuilder;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 
 public class MainGUI extends JFrame implements Runnable {
 
@@ -16,8 +19,8 @@ public class MainGUI extends JFrame implements Runnable {
 
     private Carte carte;
 
-    private final static Dimension preferredSize = new Dimension(800, 800);
-    private MouvementIndividu manager;
+    private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
+    private MobileInterface manager;
     private GameDisplay dashboard;
 
     public MainGUI(String title) throws HeadlessException {
@@ -29,7 +32,8 @@ public class MainGUI extends JFrame implements Runnable {
 
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
-
+        ControlPanel cp = new ControlPanel(contentPane);
+        add(cp, BorderLayout.EAST);
         //KeyControls keyControls = new KeyControls();
         JTextField textField = new JTextField();
         //textField.addKeyListener(keyControls);
@@ -54,7 +58,15 @@ public class MainGUI extends JFrame implements Runnable {
 
     @Override
     public void run() {
-
+        while (true) {
+            try {
+                Thread.sleep(GameConfiguration.GAME_SPEED);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            manager.nextSecond();
+            dashboard.repaint();
+        }
     }
 
     private class MouseControls implements MouseListener {
@@ -64,9 +76,16 @@ public class MainGUI extends JFrame implements Runnable {
             int x = e.getX();
             int y = e.getY();
 
-            Block bombPosition = dashboard.getBombPosition(x, y);
-            manager.putBomb(bombPosition);
-            System.out.println(x + " " + y);
+            Block individuPosition = dashboard.getIndividuPosition(x, y);
+            HashMap<Block, Individu> individus = carte.getIndividus();
+            if(individus.containsKey(individuPosition)) {
+                System.out.println(individus.get(individuPosition).toString());
+            }
+            else{
+                System.out.println("rien");
+            }
+            //manager.putBomb(bombPosition);
+            System.out.println(x/GameConfiguration.BLOCK_SIZE + " " + y/GameConfiguration.BLOCK_SIZE);
         }
 
         @Override

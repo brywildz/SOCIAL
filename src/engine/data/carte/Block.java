@@ -1,5 +1,7 @@
 package engine.data.carte;
 
+import java.util.Objects;
+
 public class Block {
     private int line;
     private int column;
@@ -20,5 +22,20 @@ public class Block {
     @Override
     public String toString() {
         return "Block [line=" + line + ", column=" + column + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Block) {
+            if(((Block) obj).getLine() == line && ((Block) obj).getColumn() == column) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(line, column);
     }
 }

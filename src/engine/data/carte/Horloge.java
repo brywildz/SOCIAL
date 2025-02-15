@@ -10,5 +10,9 @@ public class Horloge {
     private Horloge(){
     }
 
-    private static Horloge getInstance(){return instance;};
+    public static Horloge getInstance(){return instance;};
+
+    public void newSecond(){
+        seconde++;
+    }
 }

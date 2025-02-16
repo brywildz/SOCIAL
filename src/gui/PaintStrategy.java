@@ -5,7 +5,17 @@ import engine.data.carte.Block;
 import engine.data.carte.Carte;
 import engine.data.individu.Individu;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Classe d'affichage gérant la strategie d'affichage (comment les composant  vont être dessiner sur l'ecran)
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
 
 public class PaintStrategy {
 
@@ -34,5 +44,10 @@ public class PaintStrategy {
         int y = location.getColumn();
         graphics.setColor(Color.GREEN);
         graphics.fillOval((x * blockSize), (y * blockSize), blockSize, blockSize);
+    }
+
+    public void paintHouse(Graphics2D g2) throws IOException {
+        int blockSize = GameConfiguration.BLOCK_SIZE;
+        g2.drawImage(ImageIO.read(new File("src/images/house.png")),GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_WIDTH,GameConfiguration.HOUSE_HEIGHT,null);
     }
 }

@@ -1,18 +1,23 @@
 package test;
 
-import config.GameConfiguration;
-import engine.data.carte.Block;
-import engine.data.individu.Individu;
-import engine.process.IndividuRepository;
 import gui.MainGUI;
 
+import javax.swing.*;
+
+/**
+ * Classe principale instanciant les classes néccessaires au lancement du jeu
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
+
 public class TestGame {
-    public static void main(String[] args) {
-        Individu individu = new Individu("Dylan,", 20, "clochard", null, null, null, new Block(20,20));
-        IndividuRepository.getInstance().addIndividu(individu);
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+
         MainGUI gameMainGUI = new MainGUI("Social");
 
         Thread gameThread = new Thread(gameMainGUI);
         gameThread.start();
     }
+
 }

@@ -1,5 +1,12 @@
 package engine.data.carte;
 
+/**
+ * Classe abstraite de donnée stockant les information liée aux Espaces du jeu
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
+
 public abstract class Espace {
     private int capaciteMax;
     private int capacitMin;

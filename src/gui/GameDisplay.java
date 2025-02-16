@@ -8,10 +8,15 @@ import engine.process.MobileInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.module.Configuration;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-
+/**
+ * Classe d'affichage gérant le dessin des different composant selon la classe paintStrategy
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
 public class GameDisplay extends JPanel {
     private Carte carte;
     private MobileInterface manager;
@@ -31,12 +36,17 @@ public class GameDisplay extends JPanel {
         while(it.hasNext()){
             Individu ind = it.next();
             paintStrategy.paint(ind, g);
+            try {
+                paintStrategy.paintHouse((Graphics2D)g);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    public Block getIndividuPosition(int x, int y){
-        int line= y/GameConfiguration.BLOCK_SIZE;
-        int column = x/GameConfiguration.BLOCK_SIZE;
+    public Block getBlockPosition(int x, int y){
+        int line= x/GameConfiguration.BLOCK_SIZE;
+        int column = y/GameConfiguration.BLOCK_SIZE;
         return carte.getBlock(line, column);
     }
 }

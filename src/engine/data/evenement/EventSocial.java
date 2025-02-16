@@ -2,25 +2,25 @@ package engine.data.evenement;
 
 import engine.data.individu.Individu;
 import java.util.ArrayList;
+import engine.data.individu.Etat;
+
+/**
+ * Classe de donnée stockant les information liée aux évennement sociaux (impliquant plusieurs personnes)
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
 
 public class EventSocial extends Evenement {
-    private int impactRelation;
     private ArrayList<Individu> individus;
 
-    public EventSocial(String nom, String description, int duree, int impactRelation) {
-        super(nom, description, duree); // Appelle le constructeur de la classe mère
-        this.individus = new ArrayList<>();
-        this.impactRelation = impactRelation;
+    public EventSocial(String id, int duree, String description, ArrayList<Individu> individus, Etat etat) {
+        super(id, duree, description, etat);
+        this.individus = individus;
     }
 
-    public void ajoutIndividu(Individu individu) {
-        individus.add(individu);
-    }
-
-    public void afficherEtat() {
-        System.out.println("L'événement social " + getNom() + " impacte les relations.");
-        for (Individu pnj : individus) {
-            System.out.println(pnj.getNom() + " est affecté par l'événement.");
-        }
+    @Override
+    public String toString() {
+        return super.toString() + "concerne les individus : " + individus;
     }
 }

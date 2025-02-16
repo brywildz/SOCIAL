@@ -1,56 +1,45 @@
 package engine.data.evenement;
+import engine.data.individu.Etat;
 
-import engine.data.individu.bienetre.BienEtre;
-
-import java.util.ArrayList;
-
+/**
+ * Classe abstraite représentant un événement dans le système
+ * Cette classe sert de base pour implémenter différents types d'événements
+ * Spécifiques dans les classes filles
+ *
+ * @author Manseri Dylan Bawol Amadou
+ * @version 0.1
+ */
 public abstract class Evenement {
-    private String nom;
+    private String id;
     private int duree;
-    private boolean actif;
-    private ArrayList<BienEtre> bienEtre;
     private String description;
+    private Etat etat;
 
 
-    public Evenement(String nom, String description, int duree) {
-        this.nom = nom;
+    public Evenement(String id, int duree, String description, Etat etat) {
+        this.id = id;
         this.duree = duree;
-        this.bienEtre = new ArrayList<>();
         this.description = description;
+    }
 
+    public String getId() {
+        return id;
+    }
 
-    }
-    public Evenement(String type) {
-        this.nom = type;
-    }
-    public String getNom() {
-        return nom;
-    }
-    public String description() {
-        return description;
-    }
-    public boolean isActif() {
-        return actif;
-    }
     public int getDuree() {
         return duree;
     }
-    public void setDuree(int duree) {
-        this.duree = duree;
-    }
-    public void decrementerDuree() {
-        if(duree > 0) {
-            duree--;
-        }
-        
-    }
-    public boolean endEvent() {
-        return duree==0;
-    }
-    public ArrayList<BienEtre> getBienEtre() {
-        return bienEtre;
-    }
-    public abstract void afficherEffet();
 
+    public String getDescription() {
+        return description;
+    }
 
+    @Override
+    public String toString() {
+        return "L'énennement "+ id +" dure "+duree+" et a pour description"+description;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
 }

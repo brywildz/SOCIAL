@@ -2,6 +2,13 @@ package engine.data.carte;
 
 import java.util.Objects;
 
+/**
+ * Classe de donnée stockant les information liée aux blocks
+ *
+ * @author Dylan Manseri
+ * @version 0.1
+ */
+
 public class Block {
     private int line;
     private int column;

@@ -1,5 +1,8 @@
 package config;
 
+/**
+ *Classe gérant les différente possibilité de configuration
+ */
 public class GameConfiguration {
     public static final int WINDOW_WIDTH = 900;
     public static final int WINDOW_HEIGHT = 800;
@@ -11,7 +14,8 @@ public class GameConfiguration {
 
     public static final int GAME_SPEED = 1000;
 
-    public static final int MAX_BOMB_COUNT = 3;
-
-    public static final int BOMB_EXPLOSION_DELAY = 3;
+    public static final int HOUSE_X = 200;
+    public static final int HOUSE_Y = 100;
+    public static final int HOUSE_WIDTH = 300;
+    public static final int HOUSE_HEIGHT = 300;
 }

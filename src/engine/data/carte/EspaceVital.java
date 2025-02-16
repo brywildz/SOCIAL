@@ -1,5 +1,12 @@
 package engine.data.carte;
 
+/**
+ * Classe de donnée stockant les information liée aux Espace Vitaux (lieu de vie)
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
+
 public class EspaceVital extends Espace{
     private String typeInfrastrucutre;
     private String utile;

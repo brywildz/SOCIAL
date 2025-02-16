@@ -2,7 +2,17 @@ package engine.data.individu;
 
 import engine.data.carte.Block;
 import engine.data.evenement.Evenement;
+import engine.data.individu.bienetre.BienEtre;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+/**
+ * Classe de donnée stockant l'entierté des information liée à un individu
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
 public class Individu {
     private String nom;
     private int age;
@@ -95,5 +105,28 @@ public class Individu {
                 ", location=" + location +
                 ", currentEvent=" + currentEvent +
                 '}';
+    }
+
+    /**
+     * Update l'etat de l'individu en fonction de l'etat en paramètre
+     *
+     * @param etat l'etat donnée par EventManager apres le changement en fonction du caractere
+     */
+    public void refreshEtat(Etat etat){
+        HashMap<String, BienEtre> etatAttendu = etat.getList();
+        HashMap<String, BienEtre> etatActuel = this.etat.getList();
+        Iterator<BienEtre> it = etatAttendu.values().iterator();
+        int i=0;
+        while(it.hasNext()){
+            BienEtre be = it.next();
+            if(be!=null){
+                etatActuel.put( be.getId(), be);
+            }
+            i++;
+        }
+    }
+
+    public void setEtat(HashMap<String, BienEtre> etat){
+        this.etat = new Etat(etat);
     }
 }

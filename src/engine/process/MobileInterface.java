@@ -6,7 +6,6 @@ import engine.data.individu.Individu;
 import java.util.HashMap;
 
 public interface MobileInterface {
-    public void naturalEvent();
 
     public HashMap<Block, Individu> getIndividus();
 

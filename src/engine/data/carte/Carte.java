@@ -1,9 +1,16 @@
 package engine.data.carte;
 
 import engine.data.individu.Individu;
-import engine.process.IndividuRepository;
+import engine.data.individu.IndividuRepository;
 
 import java.util.HashMap;
+
+/**
+ * Classe de donnée stockant les information liée à la carte du jeu
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
 
 public class Carte {
     private int lineCount;

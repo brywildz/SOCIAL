@@ -1,34 +1,26 @@
 package engine.data.evenement;
 import engine.data.individu.Individu;
+import engine.data.individu.Etat;
+/**
+ * Classe représentant un événement personnel affectant un individu spécifique
+ * Cette classe hérite de @Evenement  et permet de gérer les événements individuels
+ *
+ * @author Manseri Bawol
+ * @version 0.1
+ */
 
 public class EventPersonnel extends Evenement {
-    private String impactPersonnel;
     private Individu individu;
-    private int duree;
-    private String nom;
-    private String description;
 
-
-    public EventPersonnel(String nom,String description, int duree, Individu individu) {
-        super(nom, description, duree);
-        this.impactPersonnel = impactPersonnel;
-    }
-    public Individu getIndividu() {
-        return individu;
-    }
-    public String afficherEtat(){
-        System.out.println("L'évenement en cours :"+nom+",description:"+description+"sont impact cette personne :"+individu+"la durée global de l'event"+duree);
-        return "";
-    }
-    public boolean endEvent(){
-        return false;
+    public EventPersonnel(String id, int duree, String description, Individu individu, Etat etat) {
+        super(id, duree, description, etat);
+        this.individu = individu;
     }
 
     @Override
-    public void afficherEffet() {
-
+    public String toString() {
+        return super.toString() + "concerne l'individu : " + individu.getNom();
     }
-
 }
 
 

@@ -6,38 +6,40 @@ import engine.data.carte.Carte;
 import engine.data.individu.Individu;
 import engine.process.MobileInterface;
 import engine.process.GameBuilder;
-
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
+/**
+ * Classe d'affichage de la fenêtre principale, celle-ci contient la carte, les individus, les lieux
+ * et le panneau d'interaction avec l'utilisateur
+ *
+ * @author Dylan Manseri, Amadou Bawol
+ * @version 0.1
+ */
+
 public class MainGUI extends JFrame implements Runnable {
-
-    private static final long serialVersionUID = 1L;
-
     private Carte carte;
-
+    private ControlPanel controlPanel;
     private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
     private MobileInterface manager;
     private GameDisplay dashboard;
 
-    public MainGUI(String title) throws HeadlessException {
+    public MainGUI(String title) throws HeadlessException, UnsupportedLookAndFeelException {
         super(title);
         init();
     }
 
-    private void init() {
+    private void init() throws UnsupportedLookAndFeelException {
 
         Container contentPane = getContentPane();
+        UIManager.setLookAndFeel(new NimbusLookAndFeel());
         contentPane.setLayout(new BorderLayout());
-        ControlPanel cp = new ControlPanel(contentPane);
-        add(cp, BorderLayout.EAST);
-        //KeyControls keyControls = new KeyControls();
-        JTextField textField = new JTextField();
-        //textField.addKeyListener(keyControls);
-        contentPane.add(textField, BorderLayout.SOUTH);
+        controlPanel = new ControlPanel(contentPane);
+        add(controlPanel, BorderLayout.EAST);
 
         carte = GameBuilder.buildCarte();
         manager = GameBuilder.buildInitMobile(carte);
@@ -76,16 +78,14 @@ public class MainGUI extends JFrame implements Runnable {
             int x = e.getX();
             int y = e.getY();
 
-            Block individuPosition = dashboard.getIndividuPosition(x, y);
+            Block clicPosition = dashboard.getBlockPosition(x, y);
             HashMap<Block, Individu> individus = carte.getIndividus();
-            if(individus.containsKey(individuPosition)) {
-                System.out.println(individus.get(individuPosition).toString());
+            if(individus.containsKey(clicPosition)) {
+                controlPanel.showInfoIndividu(individus.get(clicPosition).toString());
             }
             else{
-                System.out.println("rien");
+                System.out.println("personne");
             }
-            //manager.putBomb(bombPosition);
-            System.out.println(x/GameConfiguration.BLOCK_SIZE + " " + y/GameConfiguration.BLOCK_SIZE);
         }
 
         @Override

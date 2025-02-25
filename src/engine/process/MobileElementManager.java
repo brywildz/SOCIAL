@@ -7,9 +7,7 @@ import engine.data.evenement.Evenement;
 import engine.data.individu.Individu;
 import engine.data.individu.IndividuRepository;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Classe de traitement gérant les déplacements des individus sur la carte
@@ -38,6 +36,27 @@ public class MobileElementManager implements MobileInterface {
 
     public void nextSecond(){
         Horloge.getInstance().newSecond();
+
+    }
+
+    private void moveEnemies() {
+
+        for (Individu individu : individus.values()) {
+            Block position = individu.getLocation();
+
+            if (!map.isOnBottom(position)) {
+                Block newPosition = map.getBlock(position.getLine() + 1, position.getColumn());
+                enemy.setPosition(newPosition);
+            } else {
+                outOfBoundEnemies.add(enemy);
+            }
+
+        }
+
+        for (Enemy enemy : outOfBoundEnemies) {
+            enemies.remove(enemy);
+        }
+
     }
 
 }

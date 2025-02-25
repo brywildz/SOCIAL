@@ -9,9 +9,7 @@ package engine.data.carte;
 
 public class Horloge {
     private static Horloge instance = new Horloge();
-    private int heure;
-    private int minute;
-    private int seconde;
+    private Horaire h;
     //classe date
 
     private Horloge(){
@@ -20,6 +18,10 @@ public class Horloge {
     public static Horloge getInstance(){return instance;};
 
     public void newSecond(){
-        seconde++;
+        h.newSecond();
+    }
+
+    public Horaire getHoraire(){
+        return this.h;
     }
 }

@@ -107,6 +107,10 @@ public class Individu {
                 '}';
     }
 
+    public Evenement getCurrentEvent() {
+        return currentEvent;
+    }
+
     /**
      * Update l'etat de l'individu en fonction de l'etat en paramètre
      *

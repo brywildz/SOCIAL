@@ -13,7 +13,7 @@ import engine.data.individu.caractere.*;
 import java.util.HashMap;
 
 /**
- * Classe de traitement qui instancie les objet crucial au bon fonctionnement du logiciel
+ * Classe de traitement qui instancie les objets cruciaux au bon fonctionnement du logiciel
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1

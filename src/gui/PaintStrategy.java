@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Classe d'affichage gérant la strategie d'affichage (comment les composant  vont être dessiner sur l'ecran)
+ * Classe d'affichage gérant la strategie d'affichage (comment les composants  vont être dessiné sur l'écran)
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1

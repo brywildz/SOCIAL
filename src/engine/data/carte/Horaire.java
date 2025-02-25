@@ -17,4 +17,7 @@ public class Horaire {
         this.seconde = seconde;
         this.minute = minute;
     }
+    public void newSecond(){
+        seconde++;
+    }
 }

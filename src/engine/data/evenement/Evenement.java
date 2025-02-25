@@ -1,4 +1,5 @@
 package engine.data.evenement;
+import engine.data.carte.Horaire;
 import engine.data.individu.Etat;
 
 /**
@@ -11,24 +12,31 @@ import engine.data.individu.Etat;
  */
 public abstract class Evenement {
     private String id;
-    private int duree;
+    private Horaire debut;
+    private Horaire fin;
     private String description;
     private Etat etat;
 
-
-    public Evenement(String id, int duree, String description, Etat etat) {
+    public Evenement(String id, Horaire debut, Horaire fin, String description, Etat etat) {
         this.id = id;
-        this.duree = duree;
+        this.debut = debut;
+        this.fin = fin;
         this.description = description;
+        this.etat = etat;
+    }
+
+    public Horaire getDebut() {
+        return debut;
+    }
+
+    public Horaire getFin() {
+        return fin;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getDuree() {
-        return duree;
-    }
 
     public String getDescription() {
         return description;
@@ -36,7 +44,7 @@ public abstract class Evenement {
 
     @Override
     public String toString() {
-        return "L'énennement "+ id +" dure "+duree+" et a pour description"+description;
+        return "L'énennement "+ id +" debute à "+debut+" fini à " +fin+ " et a pour description"+description;
     }
 
     public Etat getEtat() {

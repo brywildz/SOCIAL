@@ -133,4 +133,9 @@ public class Individu {
     public void setEtat(HashMap<String, BienEtre> etat){
         this.etat = new Etat(etat);
     }
+
+    public boolean isOpen(){
+        for()
+    }
+
 }

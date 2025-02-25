@@ -20,4 +20,10 @@ public class Horaire {
     public void newSecond(){
         seconde++;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        Horaire h = (Horaire) obj;
+        return this.heure == h.heure && this.minute == h.minute && this.seconde == h.seconde;
+    }
 }

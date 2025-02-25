@@ -16,15 +16,16 @@ public class Personnalite {
     private Extraversion extraversion;
 
     public Personnalite(String type, Extraversion extraversion, Neuroticisme neuroticisme, Agreabilite agreabilite, Conscienciosite conscienciosite, Ouverture ouverture) {
-        this.type = type;
         this.extraversion = extraversion;
         this.neuroticisme = neuroticisme;
         this.agreabilite = agreabilite;
         this.conscienciosite = conscienciosite;
         this.ouverture = ouverture;
+
     }
 
     public String getType() {
         return type;
     }
+
 }

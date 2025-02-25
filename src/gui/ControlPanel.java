@@ -47,6 +47,7 @@ public class ControlPanel extends JPanel {
         infoIndividu.setText(info);
         this.revalidate();
         this.repaint();
+        
     }
 
     public void chooseEvent(JPanel box) {

@@ -67,6 +67,7 @@ public class ControlPanel extends JPanel {
         });
         this.revalidate();
         this.repaint();
+        String salut = "bonjour";
     }
 
     public void createIndividu(){

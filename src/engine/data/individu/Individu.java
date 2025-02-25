@@ -135,7 +135,7 @@ public class Individu {
     }
 
     public boolean isOpen(){
-        for()
+        //verifier si ce trait de caractere est majoritaire
     }
 
 }

@@ -1,9 +1,8 @@
 package engine.data.individu.caractere;
 
-public class Ouverture {
-    private int niveau;
+public class Ouverture extends Caractere{
 
     public Ouverture(int niveau) {
-        this.niveau = niveau;
+        super(niveau);
     }
 }

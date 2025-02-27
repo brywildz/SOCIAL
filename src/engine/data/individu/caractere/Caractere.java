@@ -1,10 +1,10 @@
 package engine.data.individu.caractere;
 
-public class Agreabilite extends Caractere {
+public abstract class Caractere {
     private int niveau;
 
-    public Agreabilite(int niveau) {
-        super(niveau);
+    public Caractere(int niveau) {
+        this.niveau = niveau;
     }
 
     public int getNiveau() {

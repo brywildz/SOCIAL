@@ -2,7 +2,7 @@ package engine.process;
 
 import config.GameConfiguration;
 import engine.data.carte.Block;
-import engine.data.carte.Carte;
+import engine.data.carte.Map;
 import engine.data.individu.Etat;
 import engine.data.individu.Individu;
 import engine.data.individu.IndividuRepository;
@@ -21,17 +21,17 @@ import java.util.HashMap;
 
 public class GameBuilder {
 
-    public static Carte buildCarte() {
-        return new Carte(GameConfiguration.LINE_COUNT, GameConfiguration.COLUMN_COUNT);
+    public static Map buildCarte() {
+        return new Map(GameConfiguration.LINE_COUNT, GameConfiguration.COLUMN_COUNT);
     }
 
-    public static MobileInterface buildInitMobile(Carte carte){
-        MobileInterface manager = new MobileElementManager(carte);
-        initializeIndividu(carte, manager);
+    public static MobileInterface buildInitMobile(Map map){
+        MobileInterface manager = new MobileElementManager(map);
+        initializeIndividu(map, manager);
         return manager;
     }
 
-    public static void initializeIndividu(Carte carte, MobileInterface mouvement){
+    public static void initializeIndividu(Map map, MobileInterface mouvement){
         Individu individu = createIndividuTest();
         IndividuRepository.getInstance().addIndividu(individu);
         mouvement.set(IndividuRepository.getInstance().getIndividus());
@@ -53,6 +53,6 @@ public class GameBuilder {
         etatList.put("faim", f); etatList.put("humeur", h); etatList.put("sante", s); etatList.put("sommeil", so);
         Etat etat = new Etat(etatList);
 
-        return new Individu("Dylan,", 20, "clochard", p, etat, null, new Block(20,20));
+        return new Individu("Dylan,", 20, "clochard", etat,null, new Block(20,20), 8 ,6 ,2 ,5 ,5 );
     }
 }

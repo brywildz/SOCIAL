@@ -2,7 +2,7 @@ package gui;
 
 import config.GameConfiguration;
 import engine.data.carte.Block;
-import engine.data.carte.Carte;
+import engine.data.carte.Map;
 import engine.data.individu.Individu;
 
 import javax.imageio.ImageIO;
@@ -19,20 +19,17 @@ import java.io.IOException;
 
 public class PaintStrategy {
 
-    public void paint(Carte carte, Graphics graphics) {
+    public void paint(Map map, Graphics g) throws IOException {
         int blockSize = GameConfiguration.BLOCK_SIZE;
-        Block[][] blocks = carte.getBlocks();
-        for (int lineIndex = 0; lineIndex < carte.getLineCount(); lineIndex++) {
-            for (int columnIndex = 0; columnIndex < carte.getColumnCount(); columnIndex++) {
+        //g.setColor(new Color(34, 139, 34));
+        g.drawImage(ImageIO.read(new File("src/images/map.png")),0,0,map.getColumnCount() * blockSize, map.getLineCount() * blockSize, null);
+        //g.fillRect(0, 0, map.getColumnCount() * blockSize, map.getLineCount() * blockSize);
+        Block[][] blocks = map.getBlocks();
+        g.setColor(Color.GRAY);
+        for (int lineIndex = 0; lineIndex < map.getLineCount(); lineIndex++) {
+            for (int columnIndex = 0; columnIndex < map.getColumnCount(); columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
-
-                if ((lineIndex + columnIndex) % 2 == 0){
-                    graphics.setColor(Color.WHITE);
-                    graphics.fillRect(block.getColumn() * blockSize , block.getLine() *blockSize, blockSize, blockSize);
-                }
-                // Ajouter un contour noir
-                graphics.setColor(Color.GRAY); // Couleur du contour
-                graphics.drawRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
+                g.drawRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
             }
         }
     }
@@ -48,6 +45,6 @@ public class PaintStrategy {
 
     public void paintHouse(Graphics2D g2) throws IOException {
         int blockSize = GameConfiguration.BLOCK_SIZE;
-        g2.drawImage(ImageIO.read(new File("src/images/house.png")),GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_WIDTH,GameConfiguration.HOUSE_HEIGHT,null);
+        //g2.drawImage(ImageIO.read(new File("src/images/house.png")),GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_WIDTH,GameConfiguration.HOUSE_HEIGHT,null);
     }
 }

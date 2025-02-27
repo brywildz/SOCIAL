@@ -1,9 +1,8 @@
 package engine.process;
 
 import engine.data.carte.Block;
-import engine.data.carte.Carte;
+import engine.data.carte.Map;
 import engine.data.carte.Horloge;
-import engine.data.evenement.Evenement;
 import engine.data.individu.Individu;
 import engine.data.individu.IndividuRepository;
 
@@ -18,11 +17,11 @@ import java.util.*;
  */
 
 public class MobileElementManager implements MobileInterface {
-    private Carte carte;
+    private Map map;
     private HashMap<Block, Individu> individus = IndividuRepository.getInstance().getIndividus();
 
-    public MobileElementManager(Carte carte){
-        this.carte=carte;
+    public MobileElementManager(Map map){
+        this.map = map;
     }
 
     public HashMap<Block, Individu> getIndividus() {
@@ -39,7 +38,7 @@ public class MobileElementManager implements MobileInterface {
 
     }
 
-    private void moveEnemies() {
+    /*private void moveEnemies() {
 
         for (Individu individu : individus.values()) {
             Block position = individu.getLocation();
@@ -57,6 +56,6 @@ public class MobileElementManager implements MobileInterface {
             enemies.remove(enemy);
         }
 
-    }
+    }*/
 
 }

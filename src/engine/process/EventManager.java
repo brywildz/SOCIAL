@@ -1,6 +1,8 @@
 package engine.process;
 
 import engine.data.carte.Block;
+import engine.data.carte.Horaire;
+import engine.data.carte.Horloge;
 import engine.data.evenement.Evenement;
 import engine.data.evenement.EventMeteo;
 import engine.data.evenement.EventRepository;
@@ -42,24 +44,67 @@ public class EventManager {
         }
     }
 
-    public void executeEvent(Individu ind, Evenement event)  {
-        Reaction react = new Reaction(ind, event);
-        ArrayList<BienEtre> etatAttendu = new ArrayList<>(react.analyze(ind, event).getList().values());
-        HashMap<String, BienEtre> etatIndividu = ind.getEtat().getList();
-        Iterator<BienEtre> it = etatIndividu.values().iterator();
+    /**
+     * Methode s'occupant du changement d'etat d'un individu en fonction de son etat initial pris dans l'instance d'Individu
+     * et de l'etat "attendu" dependant du caractere de l'individu, elle change l'etat initila en modifiant la valeur à modifier
+     * @param expectedState
+     * @param actualState
+     */
+    public void changeState(ArrayList<BienEtre> expectedState, HashMap<String, BienEtre> actualState){
+        Iterator<BienEtre> it = actualState.values().iterator();
         int i = 0;
         while(it.hasNext()){
-            BienEtre be = it.next();
-            BienEtre beAttendu = etatAttendu.get(i);
-            be.setNiveau(be.getNiveau() + etatAttendu.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
-            if(be instanceof Sommeil && beAttendu instanceof Sommeil){
-                ((Sommeil) be).setSleeping(((Sommeil) beAttendu).isSleeping());
+            BienEtre actualIt = it.next();
+            BienEtre beAttendu = expectedState.get(i);
+            actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
+            if(actualIt instanceof Sommeil && beAttendu instanceof Sommeil){
+                ((Sommeil) actualIt).setSleeping(((Sommeil) beAttendu).isSleeping());
             }
-            if(be instanceof Sante && beAttendu instanceof Sante){
-                ((Sante) be).setMalade(((Sante) beAttendu).isMalade());
+            if(actualIt instanceof Sante && beAttendu instanceof Sante){
+                ((Sante) actualIt).setMalade(((Sante) beAttendu).isMalade());
             }
             i++;
         }
+    }
+
+    /**
+     * Methode qui s'utilise pour changer la localisation d'un individu en fonction du besoin
+     */
+    public void changeLocation(boolean newEvent){
+        if(newEvent){
+
+        }
+
+    }
+
+    /**
+     * Methode qui s'utilise dans le cas où l'event n'est pas terminé et que l'individu n'est pas en sitution d'immobilité
+     * elle fait bouger l'individu tout en le laissant dans son lieu d'evennement (ex : bouger dans sa maison)
+     */
+    private void stayAtLocation() {
+    }
+
+    /**
+     * Methode centralisant l'ensemble des methode liée à l'execution d'un evenennement donc le changement de reaction et
+     * le changement de localisation
+     * @param ind
+     * @param event
+     */
+    public void executeEvent(Individu ind, Evenement event)  {
+        if(ind.getCurrentEvent()==null){
+            ind.setCurrentEvent(event);
+            Reaction react = new Reaction(ind, event);
+            ArrayList<BienEtre> expectedState = new ArrayList<>(react.getExpectedState(ind, event).getList().values());
+            HashMap<String, BienEtre> actualState = ind.getEtat().getList();
+            changeState(expectedState, actualState);
+        }
+        else{
+            if(ind.getCurrentEvent().isFinish()){
+                ind.setCurrentEvent(null);
+            }
+            changeLocation(false);
+        }
+
     }
 
 

@@ -1,10 +1,10 @@
 package engine.data.individu;
 
 import engine.data.carte.Block;
+import engine.data.carte.Infrastructure;
 import engine.data.evenement.Evenement;
 import engine.data.individu.bienetre.BienEtre;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 /**
@@ -17,22 +17,29 @@ public class Individu {
     private String nom;
     private int age;
     private String statutSocial;
-    private Personnalite perso;
+    private HashMap<String, Integer> personalite;
     private Etat etat;
     private Relation relation;
     private Block location;
     private Evenement currentEvent = null;
+    private Infrastructure maison;
 
-    public Individu(String nom, int age, String statutSocial, Personnalite perso, Etat etat, Relation relation, Block location) {
+    public Individu(String nom, int age, String statutSocial, Etat etat, Relation relation, Block location, int agr, int cons, int extra, int neuro, int ouvert) {
         this.nom = nom;
         this.age = age;
         this.statutSocial = statutSocial;
-        this.perso = perso;
         this.etat = etat;
         this.relation = relation;
         this.location = location;
+        personalite = new HashMap<>();
+        personalite.put("agreabilite", agr);
+        personalite.put("conscienciosite", cons);
+        personalite.put("extraversion", extra);
+        personalite.put("neuroticisme", neuro);
+        personalite.put("ouverture", ouvert);
     }
 
+    // <editor-fold> desc="getter&setter"
     public String getStatutSocial() {
         return statutSocial;
     }
@@ -65,50 +72,90 @@ public class Individu {
         this.etat = etat;
     }
 
-    public Personnalite getPerso() {
-        return perso;
+    public HashMap<String, Integer> getPersonalite() {
+        return personalite;
     }
 
-    public void setPerso(Personnalite perso) {
-        this.perso = perso;
+    public void setPersonalite(HashMap<String, Integer> personalite) {
+        this.personalite = personalite;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getNom() {
         return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
     }
 
     public void setCurrentEvent(Evenement currentEvent) {
         this.currentEvent = currentEvent;
     }
 
-    @Override
-    public String toString() {
-        return "Individu{" +
-                "nom='" + nom + '\'' +
-                ", age=" + age +
-                ", statutSocial='" + statutSocial + '\'' +
-                ", perso=" + perso +
-                ", etat=" + etat +
-                ", relation=" + relation +
-                ", location=" + location +
-                ", currentEvent=" + currentEvent +
-                '}';
+    public void setEtat(HashMap<String, BienEtre> etat){
+        this.etat = new Etat(etat);
     }
 
     public Evenement getCurrentEvent() {
         return currentEvent;
+    }
+    // </editor-fold>
+
+    //<editor-fold> desc="personnalite"
+    public String getMaxPerso(){
+        Iterator<String> it = personalite.keySet().iterator();
+        String maxKey = it.next();
+        Integer max = personalite.get(maxKey);
+        while(it.hasNext()){
+            String persoKey = it.next();
+            Integer perso = personalite.get(persoKey);
+            if (perso > max){
+                max = perso;
+                maxKey = persoKey;
+            }
+        }
+        return maxKey;
+    }
+
+    public String getMinPerso(){
+        Iterator<String> it = personalite.keySet().iterator();
+        String minKey = it.next();
+        Integer min = personalite.get(minKey);
+        while(it.hasNext()){
+            String persoKey = it.next();
+            Integer perso = personalite.get(persoKey);
+            if (perso < min){
+                min = perso;
+                minKey = persoKey;
+            }
+        }
+        return minKey;
+    }
+
+    public int getAgreabilite(){
+        return this.personalite.get("agreabilite");
+    }
+
+    public int getConscienciosite(){
+        return this.personalite.get("conscienciosite");
+    }
+
+    public int getExtraversion(){
+        return this.personalite.get("extraversion");
+    }
+
+    public int getNeuroticisme(){
+        return this.personalite.get("neuroticisme");
+    }
+
+    public int getOuverture(){
+        return this.personalite.get("ouverture");
+    }
+    //</editor-fold>
+
+    public boolean isOpen(){
+        //verifier si ce trait de caractere est majoritaire
+        return false;
     }
 
     /**
@@ -130,12 +177,18 @@ public class Individu {
         }
     }
 
-    public void setEtat(HashMap<String, BienEtre> etat){
-        this.etat = new Etat(etat);
-    }
-
-    public boolean isOpen(){
-        //verifier si ce trait de caractere est majoritaire
+    @Override
+    public String toString() {
+        return "Individu{" +
+                "nom='" + nom + '\'' +
+                ", age=" + age +
+                ", statutSocial='" + statutSocial + '\'' +
+                ", personalite=" + personalite +
+                ", etat=" + etat +
+                ", relation=" + relation +
+                ", location=" + location +
+                ", currentEvent=" + currentEvent +
+                '}';
     }
 
 }

@@ -27,5 +27,4 @@ public class Personnalite {
     public String getType() {
         return type;
     }
-
 }

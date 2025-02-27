@@ -1,5 +1,6 @@
 package engine.data.evenement;
 
+import engine.data.carte.Horaire;
 import engine.data.individu.Individu;
 import java.util.ArrayList;
 import engine.data.individu.Etat;
@@ -14,8 +15,8 @@ import engine.data.individu.Etat;
 public class EventSocial extends Evenement {
     private ArrayList<Individu> individus;
 
-    public EventSocial(String id, int duree, String description, ArrayList<Individu> individus, Etat etat) {
-        super(id, duree, description, etat);
+    public EventSocial(String id, Horaire debut, Horaire fin, String description, Etat etat, ArrayList<Individu> individus) {
+        super(id, debut, fin, description, etat);
         this.individus = individus;
     }
 

@@ -2,7 +2,7 @@ package gui;
 
 import config.GameConfiguration;
 import engine.data.carte.Block;
-import engine.data.carte.Carte;
+import engine.data.carte.Map;
 import engine.data.individu.Individu;
 import engine.process.MobileInterface;
 import engine.process.GameBuilder;
@@ -22,7 +22,7 @@ import java.util.HashMap;
  */
 
 public class MainGUI extends JFrame implements Runnable {
-    private Carte carte;
+    private Map map;
     private ControlPanel controlPanel;
     private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
     private MobileInterface manager;
@@ -41,9 +41,9 @@ public class MainGUI extends JFrame implements Runnable {
         controlPanel = new ControlPanel(contentPane);
         add(controlPanel, BorderLayout.EAST);
 
-        carte = GameBuilder.buildCarte();
-        manager = GameBuilder.buildInitMobile(carte);
-        dashboard = new GameDisplay(carte, manager);
+        map = GameBuilder.buildCarte();
+        manager = GameBuilder.buildInitMobile(map);
+        dashboard = new GameDisplay(map, manager);
 
         MouseControls mouseControls = new MouseControls();
         dashboard.addMouseListener(mouseControls);
@@ -79,7 +79,7 @@ public class MainGUI extends JFrame implements Runnable {
             int y = e.getY();
 
             Block clicPosition = dashboard.getBlockPosition(x, y);
-            HashMap<Block, Individu> individus = carte.getIndividus();
+            HashMap<Block, Individu> individus = map.getIndividus();
             if(individus.containsKey(clicPosition)) {
                 controlPanel.showInfoIndividu(individus.get(clicPosition).toString());
             }

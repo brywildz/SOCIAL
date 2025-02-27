@@ -1,5 +1,6 @@
 package engine.data.evenement;
 import engine.data.carte.Horaire;
+import engine.data.carte.Horloge;
 import engine.data.individu.Etat;
 
 /**
@@ -49,5 +50,9 @@ public abstract class Evenement {
 
     public Etat getEtat() {
         return etat;
+    }
+
+    public boolean isFinish(){
+        return fin.equals(Horloge.getInstance().getHoraire());
     }
 }

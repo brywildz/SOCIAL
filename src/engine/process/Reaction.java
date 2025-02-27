@@ -29,8 +29,8 @@ public class Reaction {
     }
 
 
-    public Etat analyze(Individu ind, Evenement ev){
-        String type = ind.getPerso().getType();
+    public Etat getExpectedState(Individu ind, Evenement ev){
+        String type = ind.getMaxPerso();
         Etat etat = createEtat();
         if(type.equals("ouverture")){
             if(ev instanceof EventMeteo){

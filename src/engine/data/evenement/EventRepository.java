@@ -18,9 +18,9 @@ public class EventRepository {
 
     //permet d'avoir déjà des evenements au lancement du jeu
     private EventRepository() {
-        addEvent(new EventMeteo("pluie", 5, "il pleut", createEtatPluie()));
-        addEvent(new EventPersonnel("Cambriolage", 2, "miskin tu te fait dépouiller", null, createEtatCambriolage()));
-        addEvent(new EventSocial("Fête", 10, "banquet dans toute la ville", null, createEtatFete()));
+        //addEvent(new EventMeteo("pluie", 5, "il pleut", createEtatPluie())); refaire avec les nouveaux constructeur avec horaire
+        //addEvent(new EventPersonnel("Cambriolage", 2, "miskin tu te fait dépouiller", null, createEtatCambriolage()));
+        //addEvent(new EventSocial("Fête", 10, "banquet dans toute la ville", null, createEtatFete()));
 
     }
 

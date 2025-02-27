@@ -6,13 +6,13 @@ import engine.data.individu.IndividuRepository;
 import java.util.HashMap;
 
 /**
- * Classe de donnée stockant les information liée à la carte du jeu
+ * Classe de donnée stockant les informations liée à la carte du jeu
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
 
-public class Carte {
+public class Map {
     private int lineCount;
     private int columnCount;
     private double echelle;
@@ -20,7 +20,7 @@ public class Carte {
     private Block[][] blocks;
     private HashMap<Block, Individu> individus;
 
-    public Carte(int largeur, int hauteur){
+    public Map(int largeur, int hauteur){
         this.columnCount = hauteur;
         this.lineCount = largeur;
         this.individus = IndividuRepository.getInstance().getIndividus();

@@ -1,0 +1,41 @@
+package engine.data.map;
+
+public class Date {
+    private int year;
+    private int month;
+    private int day;
+
+    public Date(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public void newDay(){
+        if(day==30){
+            day=1;
+            newMonth();
+        }
+        else{
+            day++;
+        }
+    }
+
+    private void newMonth() {
+        if(month==12){
+            month=1;
+            newYear();
+        }
+        else{
+            month++;
+        }
+    }
+
+    private void newYear() {
+        year++;
+    }
+
+    public String toString(){
+        return String.format("%d/%d/%d", year, month, day);
+    }
+}

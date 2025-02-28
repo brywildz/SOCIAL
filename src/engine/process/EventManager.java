@@ -1,14 +1,14 @@
 package engine.process;
 
-import engine.data.carte.Block;
-import engine.data.evenement.Evenement;
-import engine.data.evenement.EventMeteo;
-import engine.data.evenement.EventRepository;
-import engine.data.individu.Individu;
-import engine.data.individu.IndividuRepository;
-import engine.data.individu.bienetre.BienEtre;
-import engine.data.individu.bienetre.Sante;
-import engine.data.individu.bienetre.Sommeil;
+import engine.data.map.Block;
+import engine.data.event.Event;
+import engine.data.event.WeatherEvent;
+import engine.data.event.EventRepository;
+import engine.data.person.Person;
+import engine.data.person.PersonRepository;
+import engine.data.person.bienetre.BienEtre;
+import engine.data.person.bienetre.Sante;
+import engine.data.person.bienetre.Sommeil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,30 +21,30 @@ import java.util.Iterator;
  */
 
 public class EventManager {
-    private Individu ind;
+    private Person ind;
     private String idEvent;
-    private IndividuRepository indRepo = IndividuRepository.getInstance();
+    private PersonRepository indRepo = PersonRepository.getInstance();
     private EventRepository eventRepo = EventRepository.getInstance();
 
-    public EventManager(Individu ind, String idEvent) {
+    public EventManager(Person ind, String idEvent) {
         this.ind = ind;
         this.idEvent = idEvent;
     }
 
     public EventManager(String idEvent){
         this.idEvent = idEvent;
-        HashMap<Block, Individu> listInd = indRepo.getIndividus();
-        EventMeteo em = (EventMeteo) eventRepo.getEvenement(idEvent);
-        Iterator<Individu> it = listInd.values().iterator();
+        HashMap<Block, Person> listInd = indRepo.getIndividus();
+        WeatherEvent em = (WeatherEvent) eventRepo.getEvenement(idEvent);
+        Iterator<Person> it = listInd.values().iterator();
         while(it.hasNext()){
-            Individu ind = it.next();
+            Person ind = it.next();
             executeEvent(ind, em);
         }
     }
 
     /**
      * Methode s'occupant du changement d'etat d'un individu en fonction de son etat initial pris dans l'instance d'Individu
-     * et de l'etat "attendu" dependant du caractere de l'individu, elle change l'etat initila en modifiant la valeur à modifier
+     * et de l'etat "attendu" dependant du caractere de l'individu, elle change l'etat initial en modifiant la valeur à modifier
      * @param expectedState
      * @param actualState
      */
@@ -88,7 +88,7 @@ public class EventManager {
      * @param ind
      * @param event
      */
-    public void executeEvent(Individu ind, Evenement event)  {
+    public void executeEvent(Person ind, Event event)  {
         if(ind.getCurrentEvent()==null){
             ind.setCurrentEvent(event);
             Reaction react = new Reaction(ind, event);

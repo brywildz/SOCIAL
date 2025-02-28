@@ -1,15 +1,15 @@
 package engine.process;
 
-import engine.data.carte.Block;
-import engine.data.individu.Individu;
+import engine.data.map.Block;
+import engine.data.person.Person;
 
 import java.util.HashMap;
 
 public interface MobileInterface {
 
-    public HashMap<Block, Individu> getIndividus();
+    public HashMap<Block, Person> getIndividus();
 
-    void set(HashMap<Block, Individu> individus);
+    void set(HashMap<Block, Person> individus);
 
     void nextSecond();
 }

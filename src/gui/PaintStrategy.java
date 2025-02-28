@@ -1,9 +1,9 @@
 package gui;
 
 import config.GameConfiguration;
-import engine.data.carte.Block;
-import engine.data.carte.Map;
-import engine.data.individu.Individu;
+import engine.data.map.Block;
+import engine.data.map.Map;
+import engine.data.person.Person;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -34,9 +34,9 @@ public class PaintStrategy {
         }
     }
 
-    public void paint(Individu individu, Graphics graphics){
+    public void paint(Person person, Graphics graphics){
         int blockSize = GameConfiguration.BLOCK_SIZE;
-        Block location = individu.getLocation();
+        Block location = person.getLocation();
         int x = location.getLine();
         int y = location.getColumn();
         graphics.setColor(Color.GREEN);

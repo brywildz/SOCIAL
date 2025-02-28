@@ -1,9 +1,9 @@
 package gui;
 
 import config.GameConfiguration;
-import engine.data.carte.Block;
-import engine.data.carte.Map;
-import engine.data.individu.Individu;
+import engine.data.map.Block;
+import engine.data.map.Map;
+import engine.data.person.Person;
 import engine.process.MobileInterface;
 import engine.process.GameBuilder;
 import javax.swing.*;
@@ -67,7 +67,10 @@ public class MainGUI extends JFrame implements Runnable {
                 System.out.println(e.getMessage());
             }
             manager.nextSecond();
+            controlPanel.showDate();
             dashboard.repaint();
+            this.revalidate();
+            this.repaint();
         }
     }
 
@@ -79,7 +82,7 @@ public class MainGUI extends JFrame implements Runnable {
             int y = e.getY();
 
             Block clicPosition = dashboard.getBlockPosition(y, x);
-            HashMap<Block, Individu> individus = map.getIndividus();
+            HashMap<Block, Person> individus = map.getIndividus();
             System.out.println(clicPosition);
             System.out.println(x+" "+y);
             if(individus.containsKey(clicPosition)) {

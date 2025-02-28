@@ -1,5 +1,5 @@
 package engine.data.evenement;
-import engine.data.carte.Horaire;
+import engine.data.carte.Time;
 import engine.data.individu.Individu;
 import engine.data.individu.Etat;
 /**
@@ -13,7 +13,7 @@ import engine.data.individu.Etat;
 public class EventPersonnel extends Evenement {
     private Individu individu;
 
-    public EventPersonnel(String id, Horaire debut, Horaire fin, String description, Etat etat, Individu individu) {
+    public EventPersonnel(String id, Time debut, Time fin, String description, Etat etat, Individu individu) {
         super(id, debut, fin, description, etat);
         this.individu = individu;
     }

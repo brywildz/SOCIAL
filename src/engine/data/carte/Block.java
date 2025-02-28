@@ -3,7 +3,7 @@ package engine.data.carte;
 import java.util.Objects;
 
 /**
- * Classe de donnée stockant les information liée aux blocks
+ * Classe de donnée stockant les informations liée aux blocks
  *
  * @author Dylan Manseri
  * @version 0.1

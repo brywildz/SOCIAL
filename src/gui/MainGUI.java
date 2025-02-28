@@ -78,8 +78,10 @@ public class MainGUI extends JFrame implements Runnable {
             int x = e.getX();
             int y = e.getY();
 
-            Block clicPosition = dashboard.getBlockPosition(x, y);
+            Block clicPosition = dashboard.getBlockPosition(y, x);
             HashMap<Block, Individu> individus = map.getIndividus();
+            System.out.println(clicPosition);
+            System.out.println(x+" "+y);
             if(individus.containsKey(clicPosition)) {
                 controlPanel.showInfoIndividu(individus.get(clicPosition).toString());
             }

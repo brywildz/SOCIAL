@@ -1,7 +1,7 @@
 package config;
 
 /**
- *Classe gérant les différente possibilité de configuration
+ *Classe gérant les différentes possibilités de configuration
  */
 public class GameConfiguration {
     public static final int WINDOW_WIDTH = 1366;
@@ -14,10 +14,13 @@ public class GameConfiguration {
 
     public static final int GAME_SPEED = 1000;
 
-    public static final int HOUSE_X = 200;
-    public static final int HOUSE_Y = 100;
-    public static final int HOUSE_WIDTH = 300;
-    public static final int HOUSE_HEIGHT = 300;
+    public static final int WORK_HUB_X = 7;
+    public static final int WORK_HUB_Y = 5;
+    public static final int WORK_HUB_WIDTH = 37;
+    public static final int WORK_HUB_HEIGHT = 23;
 
-    public static final int HOUSING_HUB_X = 200;
+    public static final int HOUSING_HUB_X = 66;
+    public static final int HOUSING_HUB_Y = 8;
+    public static final int HOUSING_HUB_WIDTH = 39;
+    public static final int HOUSING_HUB_HEIGHT = 21;
 }

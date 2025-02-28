@@ -48,9 +48,9 @@ public class GameDisplay extends JPanel {
         }
     }
 
-    public Block getBlockPosition(int x, int y){
-        int line= x/GameConfiguration.BLOCK_SIZE;
-        int column = y/GameConfiguration.BLOCK_SIZE;
+    public Block getBlockPosition(int y, int x){
+        int line= y/GameConfiguration.BLOCK_SIZE;
+        int column = x/GameConfiguration.BLOCK_SIZE;
         return map.getBlock(line, column);
     }
 }

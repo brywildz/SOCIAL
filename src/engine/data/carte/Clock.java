@@ -7,21 +7,21 @@ package engine.data.carte;
  * @version 0.1
  */
 
-public class Horloge {
-    private static Horloge instance = new Horloge();
-    private Horaire h;
+public class Clock {
+    private static Clock instance = new Clock();
+    private Time h;
     //classe date
 
-    private Horloge(){
+    private Clock(){
     }
 
-    public static Horloge getInstance(){return instance;};
+    public static Clock getInstance(){return instance;};
 
     public void newSecond(){
         h.newSecond();
     }
 
-    public Horaire getHoraire(){
+    public Time getHoraire(){
         return this.h;
     }
 }

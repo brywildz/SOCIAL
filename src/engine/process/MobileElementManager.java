@@ -2,7 +2,7 @@ package engine.process;
 
 import engine.data.carte.Block;
 import engine.data.carte.Map;
-import engine.data.carte.Horloge;
+import engine.data.carte.Clock;
 import engine.data.individu.Individu;
 import engine.data.individu.IndividuRepository;
 
@@ -34,7 +34,7 @@ public class MobileElementManager implements MobileInterface {
     }
 
     public void nextSecond(){
-        Horloge.getInstance().newSecond();
+        Clock.getInstance().newSecond();
 
     }
 

@@ -7,12 +7,12 @@ package engine.data.carte;
  * @version 0.1
  */
 
-public class Horaire {
+public class Time {
     private int heure;
     private int minute;
     private int seconde;
 
-    public Horaire(int heure, int seconde, int minute) {
+    public Time(int heure, int seconde, int minute) {
         this.heure = heure;
         this.seconde = seconde;
         this.minute = minute;
@@ -23,7 +23,7 @@ public class Horaire {
 
     @Override
     public boolean equals(Object obj){
-        Horaire h = (Horaire) obj;
+        Time h = (Time) obj;
         return this.heure == h.heure && this.minute == h.minute && this.seconde == h.seconde;
     }
 }

@@ -1,6 +1,6 @@
 package engine.data.evenement;
-import engine.data.carte.Horaire;
-import engine.data.carte.Horloge;
+import engine.data.carte.Time;
+import engine.data.carte.Clock;
 import engine.data.individu.Etat;
 
 /**
@@ -13,12 +13,12 @@ import engine.data.individu.Etat;
  */
 public abstract class Evenement {
     private String id;
-    private Horaire debut;
-    private Horaire fin;
+    private Time debut;
+    private Time fin;
     private String description;
     private Etat etat;
 
-    public Evenement(String id, Horaire debut, Horaire fin, String description, Etat etat) {
+    public Evenement(String id, Time debut, Time fin, String description, Etat etat) {
         this.id = id;
         this.debut = debut;
         this.fin = fin;
@@ -26,11 +26,11 @@ public abstract class Evenement {
         this.etat = etat;
     }
 
-    public Horaire getDebut() {
+    public Time getDebut() {
         return debut;
     }
 
-    public Horaire getFin() {
+    public Time getFin() {
         return fin;
     }
 
@@ -53,6 +53,6 @@ public abstract class Evenement {
     }
 
     public boolean isFinish(){
-        return fin.equals(Horloge.getInstance().getHoraire());
+        return fin.equals(Clock.getInstance().getHoraire());
     }
 }

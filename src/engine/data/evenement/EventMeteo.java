@@ -1,7 +1,7 @@
 package engine.data.evenement;
 
 import engine.data.carte.Block;
-import engine.data.carte.Horaire;
+import engine.data.carte.Time;
 import engine.data.individu.Individu;
 import engine.data.individu.IndividuRepository;
 import engine.data.individu.Etat;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class EventMeteo extends Evenement {
     HashMap<Block, Individu> individus = IndividuRepository.getInstance().getIndividus();
 
-    public EventMeteo(String id, Horaire debut, Horaire fin, String description, Etat etat, HashMap<Block, Individu> individus) {
+    public EventMeteo(String id, Time debut, Time fin, String description, Etat etat, HashMap<Block, Individu> individus) {
         super(id, debut, fin, description, etat);
         this.individus = individus;
     }

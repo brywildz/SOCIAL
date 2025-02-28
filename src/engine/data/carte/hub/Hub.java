@@ -12,24 +12,24 @@ import java.util.HashMap;
  */
 
 public abstract class Hub {
-    private int x;
-    private int y;
+    private int line;
+    private int column;
     protected HashMap<String, Infrastructure> infrastructures;
 
-    public Hub(int x, HashMap<String, Infrastructure> infrastructures, int y) {
-        this.x = x;
-        this.y = y;
+    public Hub(int line, int column, HashMap<String, Infrastructure> infrastructures) {
+        this.line = line;
+        this.column = column;
         this.infrastructures = new HashMap<>();
     }
     public HashMap<String, Infrastructure> getInfrastructures() {
         return infrastructures;
     }
 
-    public int getX() {
-        return x;
+    public int getLine() {
+        return line;
     }
 
-    public int getY() {
-        return y;
+    public int getColumn() {
+        return column;
     }
 }

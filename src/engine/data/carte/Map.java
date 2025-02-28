@@ -15,19 +15,18 @@ import java.util.HashMap;
 public class Map {
     private int lineCount;
     private int columnCount;
-    private double echelle;
     private HashMap<Integer, String> espaces;
     private Block[][] blocks;
     private HashMap<Block, Individu> individus;
 
-    public Map(int largeur, int hauteur){
-        this.columnCount = hauteur;
-        this.lineCount = largeur;
+    public Map(int lineCount, int columnCount){
+        this.columnCount = columnCount;
+        this.lineCount = lineCount;
         this.individus = IndividuRepository.getInstance().getIndividus();
-        blocks = new Block[largeur][hauteur];
+        blocks = new Block[this.lineCount][this.columnCount];
 
-        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+        for (int lineIndex = 0; lineIndex < this.lineCount; lineIndex++) {
+            for (int columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
                 blocks[lineIndex][columnIndex] = new Block(lineIndex, columnIndex);
             }
         }
@@ -42,13 +41,6 @@ public class Map {
 
     }
 
-    public double getEchelle() {
-        return echelle;
-    }
-
-    public void setEchelle(double echelle) {
-        this.echelle = echelle;
-    }
 
     public HashMap<Integer, String> getEspaces() {
         return espaces;
@@ -74,8 +66,8 @@ public class Map {
         this.individus = individus;
     }
 
-    public Block getBlock(int x, int y){
-        return blocks[x][y];
+    public Block getBlock(int y, int x){
+        return blocks[y][x];
     }
 
     public int getLineCount() {

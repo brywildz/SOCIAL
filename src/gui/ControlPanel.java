@@ -1,31 +1,34 @@
 package gui;
 
-import engine.data.individu.Individu;
+import engine.data.map.Clock;
+import engine.data.person.Person;
 import engine.process.EventManager;
-import engine.data.individu.IndividuRepository;
+import engine.data.person.PersonRepository;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 /**
- * Classe d'affichage gérant le panneaux gauche des interaction avec l'utilisateur
+ * Classe d'affichage gérant le panneau gauche des interactions avec l'utilisateur
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
 public class ControlPanel extends JPanel {
-    Container base;
-    JButton Indbutton = new JButton("Ajouter un individu");
-    JButton Eventbutton = new JButton ("Ajouter un événnement");
-    JTextPane infoIndividu;
+    private Container base;
+    private JButton Indbutton = new JButton("Ajouter un individu");
+    private JButton Eventbutton = new JButton ("Ajouter un événement");
+    private JTextPane infoIndividu;
+    private JPanel datePanel;
+    private JPanel box;
 
     public ControlPanel(Container base) {
         this.setBorder(new EmptyBorder(10,10,10,10));
         this.base=base;
         this.setPreferredSize(new Dimension(300, 0));
         this.setLayout(new BorderLayout());
-        JPanel box = new JPanel();
-        box.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+        box = new JPanel();
+        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
         Indbutton.setPreferredSize(new Dimension(200, 50));
         Eventbutton.setPreferredSize(new Dimension(200, 50));
         box.add(Indbutton);
@@ -33,6 +36,7 @@ public class ControlPanel extends JPanel {
         box.setPreferredSize(new Dimension(600, 600));
         this.add(box, BorderLayout.CENTER);
         Eventbutton.addActionListener((event)-> chooseEvent(box));
+        showDate();
     }
 
     public void showInfoIndividu(String info){
@@ -51,11 +55,14 @@ public class ControlPanel extends JPanel {
     }
 
     public void chooseEvent(JPanel box) {
+        if(box.getComponent(2) instanceof JComboBox){
+            return;
+        }
         String[] listEvent = {"Pluie", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit"};
         JComboBox<String> choiceBox = new JComboBox<>(listEvent);
-        box.add(choiceBox);
+        box.add(choiceBox, 2);
         JButton okButton = new JButton("OK");
-        box.add(okButton);
+        box.add(okButton, 3);
         okButton.addActionListener( e-> {
             try{
                 String critereActuel = (String) choiceBox.getSelectedItem();
@@ -70,14 +77,29 @@ public class ControlPanel extends JPanel {
         this.repaint();
     }
 
+    public void showDate(){
+        if (datePanel!=null){
+            box.remove(datePanel);
+            this.revalidate();
+            this.repaint();
+        }
+        datePanel = new JPanel();
+        datePanel.setLayout(new BorderLayout());
+        JLabel dateLabel = new JLabel(Clock.getInstance().toString());
+        datePanel.add(dateLabel, BorderLayout.CENTER);
+        box.add(datePanel);
+        this.revalidate();
+        this.repaint();
+    }
+
     public void createIndividu(){
             String name = JOptionPane.showInputDialog(this, "Entrez le nom de l'individu :");
             if (name != null && !name.isEmpty()) {
                 String ageStr = JOptionPane.showInputDialog(this, "Entrez l'âge de l'individu :");
                 try {
                     int age = Integer.parseInt(ageStr);
-                    Individu individu = new Individu(name, age, "Statut par défaut", null, null, null, 0, 0,0 ,0 ,0);
-                    IndividuRepository.getInstance().addIndividu(individu);
+                    Person person = new Person(name, age, "Statut par défaut", null, null, null, 0, 0,0 ,0 ,0);
+                    PersonRepository.getInstance().addIndividu(person);
                     JOptionPane.showMessageDialog(this, "Individu '" + name + "' ajouté !");
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Erreur : Veuillez entrer un nombre valide pour l'âge.");

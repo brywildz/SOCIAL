@@ -1,9 +1,9 @@
 package gui;
 
 import config.GameConfiguration;
-import engine.data.carte.Block;
-import engine.data.carte.Map;
-import engine.data.individu.Individu;
+import engine.data.map.Block;
+import engine.data.map.Map;
+import engine.data.person.Person;
 import engine.process.MobileInterface;
 
 import javax.swing.*;
@@ -35,10 +35,10 @@ public class GameDisplay extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        HashMap<Block, Individu> individu = manager.getIndividus();
-        Iterator<Individu> it = individu.values().iterator();
+        HashMap<Block, Person> individu = manager.getIndividus();
+        Iterator<Person> it = individu.values().iterator();
         while(it.hasNext()){
-            Individu ind = it.next();
+            Person ind = it.next();
             paintStrategy.paint(ind, g);
             try {
                 paintStrategy.paintHouse((Graphics2D)g);

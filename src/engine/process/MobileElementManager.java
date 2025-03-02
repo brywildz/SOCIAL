@@ -1,16 +1,16 @@
 package engine.process;
 
-import engine.data.carte.Block;
-import engine.data.carte.Map;
-import engine.data.carte.Clock;
-import engine.data.individu.Individu;
-import engine.data.individu.IndividuRepository;
+import engine.data.map.Block;
+import engine.data.map.Map;
+import engine.data.map.Clock;
+import engine.data.person.Person;
+import engine.data.person.PersonRepository;
 
 import java.util.*;
 
 /**
  * Classe de traitement gérant les déplacements des individus sur la carte
- * (Classe obselète son utilité doit être rediscuté)
+ * (Classe obsolete son utilité doit être rediscuté)
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
@@ -18,24 +18,30 @@ import java.util.*;
 
 public class MobileElementManager implements MobileInterface {
     private Map map;
-    private HashMap<Block, Individu> individus = IndividuRepository.getInstance().getIndividus();
+    private HashMap<Block, Person> individus = PersonRepository.getInstance().getIndividus();
 
     public MobileElementManager(Map map){
         this.map = map;
     }
 
-    public HashMap<Block, Individu> getIndividus() {
+    public HashMap<Block, Person> getIndividus() {
         return individus;
     }
 
     @Override
-    public void set(HashMap<Block, Individu> individus) {
+    public void set(HashMap<Block, Person> individus) {
         this.individus = individus;
     }
 
     public void nextSecond(){
         Clock.getInstance().newSecond();
+        Iterator<Person> it = individus.values().iterator();
+        while(it.hasNext()){
+            Person ind = it.next();
+            if(ind.getCurrentEvent()==null){
 
+            }
+        }
     }
 
     /*private void moveEnemies() {

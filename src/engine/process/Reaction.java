@@ -1,15 +1,13 @@
 package engine.process;
 
-import config.GameConfiguration;
-import engine.data.carte.Block;
-import engine.data.evenement.Evenement;
-import engine.data.evenement.EventMeteo;
-import engine.data.evenement.EventPersonnel;
-import engine.data.evenement.EventSocial;
-import engine.data.individu.Etat;
-import engine.data.individu.Individu;
-import engine.data.individu.IndividuRepository;
-import engine.data.individu.bienetre.*;
+import engine.data.map.Block;
+import engine.data.event.Event;
+import engine.data.event.WeatherEvent;
+import engine.data.event.PersonalEvent;
+import engine.data.event.SocialEvent;
+import engine.data.person.PersonState;
+import engine.data.person.Person;
+import engine.data.person.bienetre.*;
 
 import java.util.HashMap;
 
@@ -20,52 +18,52 @@ import java.util.HashMap;
  * @version 0.1
  */
 public class Reaction {
-    private Individu individu;
-    private Evenement evenement;
+    private Person person;
+    private Event event;
 
-    public Reaction(Individu individu, Evenement evenement) {
-        this.individu = individu;
-        this.evenement = evenement;
+    public Reaction(Person person, Event event) {
+        this.person = person;
+        this.event = event;
     }
 
 
-    public Etat getExpectedState(Individu ind, Evenement ev){
+    public PersonState getExpectedState(Person ind, Event ev){
         String type = ind.getMaxPerso();
-        Etat etat = createEtat();
+        PersonState personState = createEtat();
         if(type.equals("ouverture")){
-            if(ev instanceof EventMeteo){
-                etat.getList().get("humeur").setNiveau(+2);
-                etat.getList().get("sommeil").setNiveau(+2);
+            if(ev instanceof WeatherEvent){
+                personState.getList().get("humeur").setNiveau(+2);
+                personState.getList().get("sommeil").setNiveau(+2);
             }
-            if(ev instanceof EventPersonnel){
-                etat.getList().get("humeur").setNiveau(+2);
+            if(ev instanceof PersonalEvent){
+                personState.getList().get("humeur").setNiveau(+2);
             }
-            if(ev instanceof EventSocial){
-                etat.getList().get("humeur").setNiveau(+1);
-                etat.getList().get("faim").setNiveau(-2);
-                etat.getList().get("sante").setNiveau(-4);
-                etat.getList().get("sommeil").setNiveau(-4);
+            if(ev instanceof SocialEvent){
+                personState.getList().get("humeur").setNiveau(+1);
+                personState.getList().get("faim").setNiveau(-2);
+                personState.getList().get("sante").setNiveau(-4);
+                personState.getList().get("sommeil").setNiveau(-4);
             }
             if(ev.getId().equals("pluie")){
                 goHome(ind);
             }
         }
-        return etat;
+        return personState;
     }
 
-    public Etat createEtat(){
+    public PersonState createEtat(){
         Faim faim = new Faim(0, null, null);
         Humeur humeur = new Humeur(0, null);
         Sante sante = new Sante(0, 0, null);
         Sommeil sommeil = new Sommeil(0, null);
         HashMap<String, BienEtre> etat = new HashMap<>();
         etat.put("faim",faim); etat.put("humeur",humeur); etat.put("sante",sante); etat.put("sommeil",sommeil);
-        return new Etat(etat);
+        return new PersonState(etat);
     }
 
-    private void goHome(Individu ind) {
+    private void goHome(Person ind) {
         Block previousLocation = ind.getLocation();
-        IndividuRepository.getInstance().setNewLocation(ind, previousLocation,new Block(GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE));
+        //IndividuRepository.getInstance().setNewLocation(ind, previousLocation,new Block(GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE));
     }
 
 

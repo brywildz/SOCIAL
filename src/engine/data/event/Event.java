@@ -1,4 +1,5 @@
 package engine.data.event;
+import engine.data.map.Block;
 import engine.data.map.Time;
 import engine.data.map.Clock;
 import engine.data.person.PersonState;
@@ -54,5 +55,9 @@ public abstract class Event {
 
     public boolean isFinish(){
         return fin.equals(Clock.getInstance().getHoraire());
+    }
+
+    public Block getLocation() {
+        return null;
     }
 }

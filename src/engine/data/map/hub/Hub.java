@@ -1,5 +1,6 @@
 package engine.data.map.hub;
 
+import engine.data.map.Block;
 import engine.data.map.Infrastructure;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.HashMap;
  */
 
 public abstract class Hub {
+    protected Block blocks[][];
     private int line;
     private int column;
     protected HashMap<String, Infrastructure> infrastructures;

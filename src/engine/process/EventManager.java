@@ -7,8 +7,7 @@ import engine.data.event.EventRepository;
 import engine.data.person.Person;
 import engine.data.person.PersonRepository;
 import engine.data.person.bienetre.BienEtre;
-import engine.data.person.bienetre.Sante;
-import engine.data.person.bienetre.Sommeil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,36 +33,14 @@ public class EventManager {
     public EventManager(String idEvent){
         this.idEvent = idEvent;
         HashMap<Block, Person> listInd = indRepo.getIndividus();
-        WeatherEvent em = (WeatherEvent) eventRepo.getEvenement(idEvent);
+        WeatherEvent em = (WeatherEvent) eventRepo.getEvent(idEvent);
         Iterator<Person> it = listInd.values().iterator();
         while(it.hasNext()){
             Person ind = it.next();
-            executeEvent(ind, em);
+            //executeEvent(ind, em);
         }
     }
 
-    /**
-     * Methode s'occupant du changement d'etat d'un individu en fonction de son etat initial pris dans l'instance d'Individu
-     * et de l'etat "attendu" dependant du caractere de l'individu, elle change l'etat initial en modifiant la valeur à modifier
-     * @param expectedState
-     * @param actualState
-     */
-    public void changeState(ArrayList<BienEtre> expectedState, HashMap<String, BienEtre> actualState){
-        Iterator<BienEtre> it = actualState.values().iterator();
-        int i = 0;
-        while(it.hasNext()){
-            BienEtre actualIt = it.next();
-            BienEtre beAttendu = expectedState.get(i);
-            actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
-            if(actualIt instanceof Sommeil && beAttendu instanceof Sommeil){
-                ((Sommeil) actualIt).setSleeping(((Sommeil) beAttendu).isSleeping());
-            }
-            if(actualIt instanceof Sante && beAttendu instanceof Sante){
-                ((Sante) actualIt).setMalade(((Sante) beAttendu).isMalade());
-            }
-            i++;
-        }
-    }
 
     /**
      * Methode qui s'utilise pour changer la localisation d'un individu en fonction du besoin
@@ -79,29 +56,37 @@ public class EventManager {
      * Methode qui s'utilise dans le cas où l'event n'est pas terminé et que l'individu n'est pas en sitution d'immobilité
      * elle fait bouger l'individu tout en le laissant dans son lieu d'evennement (ex : bouger dans sa maison)
      */
-    private void stayAtLocation() {
+    private void stayAtLocation(Person ind) {
+        Event e = ind.getEvent();
     }
 
     /**
      * Methode centralisant l'ensemble des methode liée à l'execution d'un evenennement donc le changement de reaction et
      * le changement de localisation
      * @param ind
-     * @param event
      */
-    public void executeEvent(Person ind, Event event)  {
-        if(ind.getCurrentEvent()==null){
-            ind.setCurrentEvent(event);
+    public void executeEvent(Person ind)  {
+        if(ind.getEvent()==null){
+            Event event = EventRepository.getRandomEvent();
+            ind.setEvent(event);
             Reaction react = new Reaction(ind, event);
             ArrayList<BienEtre> expectedState = new ArrayList<>(react.getExpectedState(ind, event).getList().values());
             HashMap<String, BienEtre> actualState = ind.getEtat().getList();
-            changeState(expectedState, actualState);
+            react.changeState(expectedState, actualState);
         }
         else{
-            if(ind.getCurrentEvent().isFinish()){
-                ind.setCurrentEvent(null);
+            if(ind.getEvent().isFinish()){
+                ind.setEvent(null);
+                //CHANGEMENT DE COULEUR POUR INDIQUER UN NOUVEL EVENT
             }
-            changeLocation(false);
+            else{
+                stayAtLocation(ind); //compliqué car on devra faire du cas par cas
+            }
         }
+
+    }
+
+    public static void executeWeatherEvent(){
 
     }
 

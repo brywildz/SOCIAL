@@ -4,8 +4,10 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
-import engine.process.MobileInterface;
 import engine.process.GameBuilder;
+import engine.process.MobileElementManager;
+import engine.process.MobileInterface;
+
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;

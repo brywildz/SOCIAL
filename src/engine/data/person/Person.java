@@ -17,7 +17,7 @@ public class Person {
     private String nom;
     private int age;
     private String statutSocial;
-    private HashMap<String, Integer> personalite;
+    private HashMap<String, Integer> personality;
     private PersonState personState;
     private PersonRelationships personRelationships;
     private Block location;
@@ -31,12 +31,12 @@ public class Person {
         this.personState = personState;
         this.personRelationships = personRelationships;
         this.location = location;
-        personalite = new HashMap<>();
-        personalite.put("agreabilite", agr);
-        personalite.put("conscienciosite", cons);
-        personalite.put("extraversion", extra);
-        personalite.put("neuroticisme", neuro);
-        personalite.put("ouverture", ouvert);
+        personality = new HashMap<>();
+        personality.put("agreabilite", agr);
+        personality.put("conscienciosite", cons);
+        personality.put("extraversion", extra);
+        personality.put("neuroticisme", neuro);
+        personality.put("ouverture", ouvert);
     }
 
     // <editor-fold> desc="getter&setter"
@@ -72,12 +72,12 @@ public class Person {
         this.personState = personState;
     }
 
-    public HashMap<String, Integer> getPersonalite() {
-        return personalite;
+    public HashMap<String, Integer> getPersonality() {
+        return personality;
     }
 
-    public void setPersonalite(HashMap<String, Integer> personalite) {
-        this.personalite = personalite;
+    public void setPersonality(HashMap<String, Integer> personality) {
+        this.personality = personality;
     }
 
     public int getAge() {
@@ -88,7 +88,7 @@ public class Person {
         return nom;
     }
 
-    public void setCurrentEvent(Event currentEvent) {
+    public void setEvent(Event currentEvent) {
         this.currentEvent = currentEvent;
     }
 
@@ -96,19 +96,19 @@ public class Person {
         this.personState = new PersonState(etat);
     }
 
-    public Event getCurrentEvent() {
+    public Event getEvent() {
         return currentEvent;
     }
     // </editor-fold>
 
     //<editor-fold> desc="personnalite"
     public String getMaxPerso(){
-        Iterator<String> it = personalite.keySet().iterator();
+        Iterator<String> it = personality.keySet().iterator();
         String maxKey = it.next();
-        Integer max = personalite.get(maxKey);
+        Integer max = personality.get(maxKey);
         while(it.hasNext()){
             String persoKey = it.next();
-            Integer perso = personalite.get(persoKey);
+            Integer perso = personality.get(persoKey);
             if (perso > max){
                 max = perso;
                 maxKey = persoKey;
@@ -118,12 +118,12 @@ public class Person {
     }
 
     public String getMinPerso(){
-        Iterator<String> it = personalite.keySet().iterator();
+        Iterator<String> it = personality.keySet().iterator();
         String minKey = it.next();
-        Integer min = personalite.get(minKey);
+        Integer min = personality.get(minKey);
         while(it.hasNext()){
             String persoKey = it.next();
-            Integer perso = personalite.get(persoKey);
+            Integer perso = personality.get(persoKey);
             if (perso < min){
                 min = perso;
                 minKey = persoKey;
@@ -133,29 +133,38 @@ public class Person {
     }
 
     public int getAgreabilite(){
-        return this.personalite.get("agreabilite");
+        return this.personality.get("agreabilite");
     }
 
     public int getConscienciosite(){
-        return this.personalite.get("conscienciosite");
+        return this.personality.get("conscienciosite");
     }
 
     public int getExtraversion(){
-        return this.personalite.get("extraversion");
+        return this.personality.get("extraversion");
     }
 
     public int getNeuroticisme(){
-        return this.personalite.get("neuroticisme");
+        return this.personality.get("neuroticisme");
     }
 
     public int getOuverture(){
-        return this.personalite.get("ouverture");
+        return this.personality.get("ouverture");
     }
     //</editor-fold>
 
-    public boolean isOpen(){
-        //verifier si ce trait de caractere est majoritaire
-        return false;
+    public String getFirst(){
+        Iterator<String> it = personality.keySet().iterator();
+        String persoKey = it.next();
+        Integer max = personality.get(persoKey);
+        while(it.hasNext()){
+            persoKey = it.next();
+            Integer perso = personality.get(persoKey);
+            if (perso > max){
+                max = perso;
+            }
+        }
+        return persoKey;
     }
 
     /**
@@ -183,7 +192,7 @@ public class Person {
                 "nom='" + nom + '\'' +
                 ", age=" + age +
                 ", statutSocial='" + statutSocial + '\'' +
-                ", personalite=" + personalite +
+                ", personality=" + personality +
                 ", etat=" + personState +
                 ", relation=" + personRelationships +
                 ", location=" + location +

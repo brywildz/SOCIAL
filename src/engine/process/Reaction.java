@@ -9,7 +9,9 @@ import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.bienetre.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Classe de traitement traitant les différents reaction d'un individu dépendament de son caractère
@@ -51,6 +53,49 @@ public class Reaction {
         return personState;
     }
 
+    /**
+     * Methode s'occupant du changement d'etat d'un individu en fonction de son etat initial pris dans l'instance d'Individu
+     * et de l'etat "attendu" dependant du caractere de l'individu, elle change l'etat initial en modifiant la valeur à modifier
+     * @param expectedState
+     * @param actualState
+     */
+    public void changeState(ArrayList<BienEtre> expectedState, HashMap<String, BienEtre> actualState){
+        Iterator<BienEtre> it = actualState.values().iterator();
+        int i = 0;
+        while(it.hasNext()){
+            BienEtre actualIt = it.next();
+            BienEtre beAttendu = expectedState.get(i);
+            actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
+            if(actualIt instanceof Sommeil && beAttendu instanceof Sommeil){
+                ((Sommeil) actualIt).setSleeping(((Sommeil) beAttendu).isSleeping());
+            }
+            if(actualIt instanceof Sante && beAttendu instanceof Sante){
+                ((Sante) actualIt).setMalade(((Sante) beAttendu).isMalade());
+            }
+            i++;
+        }
+    }
+
+    public void changeState(){
+        ArrayList<BienEtre> expectedState = new ArrayList<>(getExpectedState(person, event).getList().values());
+        HashMap<String, BienEtre> actualState = person.getEtat().getList();
+        Iterator<BienEtre> it = actualState.values().iterator();
+        int i = 0;
+        while(it.hasNext()){
+            BienEtre actualIt = it.next();
+            BienEtre beAttendu = expectedState.get(i);
+            actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
+            if(actualIt instanceof Sommeil && beAttendu instanceof Sommeil){
+                ((Sommeil) actualIt).setSleeping(((Sommeil) beAttendu).isSleeping());
+            }
+            if(actualIt instanceof Sante && beAttendu instanceof Sante){
+                ((Sante) actualIt).setMalade(((Sante) beAttendu).isMalade());
+            }
+            i++;
+        }
+    }
+
+
     public PersonState createEtat(){
         Faim faim = new Faim(0, null, null);
         Humeur humeur = new Humeur(0, null);
@@ -64,6 +109,18 @@ public class Reaction {
     private void goHome(Person ind) {
         Block previousLocation = ind.getLocation();
         //IndividuRepository.getInstance().setNewLocation(ind, previousLocation,new Block(GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE));
+    }
+
+    public void goWork(Person ind) {
+
+    }
+
+    public static boolean weatherReact(Person p, WeatherEvent w){
+        return true;
+    }
+
+    public static boolean lifeStyleReact(Person p){
+        return true;
     }
 
 

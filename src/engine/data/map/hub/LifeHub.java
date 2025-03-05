@@ -1,5 +1,7 @@
 package engine.data.map.hub;
 
+import config.GameConfiguration;
+import engine.data.map.Block;
 import engine.data.map.Infrastructure;
 import engine.data.map.InfrastructureRepository;
 

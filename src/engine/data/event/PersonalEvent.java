@@ -12,7 +12,7 @@ import engine.data.person.PersonState;
 
 public class PersonalEvent extends Event {
     private Person person;
-    private int day;
+    private int day; //nombre de jours où le pnj subit l'event
 
     public PersonalEvent(String id, Time debut, Time fin, String description, PersonState personState, Person person, int day) {
         super(id, debut, fin, description, personState);

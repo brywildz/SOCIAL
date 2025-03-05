@@ -5,8 +5,8 @@ import engine.data.map.InfrastructureRepository;
 import engine.data.map.Time;
 import engine.data.person.PersonState;
 import engine.data.person.bienetre.*;
-import java.util.HashMap;
-import java.util.Iterator;
+
+import java.util.*;
 
 /**
  * Classe de donnée stockant tous les évennement et leur réaction PAR DEFAUT
@@ -16,7 +16,7 @@ import java.util.Iterator;
  */
 
 public class EventRepository {
-    private HashMap<String, Event> evenements = new HashMap<>();
+    private static HashMap<String, Event> evenements = new HashMap<>();
     private static EventRepository instance = new EventRepository();
     private EventRepository() { //permet d'avoir déjà des evenements au lancement du jeu
         Time rainStart = new Time(12, 0,0);
@@ -25,12 +25,12 @@ public class EventRepository {
 
         Time startRomanticBreakup = new Time(23, 0,0);
         Time endRomanticBreakup = new Time(9, 0,0);
-        addEvent(new PersonalEvent("romantic_breakup", startRomanticBreakup, endRomanticBreakup, "miskin tu te fait dépouiller", createEtatCambriolage(), null, 90));
+        addEvent(new PersonalEvent("romantic_breakup", startRomanticBreakup, endRomanticBreakup, "Ils ont rompu, leur couple ne marchait pas", createEtatCambriolage(), null, 90));
 
         Time startParty = new Time(18, 0,0);
         Time endParty = new Time(23, 0,0);
         Infrastructure event_hall = InfrastructureRepository.getInstance().get("event_hall");
-        addEvent(new SocialEvent("party", startParty, endParty, "banquet dans toute la ville", createEtatFete(), null, event_hall));
+        addEvent(new SocialEvent("party", startParty, endParty, "Banquet de la ville", createEtatFete(), null, event_hall));
     }
     public static EventRepository getInstance() {
         return instance;
@@ -75,26 +75,19 @@ public class EventRepository {
         evenements.put(event.getId(), event);
     }
 
-    public Event getEvenement(String id){
+    public Event getEvent(String id){
         return evenements.get(id);
-
-    }
-
-    public void afficherEvent(){
-        System.out.println("Événements en cours :");
-        Iterator<Event> iterator = evenements.values().iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
-    }
-
-    public void supprimerEvent(String id){
-        evenements.remove(id);
     }
 
     public PersonState getEtat(String id){
-        PersonState e = getEvenement(id).getEtat();
+        PersonState e = getEvent(id).getEtat();
         return e;
+    }
+
+    public static Event getRandomEvent(){
+        List<Event> events = new ArrayList<>(evenements.values());
+        Random r = new Random();
+        return events.get(r.nextInt(events.size()));
     }
 
 }

@@ -60,10 +60,26 @@ public class Time {
         date.newDay();
     }
 
+    public int getHour() {
+        return hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
     @Override
     public boolean equals(Object obj){
         Time h = (Time) obj;
         return this.hour == h.hour && this.minute == h.minute && this.second == h.second;
+    }
+
+    public boolean isHigherThan(Time other){
+        return this.hour >= other.getHour() && this.minute >= other.getMinute() && this.second >= other.getSecond();
     }
 
     @Override

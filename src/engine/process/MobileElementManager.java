@@ -1,5 +1,8 @@
 package engine.process;
 
+import engine.data.event.Event;
+import engine.data.event.EventRepository;
+import engine.data.event.WeatherEvent;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.map.Clock;
@@ -7,6 +10,9 @@ import engine.data.person.Person;
 import engine.data.person.PersonRepository;
 
 import java.util.*;
+
+import static engine.process.Reaction.lifeStyleReact;
+import static engine.process.Reaction.weatherReact;
 
 /**
  * Classe de traitement gérant les déplacements des individus sur la carte
@@ -19,6 +25,7 @@ import java.util.*;
 public class MobileElementManager implements MobileInterface {
     private Map map;
     private HashMap<Block, Person> individus = PersonRepository.getInstance().getIndividus();
+    private WeatherEvent weather;
 
     public MobileElementManager(Map map){
         this.map = map;
@@ -35,14 +42,47 @@ public class MobileElementManager implements MobileInterface {
 
     public void nextSecond(){
         Clock.getInstance().newSecond();
-        Iterator<Person> it = individus.values().iterator();
-        while(it.hasNext()){
-            Person ind = it.next();
-            if(ind.getCurrentEvent()==null){
+        List<Person> personList = new ArrayList(individus.values());
+        for(Person person : personList){
+            refreshEvent(person);
+            refreshState(person);
+            refreshLocation(person);
+        }
+    }
 
+    private void refreshEvent(Person person) {
+        if(person.getEvent() == null && weatherReact(person, weather) && lifeStyleReact(person)){
+            Event e = EventRepository.getRandomEvent();
+            person.setEvent(e);
+        }
+        else{
+            Event e = person.getEvent();
+            if(e.isFinish() || Clock.getInstance().getHoraire().isHigherThan(e.getFin())){
+                person.setEvent(null);
             }
         }
     }
+
+    private void refreshState(Person person) {
+        if(person.getEvent() == null){
+            return;
+        }
+        if(person.getEvent().getDebut().equals(Clock.getInstance().getHoraire())){
+            Reaction react = new Reaction(person, person.getEvent());
+            react.changeState();
+        }
+    }
+
+    private void refreshLocation(Person person) {
+        if(person.getEvent() == null){
+            return;
+        }
+        if(person.getLocation() != person.getEvent().getLocation()){
+            person.setLocation(person.getEvent().getLocation());
+        }
+    }
+
+
 
     /*private void moveEnemies() {
 
@@ -65,3 +105,4 @@ public class MobileElementManager implements MobileInterface {
     }*/
 
 }
+

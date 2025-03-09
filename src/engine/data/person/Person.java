@@ -4,39 +4,37 @@ import engine.data.map.Block;
 import engine.data.map.Infrastructure;
 import engine.data.event.Event;
 import engine.data.person.bienetre.BienEtre;
+import engine.data.person.caractere.*;
 
 import java.util.HashMap;
-import java.util.Iterator;
+
 /**
- * Classe de donnée stockant l'entierté des information liée à un individu
+ * Classe de donnée stockant l'entierté des informations liée à un individu
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
 public class Person {
-    private String nom;
-    private int age;
+    private final String nom;
+    private final int age;
     private String statutSocial;
-    private HashMap<String, Integer> personality;
+    private final Personality personality;
     private PersonState personState;
     private PersonRelationships personRelationships;
     private Block location;
     private Event currentEvent = null;
     private Infrastructure maison;
 
-    public Person(String nom, int age, String statutSocial, PersonState personState, PersonRelationships personRelationships, Block location, int agr, int cons, int extra, int neuro, int ouvert) {
+    public Person(String nom, int age, String statutSocial, PersonState personState, PersonRelationships personRelationships,
+                  Block location, int agr, int cons, int extra, int neuro, int ouvert) {
         this.nom = nom;
         this.age = age;
         this.statutSocial = statutSocial;
         this.personState = personState;
         this.personRelationships = personRelationships;
         this.location = location;
-        personality = new HashMap<>();
-        personality.put("agreabilite", agr);
-        personality.put("conscienciosite", cons);
-        personality.put("extraversion", extra);
-        personality.put("neuroticisme", neuro);
-        personality.put("ouverture", ouvert);
+        personality = new Personality(agr, cons, extra, neuro, ouvert);
+
     }
 
     // <editor-fold> desc="getter&setter"
@@ -64,20 +62,12 @@ public class Person {
         this.personRelationships = personRelationships;
     }
 
-    public PersonState getEtat() {
+    public PersonState getPersonState() {
         return personState;
     }
 
-    public void setEtat(PersonState personState) {
+    public void setPersonState(PersonState personState) {
         this.personState = personState;
-    }
-
-    public HashMap<String, Integer> getPersonality() {
-        return personality;
-    }
-
-    public void setPersonality(HashMap<String, Integer> personality) {
-        this.personality = personality;
     }
 
     public int getAge() {
@@ -92,99 +82,43 @@ public class Person {
         this.currentEvent = currentEvent;
     }
 
-    public void setEtat(HashMap<String, BienEtre> etat){
+    public void setPersonState(HashMap<String, BienEtre> etat){
         this.personState = new PersonState(etat);
     }
 
     public Event getEvent() {
         return currentEvent;
     }
+
+    public Personality getPersonality() {
+        return personality;
+    }
+
     // </editor-fold>
 
-    //<editor-fold> desc="personnalite"
-    public String getMaxPerso(){
-        Iterator<String> it = personality.keySet().iterator();
-        String maxKey = it.next();
-        Integer max = personality.get(maxKey);
-        while(it.hasNext()){
-            String persoKey = it.next();
-            Integer perso = personality.get(persoKey);
-            if (perso > max){
-                max = perso;
-                maxKey = persoKey;
-            }
-        }
-        return maxKey;
+    //<editor-fold> desc="personnalité"
+
+    public Agreeableness getAgreeableness(){
+        return this.personality.getAgreabilite();
     }
 
-    public String getMinPerso(){
-        Iterator<String> it = personality.keySet().iterator();
-        String minKey = it.next();
-        Integer min = personality.get(minKey);
-        while(it.hasNext()){
-            String persoKey = it.next();
-            Integer perso = personality.get(persoKey);
-            if (perso < min){
-                min = perso;
-                minKey = persoKey;
-            }
-        }
-        return minKey;
+    public Conscientiousness getConscientiousness(){
+        return this.personality.getConscienciosite();
     }
 
-    public int getAgreabilite(){
-        return this.personality.get("agreabilite");
+    public Extraversion getExtraversion(){
+        return this.personality.getExtraversion();
     }
 
-    public int getConscienciosite(){
-        return this.personality.get("conscienciosite");
+    public Neuroticism getNeuroticism(){
+        return this.personality.getNeuroticisme();
     }
 
-    public int getExtraversion(){
-        return this.personality.get("extraversion");
+    public Openness getOpenness(){
+        return this.personality.getOuverture();
     }
 
-    public int getNeuroticisme(){
-        return this.personality.get("neuroticisme");
-    }
-
-    public int getOuverture(){
-        return this.personality.get("ouverture");
-    }
     //</editor-fold>
-
-    public String getFirst(){
-        Iterator<String> it = personality.keySet().iterator();
-        String persoKey = it.next();
-        Integer max = personality.get(persoKey);
-        while(it.hasNext()){
-            persoKey = it.next();
-            Integer perso = personality.get(persoKey);
-            if (perso > max){
-                max = perso;
-            }
-        }
-        return persoKey;
-    }
-
-    /**
-     * Update l'etat de l'individu en fonction de l'etat en paramètre
-     *
-     * @param personState l'etat donnée par EventManager apres le changement en fonction du caractere
-     */
-    public void refreshEtat(PersonState personState){
-        HashMap<String, BienEtre> etatAttendu = personState.getList();
-        HashMap<String, BienEtre> etatActuel = this.personState.getList();
-        Iterator<BienEtre> it = etatAttendu.values().iterator();
-        int i=0;
-        while(it.hasNext()){
-            BienEtre be = it.next();
-            if(be!=null){
-                etatActuel.put( be.getId(), be);
-            }
-            i++;
-        }
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,9 @@
 package engine.data.person;
 import engine.data.person.caractere.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Classe de donnée regroupant les informations de la personnalité d'un individu
  *
@@ -8,23 +11,71 @@ import engine.data.person.caractere.*;
  * @version 0.1
  */
 public class Personality {
-    private String type;
-    private Ouverture ouverture;
-    private Conscienciosite conscienciosite;
-    private Agreabilite agreabilite;
-    private Neuroticisme neuroticisme;
+    private Openness openness;
+    private Conscientiousness conscientiousness;
+    private Agreeableness agreeableness;
+    private Neuroticism neuroticism;
     private Extraversion extraversion;
+    private ArrayList<PersonalityTrait> personalities;
 
-    public Personality(String type, Extraversion extraversion, Neuroticisme neuroticisme, Agreabilite agreabilite, Conscienciosite conscienciosite, Ouverture ouverture) {
+    public Personality(int agr, int cons, int extra, int neuro, int ouvert) {
+        Agreeableness agreeableness = new Agreeableness(agr);
+        Conscientiousness conscientiousness = new Conscientiousness(cons);
+        Extraversion extraversion = new Extraversion(extra);
+        Neuroticism neuroticism = new Neuroticism(neuro);
+        Openness openness = new Openness(ouvert);
         this.extraversion = extraversion;
-        this.neuroticisme = neuroticisme;
-        this.agreabilite = agreabilite;
-        this.conscienciosite = conscienciosite;
-        this.ouverture = ouverture;
-
+        this.neuroticism = neuroticism;
+        this.agreeableness = agreeableness;
+        this.conscientiousness = conscientiousness;
+        this.openness = openness;
+        personalities = new ArrayList<>();
+        personalities.add(agreeableness); personalities.add(conscientiousness); personalities.add(extraversion);
+        personalities.add(neuroticism); personalities.add(openness);
     }
 
-    public String getType() {
-        return type;
+    public PersonalityTrait getMaxPerso(){
+        Iterator<PersonalityTrait> it = personalities.iterator();
+        PersonalityTrait cMax = it.next();
+        while(it.hasNext()){
+            PersonalityTrait c = it.next();
+            if (c.getLevel() > cMax.getLevel()){
+                cMax = c;
+            }
+        }
+        return cMax;
+    }
+
+    public PersonalityTrait getMinPerso(){
+        Iterator<PersonalityTrait> it = personalities.iterator();
+        PersonalityTrait cMin = it.next();
+        while(it.hasNext()){
+            PersonalityTrait c = it.next();
+            if (c.getLevel() < cMin.getLevel()){
+                cMin = c;
+            }
+        }
+        return cMin;
+    }
+
+
+    public Openness getOuverture() {
+        return openness;
+    }
+
+    public Conscientiousness getConscienciosite() {
+        return conscientiousness;
+    }
+
+    public Agreeableness getAgreabilite() {
+        return agreeableness;
+    }
+
+    public Neuroticism getNeuroticisme() {
+        return neuroticism;
+    }
+
+    public Extraversion getExtraversion() {
+        return extraversion;
     }
 }

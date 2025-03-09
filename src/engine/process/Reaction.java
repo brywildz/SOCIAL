@@ -8,6 +8,9 @@ import engine.data.event.SocialEvent;
 import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.bienetre.*;
+import engine.data.person.caractere.PersonalityTrait;
+import engine.data.person.caractere.Neuroticism;
+import engine.data.person.caractere.Openness;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,9 +33,9 @@ public class Reaction {
 
 
     public PersonState getExpectedState(Person ind, Event ev){
-        String type = ind.getMaxPerso();
+        PersonalityTrait maxPerso = ind.getPersonality().getMaxPerso();
         PersonState personState = createEtat();
-        if(type.equals("ouverture")){
+        if(maxPerso instanceof Openness){
             if(ev instanceof WeatherEvent){
                 personState.getList().get("humeur").setNiveau(+2);
                 personState.getList().get("sommeil").setNiveau(+2);
@@ -78,7 +81,7 @@ public class Reaction {
 
     public void changeState(){
         ArrayList<BienEtre> expectedState = new ArrayList<>(getExpectedState(person, event).getList().values());
-        HashMap<String, BienEtre> actualState = person.getEtat().getList();
+        HashMap<String, BienEtre> actualState = person.getPersonState().getList();
         Iterator<BienEtre> it = actualState.values().iterator();
         int i = 0;
         while(it.hasNext()){
@@ -116,6 +119,37 @@ public class Reaction {
     }
 
     public static boolean weatherReact(Person p, WeatherEvent w){
+        PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
+        if(w.getId().equals("pluie")){
+            if(p.getNeuroticism().isLow()){
+                if(p.getOpenness().isHigh()){
+                    return true;
+                }
+            }
+        }
+        if(w.getId().equals("soleil")){
+            if(p.getNeuroticism().isHigh()){
+                if(p.getExtraversion().isLow()){
+                    if(p.getOpenness().isLow()){
+                        if(p.getAgreeableness().isLow()){
+                            if(p.getConscientiousness().isLow()){
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        if(w.getId().equals("neige")){
+            if(p.getNeuroticism().isHigh() || p.getConscientiousness().isLow()){
+                return false;
+            }
+            if(p.getExtraversion().isHigh() || p.getOpenness().isHigh()){
+                return true;
+            }
+            return true;
+        }
         return true;
     }
 

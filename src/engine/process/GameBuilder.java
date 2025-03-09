@@ -38,12 +38,7 @@ public class GameBuilder {
     }
 
     public static Person createIndividuTest(){
-        Ouverture o = new Ouverture(8);
-        Extraversion e = new Extraversion(6);
-        Neuroticisme n = new Neuroticisme(2);
-        Agreabilite a = new Agreabilite(5);
-        Conscienciosite c = new Conscienciosite(5);
-        Personality p = new Personality("ouverture", e, n, a, c, o);
+        Personality p = new Personality(8, 6, 2, 5, 5);
 
         Faim f = new Faim(0, "couscous", "lentilles");
         Humeur h = new Humeur(6, "joviale");

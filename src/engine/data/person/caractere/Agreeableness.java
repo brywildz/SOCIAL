@@ -1,13 +1,13 @@
 package engine.data.person.caractere;
 
-public class Conscienciosite extends Caractere {
+public class Agreeableness extends PersonalityTrait {
     private int niveau;
 
-    public Conscienciosite(int niveau) {
+    public Agreeableness(int niveau) {
         super(niveau);
     }
 
-    public int getNiveau() {
+    public int getLevel() {
         return niveau;
     }
 }

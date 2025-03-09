@@ -7,10 +7,9 @@ import engine.data.event.PersonalEvent;
 import engine.data.event.SocialEvent;
 import engine.data.person.PersonState;
 import engine.data.person.Person;
-import engine.data.person.bienetre.*;
-import engine.data.person.caractere.PersonalityTrait;
-import engine.data.person.caractere.Neuroticism;
-import engine.data.person.caractere.Openness;
+import engine.data.person.vitality.*;
+import engine.data.person.personalityTraits.PersonalityTrait;
+import engine.data.person.personalityTraits.Openness;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,37 +61,37 @@ public class Reaction {
      * @param expectedState
      * @param actualState
      */
-    public void changeState(ArrayList<BienEtre> expectedState, HashMap<String, BienEtre> actualState){
-        Iterator<BienEtre> it = actualState.values().iterator();
+    public void changeState(ArrayList<Vitality> expectedState, HashMap<String, Vitality> actualState){
+        Iterator<Vitality> it = actualState.values().iterator();
         int i = 0;
         while(it.hasNext()){
-            BienEtre actualIt = it.next();
-            BienEtre beAttendu = expectedState.get(i);
+            Vitality actualIt = it.next();
+            Vitality beAttendu = expectedState.get(i);
             actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
-            if(actualIt instanceof Sommeil && beAttendu instanceof Sommeil){
-                ((Sommeil) actualIt).setSleeping(((Sommeil) beAttendu).isSleeping());
+            if(actualIt instanceof Sleep && beAttendu instanceof Sleep){
+                ((Sleep) actualIt).setSleeping(((Sleep) beAttendu).isSleeping());
             }
-            if(actualIt instanceof Sante && beAttendu instanceof Sante){
-                ((Sante) actualIt).setMalade(((Sante) beAttendu).isMalade());
+            if(actualIt instanceof Health && beAttendu instanceof Health){
+                ((Health) actualIt).setMalade(((Health) beAttendu).isMalade());
             }
             i++;
         }
     }
 
     public void changeState(){
-        ArrayList<BienEtre> expectedState = new ArrayList<>(getExpectedState(person, event).getList().values());
-        HashMap<String, BienEtre> actualState = person.getPersonState().getList();
-        Iterator<BienEtre> it = actualState.values().iterator();
+        ArrayList<Vitality> expectedState = new ArrayList<>(getExpectedState(person, event).getList().values());
+        HashMap<String, Vitality> actualState = person.getPersonState().getList();
+        Iterator<Vitality> it = actualState.values().iterator();
         int i = 0;
         while(it.hasNext()){
-            BienEtre actualIt = it.next();
-            BienEtre beAttendu = expectedState.get(i);
+            Vitality actualIt = it.next();
+            Vitality beAttendu = expectedState.get(i);
             actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
-            if(actualIt instanceof Sommeil && beAttendu instanceof Sommeil){
-                ((Sommeil) actualIt).setSleeping(((Sommeil) beAttendu).isSleeping());
+            if(actualIt instanceof Sleep && beAttendu instanceof Sleep){
+                ((Sleep) actualIt).setSleeping(((Sleep) beAttendu).isSleeping());
             }
-            if(actualIt instanceof Sante && beAttendu instanceof Sante){
-                ((Sante) actualIt).setMalade(((Sante) beAttendu).isMalade());
+            if(actualIt instanceof Health && beAttendu instanceof Health){
+                ((Health) actualIt).setMalade(((Health) beAttendu).isMalade());
             }
             i++;
         }
@@ -100,12 +99,12 @@ public class Reaction {
 
 
     public PersonState createEtat(){
-        Faim faim = new Faim(0, null, null);
-        Humeur humeur = new Humeur(0, null);
-        Sante sante = new Sante(0, 0, null);
-        Sommeil sommeil = new Sommeil(0, null);
-        HashMap<String, BienEtre> etat = new HashMap<>();
-        etat.put("faim",faim); etat.put("humeur",humeur); etat.put("sante",sante); etat.put("sommeil",sommeil);
+        Hunger hunger = new Hunger(0, null, null);
+        Mood mood = new Mood(0, null);
+        Health health = new Health(0, 0, null);
+        Sleep sleep = new Sleep(0, null);
+        HashMap<String, Vitality> etat = new HashMap<>();
+        etat.put("hunger", hunger); etat.put("mood", mood); etat.put("health", health); etat.put("sleep", sleep);
         return new PersonState(etat);
     }
 

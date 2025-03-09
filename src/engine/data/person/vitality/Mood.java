@@ -1,4 +1,4 @@
-package engine.data.person.bienetre;
+package engine.data.person.vitality;
 
 /**
  * Classe de donnée stockant les différente information liée à la faim d'un individu
@@ -7,10 +7,10 @@ package engine.data.person.bienetre;
  * @version 0.1
  */
 
-public class Humeur extends BienEtre{
+public class Mood extends Vitality {
     private String type;
 
-    public Humeur(int niveau, String humeur) {
+    public Mood(int niveau, String humeur) {
         super(niveau);
         this.type = humeur;
     }

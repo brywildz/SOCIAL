@@ -1,24 +1,24 @@
 package engine.data.person;
-import engine.data.person.bienetre.*;
+import engine.data.person.vitality.*;
 
 import java.util.HashMap;
 
 /**
- * Classe de donnée regroupant toutes les instance de BienEtre d'un individu
+ * Classe de donnée regroupant toutes les instance de Vitality d'un individu
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
 public class PersonState {
-    private HashMap<String, BienEtre> etat;
+    private HashMap<String, Vitality> etat;
 
 
-    public PersonState(HashMap<String, BienEtre> etat) {
+    public PersonState(HashMap<String, Vitality> etat) {
 
         this.etat = etat;
     }
 
-    public HashMap<String, BienEtre> getList() {
+    public HashMap<String, Vitality> getList() {
         return etat;
     }
 
@@ -29,7 +29,7 @@ public class PersonState {
                 '}';
     }
 
-    public void setList(HashMap<String, BienEtre> etat) {
+    public void setList(HashMap<String, Vitality> etat) {
         this.etat = etat;
     }
 }

@@ -1,4 +1,4 @@
-package engine.data.person.bienetre;
+package engine.data.person.vitality;
 
 /**
  * Classe de donnée stockant les différente information liée au sommeil d'un individu
@@ -6,10 +6,10 @@ package engine.data.person.bienetre;
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
-public class Sommeil extends BienEtre{
+public class Sleep extends Vitality {
     private Boolean isSleeping;
 
-    public Sommeil(int niveau, Boolean isSleeping) {
+    public Sleep(int niveau, Boolean isSleeping) {
         super(niveau);
         this.isSleeping = isSleeping;
     }

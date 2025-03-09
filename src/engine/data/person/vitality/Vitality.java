@@ -1,4 +1,4 @@
-package engine.data.person.bienetre;
+package engine.data.person.vitality;
 
 /**
  * Classe abstraite définissant les differents état d'un individu
@@ -6,7 +6,7 @@ package engine.data.person.bienetre;
  * @version 0.1
  * @author Dylan Manseri, Amadou Bawol
  */
-public abstract class BienEtre {
+public abstract class Vitality {
     private String Id;
     private int niveau;
 
@@ -14,7 +14,7 @@ public abstract class BienEtre {
         this.niveau = niveau;
     }
 
-    public BienEtre(int niveau) {
+    public Vitality(int niveau) {
         this.niveau = niveau;
     }
 
@@ -28,7 +28,7 @@ public abstract class BienEtre {
 
     @Override
     public String toString() {
-        return "BienEtre{" +
+        return "Vitality{" +
                 "niveau=" + niveau +
                 '}';
     }

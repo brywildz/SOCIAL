@@ -4,7 +4,7 @@ import engine.data.map.Infrastructure;
 import engine.data.map.InfrastructureRepository;
 import engine.data.map.Time;
 import engine.data.person.PersonState;
-import engine.data.person.bienetre.*;
+import engine.data.person.vitality.*;
 
 import java.util.*;
 
@@ -38,31 +38,31 @@ public class EventRepository {
 
     //<editor-fold> desc="creation des etats"
     public PersonState createEtatPluie(){
-        Faim fPluie = new Faim(0, null, null);
-        Humeur hPluie = new Humeur(-4, "Mauvaise");
-        Sante sPluie = new Sante(-1, 0, null);
-        Sommeil soPlluie = new Sommeil(-1, null);
+        Hunger fPluie = new Hunger(0, null, null);
+        Mood hPluie = new Mood(-4, "Mauvaise");
+        Health sPluie = new Health(-1, 0, null);
+        Sleep soPlluie = new Sleep(-1, null);
         return createEtat(fPluie, hPluie, sPluie, soPlluie);
     }
 
     public PersonState createEtatFete(){
-        Faim fFete = new Faim(-5, null, null);
-        Humeur hFete = new Humeur(+4, "Bonne");
-        Sante sFete = new Sante(1, 0, null);
-        Sommeil soFete = new Sommeil(-3, null);
+        Hunger fFete = new Hunger(-5, null, null);
+        Mood hFete = new Mood(+4, "Bonne");
+        Health sFete = new Health(1, 0, null);
+        Sleep soFete = new Sleep(-3, null);
         return createEtat(fFete, hFete, sFete, soFete);
     }
 
     public PersonState createEtatCambriolage(){
-        Faim fCambriolage = new Faim(0, null, null);
-        Humeur hCambriolage = new Humeur(-5, "Bonne");
-        Sante sCambriolage = new Sante(-2, 0, null);
-        Sommeil soCambriolage = new Sommeil(-2, null);
+        Hunger fCambriolage = new Hunger(0, null, null);
+        Mood hCambriolage = new Mood(-5, "Bonne");
+        Health sCambriolage = new Health(-2, 0, null);
+        Sleep soCambriolage = new Sleep(-2, null);
         return createEtat(fCambriolage, hCambriolage, sCambriolage, soCambriolage);
     }
 
-    private PersonState createEtat(Faim f, Humeur h, Sante s, Sommeil so) {
-        HashMap<String, BienEtre> etat = new HashMap<>();
+    private PersonState createEtat(Hunger f, Mood h, Health s, Sleep so) {
+        HashMap<String, Vitality> etat = new HashMap<>();
         etat.put("faim", f);
         etat.put("humeur", h);
         etat.put("sante", s);

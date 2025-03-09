@@ -3,8 +3,8 @@ package engine.data.person;
 import engine.data.map.Block;
 import engine.data.map.Infrastructure;
 import engine.data.event.Event;
-import engine.data.person.bienetre.BienEtre;
-import engine.data.person.caractere.*;
+import engine.data.person.vitality.Vitality;
+import engine.data.person.personalityTraits.*;
 
 import java.util.HashMap;
 
@@ -82,7 +82,7 @@ public class Person {
         this.currentEvent = currentEvent;
     }
 
-    public void setPersonState(HashMap<String, BienEtre> etat){
+    public void setPersonState(HashMap<String, Vitality> etat){
         this.personState = new PersonState(etat);
     }
 

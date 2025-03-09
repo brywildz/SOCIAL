@@ -6,7 +6,7 @@ import engine.data.event.WeatherEvent;
 import engine.data.event.EventRepository;
 import engine.data.person.Person;
 import engine.data.person.PersonRepository;
-import engine.data.person.bienetre.BienEtre;
+import engine.data.person.vitality.Vitality;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,8 +70,8 @@ public class EventManager {
             Event event = EventRepository.getRandomEvent();
             ind.setEvent(event);
             Reaction react = new Reaction(ind, event);
-            ArrayList<BienEtre> expectedState = new ArrayList<>(react.getExpectedState(ind, event).getList().values());
-            HashMap<String, BienEtre> actualState = ind.getEtat().getList();
+            ArrayList<Vitality> expectedState = new ArrayList<>(react.getExpectedState(ind, event).getList().values());
+            HashMap<String, Vitality> actualState = ind.getEtat().getList();
             react.changeState(expectedState, actualState);
         }
         else{

@@ -1,4 +1,4 @@
-package engine.data.person.bienetre;
+package engine.data.person.vitality;
 
 /**
  * Classe de donnée stockant les différente information liée à la santé d'un indidivu
@@ -6,11 +6,11 @@ package engine.data.person.bienetre;
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
-public class Sante extends BienEtre{
+public class Health extends Vitality {
     private Boolean estMalade;
     private int derniereConsultation;
 
-    public Sante(int niveau, int derniereConsultation, Boolean estMalade) {
+    public Health(int niveau, int derniereConsultation, Boolean estMalade) {
         super(niveau);
         this.derniereConsultation = derniereConsultation;
         this.estMalade = estMalade;

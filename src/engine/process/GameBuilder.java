@@ -7,8 +7,7 @@ import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.PersonRepository;
 import engine.data.person.Personality;
-import engine.data.person.bienetre.*;
-import engine.data.person.caractere.*;
+import engine.data.person.vitality.*;
 
 import java.util.HashMap;
 
@@ -40,11 +39,11 @@ public class GameBuilder {
     public static Person createIndividuTest(){
         Personality p = new Personality(8, 6, 2, 5, 5);
 
-        Faim f = new Faim(0, "couscous", "lentilles");
-        Humeur h = new Humeur(6, "joviale");
-        Sante s = new Sante(2, 56, false);
-        Sommeil so = new Sommeil(5, false);
-        HashMap<String, BienEtre> etatList = new HashMap<>();
+        Hunger f = new Hunger(0, "couscous", "lentilles");
+        Mood h = new Mood(6, "joviale");
+        Health s = new Health(2, 56, false);
+        Sleep so = new Sleep(5, false);
+        HashMap<String, Vitality> etatList = new HashMap<>();
         etatList.put("faim", f); etatList.put("humeur", h); etatList.put("sante", s); etatList.put("sommeil", so);
         PersonState personState = new PersonState(etatList);
 

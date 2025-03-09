@@ -1,4 +1,4 @@
-package engine.data.person.caractere;
+package engine.data.person.personalityTraits;
 
 public class Openness extends PersonalityTrait {
 

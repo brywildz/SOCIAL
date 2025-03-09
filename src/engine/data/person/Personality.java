@@ -1,5 +1,5 @@
 package engine.data.person;
-import engine.data.person.caractere.*;
+import engine.data.person.personalityTraits.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;

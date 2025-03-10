@@ -1,5 +1,6 @@
 package engine.data.person;
 
+import engine.data.event.Action;
 import engine.data.map.Block;
 import engine.data.map.Infrastructure;
 import engine.data.event.Event;
@@ -23,6 +24,7 @@ public class Person {
     private PersonRelationships personRelationships;
     private Block location;
     private Event currentEvent = null;
+    private Action currentAction = null;
     private Infrastructure maison;
 
     public Person(String nom, int age, String statutSocial, PersonState personState, PersonRelationships personRelationships,
@@ -134,4 +136,14 @@ public class Person {
                 '}';
     }
 
+    public Action getCurrentAction() {
+        return currentAction;
+    }
+
+    public void setCurrentAction(Action currentAction) {
+        this.currentAction = currentAction;
+    }
+
+    public boolean isInHisHoouse() {
+    }
 }

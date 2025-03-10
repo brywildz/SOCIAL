@@ -72,6 +72,24 @@ public class Time {
         return second;
     }
 
+    public void addHour(int hour) {
+        for(int i = 0 ; i < hour ; i++){
+            newHour();
+        }
+    }
+
+    public void addMinute(int minute) {
+        for(int i = 0 ; i < minute ; i++){
+            newMinute();
+        }
+    }
+
+    public void addSecond(int second) {
+        for(int i = 0 ; i < second ; i++){
+            newSecond();
+        }
+    }
+
     @Override
     public boolean equals(Object obj){
         Time h = (Time) obj;

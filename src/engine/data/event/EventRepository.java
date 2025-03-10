@@ -3,7 +3,10 @@ package engine.data.event;
 import engine.data.map.Infrastructure;
 import engine.data.map.InfrastructureRepository;
 import engine.data.map.Time;
+import engine.data.person.Person;
 import engine.data.person.PersonState;
+import engine.data.person.Personality;
+import engine.data.person.personalityTraits.PersonalityTrait;
 import engine.data.person.vitality.*;
 
 import java.util.*;

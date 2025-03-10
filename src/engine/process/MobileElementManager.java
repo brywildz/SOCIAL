@@ -44,9 +44,19 @@ public class MobileElementManager implements MobileInterface {
         Clock.getInstance().newSecond();
         List<Person> personList = new ArrayList(individus.values());
         for(Person person : personList){
+            refreshLifeStyle(person);
             refreshEvent(person);
             refreshState(person);
             refreshLocation(person);
+        }
+    }
+
+    private void refreshLifeStyle(Person person) {
+        if(person.getCurrentAction() == null){
+            if(person.isInHisHoouse()){
+                LifeManager lf = new LifeManager(person);
+                lf.setNewActionInside();
+            }
         }
     }
 

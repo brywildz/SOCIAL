@@ -23,6 +23,7 @@ import java.util.Iterator;
  */
 public class Reaction {
     private Person person;
+    private String action;
     private Event event;
 
     public Reaction(Person person, Event event) {
@@ -30,6 +31,10 @@ public class Reaction {
         this.event = event;
     }
 
+    public Reaction(String action, Person person) {
+        this.action = action;
+        this.person = person;
+    }
 
     public PersonState getExpectedState(Person ind, Event ev){
         PersonalityTrait maxPerso = ind.getPersonality().getMaxPerso();
@@ -149,13 +154,22 @@ public class Reaction {
             }
             return true;
         }
+        if(w.getId().equals("nuageux")){
+            if(p.getNeuroticism().isHigh() && p.getExtraversion().isLow()){
+                return false;
+            }
+        }
         return true;
     }
 
     public static boolean lifeStyleReact(Person p){
+        PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
+
         return true;
     }
 
 
+    public void refreshLifeStyle() {
 
+    }
 }

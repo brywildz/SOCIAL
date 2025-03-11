@@ -4,10 +4,9 @@ import engine.data.event.Action;
 import engine.data.event.ActionRepository;
 import engine.data.map.Clock;
 import engine.data.person.Person;
-import engine.data.person.personalityTraits.Conscientiousness;
-import engine.data.person.personalityTraits.Neuroticism;
-import engine.data.person.personalityTraits.Openness;
-import engine.data.person.personalityTraits.PersonalityTrait;
+import engine.data.person.personalityTraits.*;
+import engine.data.person.socialState.SocialState;
+import engine.data.person.socialState.Worker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,4 +47,39 @@ public class LifeManager {
         a.setEnd(ActionRepository.getInstance().getRandomTimer(person, a.getId()));
         person.setCurrentAction(a);
     }
+
+    public void setNewActionOutside() {
+        Action a = new Action(null, null, null);
+        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
+        if(maxPerso instanceof Extraversion){
+            a.setId("sport d'équipe");
+        }
+        if(maxPerso instanceof Agreeableness){
+            a.setId("activité bénévoles");
+        }
+        else{
+            Random rand = new Random();
+            List<Action> l = new ArrayList<>(ActionRepository.getInstance().getOutsideActions().values());
+            a = l.get(rand.nextInt(l.size()));
+
+        }
+        a.setStart(Clock.getInstance().getHoraire());
+        a.setEnd(ActionRepository.getInstance().getRandomTimer(person, a.getId()));
+        person.setCurrentAction(a);
+    }
+
+    /*public void refreshRoutine() {
+        Clock clock = Clock.getInstance();
+        SocialState ss = person.getSocialState();
+        if(person.isWorker()){
+            Worker w = (Worker) person.getSocialState();
+            if(clock.getHoraire().equals(w.getStartTime()){
+                goWork();
+            }
+        }
+    }
+
+    private void goWork() {
+        person.setLocation(person.getSocialState().getInfrastructure().);
+    }*/
 }

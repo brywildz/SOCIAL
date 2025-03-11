@@ -35,17 +35,18 @@ public class GameDisplay extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try {
+            paintStrategy.paintBuilding((Graphics2D)g);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         HashMap<Block, Person> individu = manager.getIndividus();
         Iterator<Person> it = individu.values().iterator();
         while(it.hasNext()){
             Person ind = it.next();
             paintStrategy.paint(ind, g);
-            try {
-                paintStrategy.paintHouse((Graphics2D)g);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
+
     }
 
     public Block getBlockPosition(int y, int x){

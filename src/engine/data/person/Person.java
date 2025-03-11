@@ -4,6 +4,10 @@ import engine.data.event.Action;
 import engine.data.map.Block;
 import engine.data.map.Infrastructure;
 import engine.data.event.Event;
+import engine.data.person.socialState.Pupil;
+import engine.data.person.socialState.SocialState;
+import engine.data.person.socialState.Unemployed;
+import engine.data.person.socialState.Worker;
 import engine.data.person.vitality.Vitality;
 import engine.data.person.personalityTraits.*;
 
@@ -18,20 +22,20 @@ import java.util.HashMap;
 public class Person {
     private final String nom;
     private final int age;
-    private String statutSocial;
+    private SocialState socialState;
     private final Personality personality;
     private PersonState personState;
     private PersonRelationships personRelationships;
     private Block location;
     private Event currentEvent = null;
     private Action currentAction = null;
-    private Infrastructure maison;
+    private Infrastructure house;
 
-    public Person(String nom, int age, String statutSocial, PersonState personState, PersonRelationships personRelationships,
+    public Person(String nom, int age, SocialState socialState, PersonState personState, PersonRelationships personRelationships,
                   Block location, int agr, int cons, int extra, int neuro, int ouvert) {
         this.nom = nom;
         this.age = age;
-        this.statutSocial = statutSocial;
+        this.socialState = socialState;
         this.personState = personState;
         this.personRelationships = personRelationships;
         this.location = location;
@@ -40,12 +44,12 @@ public class Person {
     }
 
     // <editor-fold> desc="getter&setter"
-    public String getStatutSocial() {
-        return statutSocial;
+    public SocialState getSocialState() {
+        return socialState;
     }
 
-    public void setStatutSocial(String statutSocial) {
-        this.statutSocial = statutSocial;
+    public void setSocialState(SocialState socialState) {
+        this.socialState = socialState;
     }
 
     public Block getLocation() {
@@ -96,6 +100,14 @@ public class Person {
         return personality;
     }
 
+    public Action getCurrentAction() {
+        return currentAction;
+    }
+
+    public void setCurrentAction(Action currentAction) {
+        this.currentAction = currentAction;
+    }
+
     // </editor-fold>
 
     //<editor-fold> desc="personnalité"
@@ -127,7 +139,7 @@ public class Person {
         return "Individu{" +
                 "nom='" + nom + '\'' +
                 ", age=" + age +
-                ", statutSocial='" + statutSocial + '\'' +
+                ", socialState='" + socialState + '\'' +
                 ", personality=" + personality +
                 ", etat=" + personState +
                 ", relation=" + personRelationships +
@@ -136,14 +148,19 @@ public class Person {
                 '}';
     }
 
-    public Action getCurrentAction() {
-        return currentAction;
-    }
-
-    public void setCurrentAction(Action currentAction) {
-        this.currentAction = currentAction;
-    }
-
     public boolean isInHisHoouse() {
+        return true;
+    }
+
+    public boolean isWorker(){
+        return socialState instanceof Worker;
+    }
+
+    public boolean isPupil(){
+        return socialState instanceof Pupil;
+    }
+
+    public boolean isUnemployed(){
+        return socialState instanceof Unemployed;
     }
 }

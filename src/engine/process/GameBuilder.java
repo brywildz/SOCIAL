@@ -47,6 +47,6 @@ public class GameBuilder {
         etatList.put("faim", f); etatList.put("humeur", h); etatList.put("sante", s); etatList.put("sommeil", so);
         PersonState personState = new PersonState(etatList);
 
-        return new Person("Dylan,", 20, "clochard", personState,null, new Block(20,20), 8 ,6 ,2 ,5 ,5 );
+        return new Person("Dylan,", 20, null, personState,null, new Block(20,20), 8 ,6 ,2 ,5 ,5 );
     }
 }

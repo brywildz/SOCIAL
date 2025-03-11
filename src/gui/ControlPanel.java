@@ -98,7 +98,7 @@ public class ControlPanel extends JPanel {
                 String ageStr = JOptionPane.showInputDialog(this, "Entrez l'âge de l'individu :");
                 try {
                     int age = Integer.parseInt(ageStr);
-                    Person person = new Person(name, age, "Statut par défaut", null, null, null, 0, 0,0 ,0 ,0);
+                    Person person = new Person(name, age, null, null, null, null, 0, 0,0 ,0 ,0);
                     PersonRepository.getInstance().addIndividu(person);
                     JOptionPane.showMessageDialog(this, "Individu '" + name + "' ajouté !");
                 } catch (NumberFormatException e) {

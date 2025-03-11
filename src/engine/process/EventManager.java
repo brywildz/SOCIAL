@@ -71,7 +71,7 @@ public class EventManager {
             ind.setEvent(event);
             Reaction react = new Reaction(ind, event);
             ArrayList<Vitality> expectedState = new ArrayList<>(react.getExpectedState(ind, event).getList().values());
-            HashMap<String, Vitality> actualState = ind.getEtat().getList();
+            HashMap<String, Vitality> actualState = ind.getPersonState().getList();
             react.changeState(expectedState, actualState);
         }
         else{

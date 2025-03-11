@@ -52,11 +52,17 @@ public class MobileElementManager implements MobileInterface {
     }
 
     private void refreshLifeStyle(Person person) {
+        LifeManager lf = new LifeManager(person);
         if(person.getCurrentAction() == null){
             if(person.isInHisHoouse()){
-                LifeManager lf = new LifeManager(person);
                 lf.setNewActionInside();
             }
+            else{
+                lf.setNewActionOutside();
+            }
+        }
+        else{
+            //lf.refreshRoutine();
         }
     }
 

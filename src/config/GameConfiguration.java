@@ -7,7 +7,7 @@ public class GameConfiguration {
     public static final int WINDOW_WIDTH = 1366;
     public static final int WINDOW_HEIGHT = 900;
 
-    public static final int BLOCK_SIZE = 12;
+    public static final int BLOCK_SIZE = 10;
 
     public static final int LINE_COUNT = WINDOW_HEIGHT / BLOCK_SIZE;
     public static final int COLUMN_COUNT = WINDOW_WIDTH / BLOCK_SIZE;
@@ -23,4 +23,14 @@ public class GameConfiguration {
     public static final int HOUSING_HUB_Y = 8;
     public static final int HOUSING_HUB_WIDTH = 39;
     public static final int HOUSING_HUB_HEIGHT = 21;
+
+    public static final int BUILDING_X =  9;
+    public static final int BUILDING_Y = 7;
+    public static final int BUILDING_WIDTH = 5;
+    public static final int BUILDING_HEIGHT = 5;
+
+    public static final int APARTMENT_X = 80;
+    public static final int APARTMENT_Y = 10;
+    public static final int APARTMENT_WIDTH = 5;
+    public static final int APARTMENT_HEIGHT = 5;
 }

@@ -7,23 +7,23 @@ import engine.data.person.personalityTraits.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 public class ActionRepository {
     private final HashMap<String, Action> insideActions = new HashMap<>();
     private final HashMap<String, Action> outsideActions = new HashMap<>();
     private static ActionRepository instance;
+
     private ActionRepository() {
         insideActions.put("méditation", new Action("sport intense", false, null, null));
-        insideActions.put("arts créatifs", new Action("arts créatifs",false, null, null));
-        insideActions.put("apprentissage", new Action("apprentissage",false , null, null));
-        insideActions.put("dormir", new Action("dormir",false, null, null));
+        insideActions.put("arts créatifs", new Action("arts créatifs", false, null, null));
+        insideActions.put("apprentissage", new Action("apprentissage", false, null, null));
+        insideActions.put("dormir", new Action("dormir", false, null, null));
 
         outsideActions.put("sport d'équipe", new Action("jeux d'équipes", true, null, null));
         outsideActions.put("travail", new Action("travail", true, null, null));
-        outsideActions.put("activité bénévole", new Action("activité bénévole",true, null, null));
-        outsideActions.put("activité culturelle", new Action("activité culturelle",true, null, null));
+        outsideActions.put("activité bénévole", new Action("activité bénévole", true, null, null));
+        outsideActions.put("activité culturelle", new Action("activité culturelle", true, null, null));
     }
 
     public HashMap<String, Action> getInsideActions() {
@@ -35,11 +35,11 @@ public class ActionRepository {
     }
 
     public Action getAction(String actionName) {
-        if(insideActions.containsKey(actionName)) {
-            return insideActions.get(actionName);
+        if (insideActions.containsKey(actionName)) {
+            return new Action(insideActions.get(actionName));
         }
-        if(outsideActions.containsKey(actionName)) {
-            return outsideActions.get(actionName);
+        if (outsideActions.containsKey(actionName)) {
+            return new Action(outsideActions.get(actionName));
         }
         return null;
     }
@@ -50,72 +50,65 @@ public class ActionRepository {
 
     /**
      * Methode utilisé dans le cas où une personne n'a pas d'action, une nouvelle doit lui être assigné
+     *
      * @param id nom de l'action
      * @return l'heure où l'action sera terminé.
      */
-    public Time getRandomTimer(Person p, String id){ //il manque l'adaptabilité
+    public Time getRandomTimer(Person p, String id) { //il manque l'adaptabilité
         PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
         Clock clock = Clock.getInstance();
         Random rand = new Random();
         Time t = clock.getActualTime();
-        if(id.equals("sport intense")){
+        if (id.equals("sport intense")) {
             int randomInt = rand.nextInt(60);
             t.addMinute(randomInt);
             return t;
-        }
-        else if(id.equals("arts créatifs")){
+        } else if (id.equals("arts créatifs")) {
             int randomInt = rand.nextInt(120);
             t.addMinute(randomInt);
             return t;
-        }
-        else if(id.equals("apprentissage")){
+        } else if (id.equals("apprentissage")) {
             int randomInt = rand.nextInt(240);
             t.addMinute(randomInt);
             return t;
-        }
-        else if(id.equals("dormir")){
+        } else if (id.equals("dormir")) {
             int randomInt = rand.nextInt(10);
             t.addHour(randomInt);
             return t;
-        }
-        else if(id.equals("jeux d'équipes")){
+        } else if (id.equals("jeux d'équipes")) {
             int randomInt = rand.nextInt(4);
             t.addHour(randomInt);
             return t;
-        }
-        else if(id.equals("travail")){
+        } else if (id.equals("travail")) {
             int randomInt = rand.nextInt(7);
             t.addHour(randomInt);
             return t;
-        }
-        else if (id.equals("activité bénévole")) {
+        } else if (id.equals("activité bénévole")) {
             int randomInt = rand.nextInt(7);
             t.addHour(randomInt);
             return t;
-        }
-        else if(id.equals("devoirs")){
+        } else if (id.equals("devoirs")) {
             int randomInt = rand.nextInt(180);
             t.addMinute(randomInt);
             return t;
-        }
-        else{ //activité culturelle
+        } else { //activité culturelle
             int randomInt = rand.nextInt(4);
             t.addHour(randomInt);
             return t;
         }
     }
 
-    public Action getPreferredAction(PersonalityTrait pt){
-        if(pt instanceof Agreeableness){
+    public Action getPreferredAction(PersonalityTrait pt) {
+        if (pt instanceof Agreeableness) {
             return getAction("activité bénévole");
         }
-        if(pt instanceof Conscientiousness){
+        if (pt instanceof Conscientiousness) {
             return getAction("apprentissage");
         }
-        if(pt instanceof Extraversion){
+        if (pt instanceof Extraversion) {
             return getAction("jeux d'équipes");
         }
-        if(pt instanceof Neuroticism){
+        if (pt instanceof Neuroticism) {
             return getAction("sport intense");
         }
         return getAction("arts créatifs"); //ouverture
@@ -132,4 +125,29 @@ public class ActionRepository {
         Random rand = new Random();
         return actions.get(rand.nextInt(actions.size()));
     }
-}
+
+    public int getMaxTime(String id) {
+        if (id.equals("sport intense")) {
+            return 60;
+        } else if (id.equals("arts créatifs")) {
+            return 120;
+        } else if (id.equals("apprentissage")) {
+            return 240;
+        } else if (id.equals("dormir")) {
+            return 600;
+        } else if (id.equals("jeux d'équipes")) {
+            return 240;
+        } else if (id.equals("travail")) {
+            return 420;
+        } else if (id.equals("activité bénévole")) {
+            return 420;
+        }
+        else if (id.equals("devoirs")) {
+                return 180;
+            }
+        else { //activité culturelle
+                return 240;
+            }
+        }
+    }
+

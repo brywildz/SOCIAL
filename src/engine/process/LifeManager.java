@@ -1,8 +1,11 @@
 package engine.process;
 
+import config.GameConfiguration;
 import engine.data.event.Action;
 import engine.data.event.ActionRepository;
+import engine.data.map.Block;
 import engine.data.map.Clock;
+import engine.data.map.InfrastructureRepository;
 import engine.data.map.Time;
 import engine.data.person.Person;
 import engine.data.person.personalityTraits.*;
@@ -107,10 +110,125 @@ public class LifeManager {
     }
 
     private void lifeIsGood() {
+        ActionRepository ar = ActionRepository.getInstance();
+        Random random = new Random();
+        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
+        PersonalityTrait minPerso = person.getPersonality().getMinPerso();
+        int r = random.nextInt(3)+1;
+        if(r<3){
+            Action a = ar.getPreferredAction(person.getPersonality().getMaxPerso());
+            if(maxPerso instanceof Neuroticism || minPerso instanceof Extraversion){
+                goInside(a,false);
+            }
+            else{
+                goOutside(a, false);
+            }
+        }
+        else{
+            if(maxPerso instanceof Neuroticism || minPerso instanceof Extraversion){
+                Action a = ar.getRandomInsideAction();
+                goInside(a,true);
+            }
+            else{
+                Action a = ar.getRandomOutsideAction();
+                goOutside(a, true);
+            }
+        }
+    }
+
+    private void goInside(Action a, boolean randomTime) {
+        String id = a.getId();
+        ActionRepository ar = ActionRepository.getInstance();
+        if(id.equals("activité bénévole")){
+            Random rand = new Random();
+            int randomLine = rand.nextInt(GameConfiguration.LINE_COUNT);
+            int randomCol = rand.nextInt(GameConfiguration.COLUMN_COUNT);
+            person.setLocation(new Block(randomLine, randomCol));
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("apprentissage")){
+
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("activité culturelle")){
+
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("arts créatifs")){
+
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("jeux d'équipe")){
+
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("sport intense")){
+
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        person.setLocation(person.getHouse().getRandomBlock());
+    }
+
+    private void goOutside(Action a, boolean randomTime) {
+        String id = a.getId();
+        ActionRepository ar = ActionRepository.getInstance();
+        if(id.equals("activité bénévole")){
+            Random rand = new Random();
+            int randomLine = rand.nextInt(GameConfiguration.LINE_COUNT);
+            int randomCol = rand.nextInt(GameConfiguration.COLUMN_COUNT);
+            person.setLocation(new Block(randomLine, randomCol));
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("apprentissage")){
+            person.setLocation(InfrastructureRepository.getInstance().get("bibliothèque").getRandomBlock());
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("activité culturelle")){
+            person.setLocation(InfrastructureRepository.getInstance().get("musée").getRandomBlock());
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("arts créatifs")){
+            person.setLocation(InfrastructureRepository.getInstance().get("Cinéma").getRandomBlock());
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("jeux d'équipe")){
+            person.setLocation(InfrastructureRepository.getInstance().get("Stade").getRandomBlock());
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+        if(id.equals("sport intense")){
+            person.setLocation(InfrastructureRepository.getInstance().get("Salle").getRandomBlock());
+            setActionTime(a, randomTime);
+            person.setCurrentAction(a);
+        }
+    }
+
+    private void setActionTime(Action a, boolean randomTime) {
+        ActionRepository ar = ActionRepository.getInstance();
+        a.setStart(Clock.getInstance().getActualTime());
+        Time end;
+        if(randomTime){
+            end = ar.getRandomTimer(person, a.getId());
+        }
+        else{
+            end = Clock.getInstance().getActualTime();
+            end.addHour(ar.getMaxTime(a.getId()));
+        }
+        a.setEnd(end);
     }
 
     private void refreshLocation(SocialState ss) {
-
+        person.setLocation(ss.getInfrastructure().getRandomBlock());
     }
 
     private void goHome() {

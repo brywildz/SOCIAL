@@ -6,11 +6,13 @@ public class Action {
     private String id;
     private Time start;
     private Time end;
+    private boolean isOutside;
 
-    public Action(String id, Time start, Time end) {
+    public Action(String id, boolean isOutside, Time start, Time end) {
         this.id = id;
         this.start = start;
         this.end = end;
+        this.isOutside = isOutside;
     }
 
     public String getId() {
@@ -35,6 +37,10 @@ public class Action {
 
     public void setEnd(Time end) {
         this.end = end;
+    }
+
+    public boolean isOutside() {
+        return isOutside;
     }
 
 

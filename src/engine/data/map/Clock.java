@@ -22,6 +22,10 @@ public class Clock {
         return this.h;
     }
 
+    public Time getActualTime(){
+        return new Time(h.getHour(), h.getMinute(), h.getSecond());
+    }
+
     @Override
     public String toString() {
         return h.toString();

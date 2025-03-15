@@ -10,26 +10,43 @@ import java.util.HashMap;
  * @version 0.1
  */
 public class PersonState {
-    private HashMap<String, Vitality> etat;
+    private Health health;
+    private Hunger hunger;
+    private Mood mood;
+    private Sleep sleep;
 
 
-    public PersonState(HashMap<String, Vitality> etat) {
-
-        this.etat = etat;
+    public PersonState(Health health, Sleep sleep, Mood mood, Hunger hunger) {
+        this.health = health;
+        this.sleep = sleep;
+        this.mood = mood;
+        this.hunger = hunger;
     }
 
-    public HashMap<String, Vitality> getList() {
-        return etat;
-    }
 
     @Override
     public String toString() {
-        return "Etat{" +
-                "etat=" + etat +
+        return "PersonState{" +
+                "health=" + health +
+                ", hunger=" + hunger +
+                ", mood=" + mood +
+                ", sleep=" + sleep +
                 '}';
     }
 
-    public void setList(HashMap<String, Vitality> etat) {
-        this.etat = etat;
+    public Health getHealth() {
+        return health;
+    }
+
+    public Hunger getHunger() {
+        return hunger;
+    }
+
+    public Mood getMood() {
+        return mood;
+    }
+
+    public Sleep getSleep() {
+        return sleep;
     }
 }

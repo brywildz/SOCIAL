@@ -39,13 +39,11 @@ public class GameBuilder {
     public static Person createIndividuTest(){
         Personality p = new Personality(8, 6, 2, 5, 5);
 
-        Hunger f = new Hunger(0, "couscous", "lentilles");
-        Mood h = new Mood(6, "joviale");
-        Health s = new Health(2, 56, false);
-        Sleep so = new Sleep(5, false);
-        HashMap<String, Vitality> etatList = new HashMap<>();
-        etatList.put("faim", f); etatList.put("humeur", h); etatList.put("sante", s); etatList.put("sommeil", so);
-        PersonState personState = new PersonState(etatList);
+        Hunger hu = new Hunger(0, "couscous", "lentilles");
+        Mood m = new Mood(6, "joviale");
+        Health h = new Health(2, 56, false);
+        Sleep s = new Sleep(5, false);
+        PersonState personState = new PersonState(h,s,m,hu);
 
         return new Person("Dylan,", 20, null, personState,null, new Block(20,20), 8 ,6 ,2 ,5 ,5 );
     }

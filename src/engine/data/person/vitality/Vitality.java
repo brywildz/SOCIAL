@@ -32,4 +32,11 @@ public abstract class Vitality {
                 "niveau=" + niveau +
                 '}';
     }
+
+    public void add(int s){
+        niveau += s;
+        if(niveau > 10){
+            niveau = 10;
+        }
+    }
 }

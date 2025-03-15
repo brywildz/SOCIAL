@@ -64,13 +64,8 @@ public class EventRepository {
         return createEtat(fCambriolage, hCambriolage, sCambriolage, soCambriolage);
     }
 
-    private PersonState createEtat(Hunger f, Mood h, Health s, Sleep so) {
-        HashMap<String, Vitality> etat = new HashMap<>();
-        etat.put("faim", f);
-        etat.put("humeur", h);
-        etat.put("sante", s);
-        etat.put("sommeil", so);
-        return new PersonState(etat);
+    private PersonState createEtat(Hunger hu, Mood m, Health h, Sleep s) {
+        return new PersonState(h,s,m,hu);
     }
     //</editor-fold>
 

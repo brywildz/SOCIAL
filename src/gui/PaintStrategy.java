@@ -58,7 +58,7 @@ public class PaintStrategy {
         g2.drawImage(ImageIO.read(new File("src/images/building.png")), (BUILDING_X+5)*BLOCK_SIZE,buildingY,buildingWidth,buildingHeight,null);
         g2.drawImage(ImageIO.read(new File("src/images/apartment.png")), APARTMENT_X *BLOCK_SIZE, APARTMENT_Y *BLOCK_SIZE,
                 APARTMENT_WIDTH *BLOCK_SIZE, APARTMENT_HEIGHT *BLOCK_SIZE, null);
-        g2.drawImage(ImageIO.read(new File("src/images/apartment.png")), (APARTMENT_X + 5) *BLOCK_SIZE, (APARTMENT_Y) *BLOCK_SIZE,
+        g2.drawImage(ImageIO.read(new File("src/images/apartment.png")), (APARTMENT_X +1) *BLOCK_SIZE, (APARTMENT_Y) *BLOCK_SIZE,
                 APARTMENT_WIDTH *BLOCK_SIZE, APARTMENT_HEIGHT *BLOCK_SIZE, null);
         g2.drawImage(ImageIO.read(new File("src/images/apartment.png")), (APARTMENT_X) *BLOCK_SIZE, (APARTMENT_Y+4) *BLOCK_SIZE,
                 APARTMENT_WIDTH *BLOCK_SIZE, APARTMENT_HEIGHT *BLOCK_SIZE, null);

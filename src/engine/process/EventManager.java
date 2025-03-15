@@ -56,7 +56,7 @@ public class EventManager {
      * Methode qui s'utilise dans le cas où l'event n'est pas terminé et que l'individu n'est pas en sitution d'immobilité
      * elle fait bouger l'individu tout en le laissant dans son lieu d'evennement (ex : bouger dans sa maison)
      */
-    private void stayAtLocation(Person ind) {
+    //private void stayAtLocation(Person ind) {
         Event e = ind.getEvent();
     }
 
@@ -65,7 +65,7 @@ public class EventManager {
      * le changement de localisation
      * @param ind
      */
-    public void executeEvent(Person ind)  {
+    /*public void executeEvent(Person ind)  {
         if(ind.getEvent()==null){
             Event event = EventRepository.getRandomEvent();
             ind.setEvent(event);

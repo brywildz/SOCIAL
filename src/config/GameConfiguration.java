@@ -7,8 +7,8 @@ import java.awt.*;
  */
 public class GameConfiguration {
 
-    public static final int WINDOW_WIDTH = 1200;
-    public static final int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_WIDTH = 950;
+    public static final int WINDOW_HEIGHT = 550;
 
     public static final int BLOCK_SIZE = 10;
 

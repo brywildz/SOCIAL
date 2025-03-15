@@ -62,7 +62,7 @@ public class MobileElementManager implements MobileInterface {
             }
         }
         else{
-            //lf.refreshRoutine();
+            lf.refreshRoutine();
         }
     }
 
@@ -85,7 +85,7 @@ public class MobileElementManager implements MobileInterface {
         }
         if(person.getEvent().getDebut().equals(Clock.getInstance().getHoraire())){
             Reaction react = new Reaction(person, person.getEvent());
-            react.changeState();
+            //react.changeState();
         }
     }
 

@@ -48,6 +48,10 @@ public class Person {
         return socialState;
     }
 
+    public Infrastructure getHouse() {
+        return house;
+    }
+
     public void setSocialState(SocialState socialState) {
         this.socialState = socialState;
     }
@@ -86,10 +90,6 @@ public class Person {
 
     public void setEvent(Event currentEvent) {
         this.currentEvent = currentEvent;
-    }
-
-    public void setPersonState(HashMap<String, Vitality> etat){
-        this.personState = new PersonState(etat);
     }
 
     public Event getEvent() {

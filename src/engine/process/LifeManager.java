@@ -28,10 +28,10 @@ public class LifeManager {
      * Methode pour attribuer un nouveau hobbie à une personne en fonction de sa personnalité
      */
     public void setNewActionInside() {
-        Action a = new Action(null, null, null);
+        Action a = new Action(null, false,null, null);
         PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
         if(maxPerso instanceof Neuroticism){
-            a.setId("méditation");
+            a.setId("sport intense");
         }
         if(maxPerso instanceof Openness){
             a.setId("arts créatifs");
@@ -48,10 +48,15 @@ public class LifeManager {
         a.setStart(Clock.getInstance().getHoraire());
         a.setEnd(ActionRepository.getInstance().getRandomTimer(person, a.getId()));
         person.setCurrentAction(a);
+        Reaction react = new Reaction(person);
+        react.changeState(a);
     }
 
+    /**
+     * Methode pour attribuer un nouveau hobbie à une personne en fonction de sa personnalité mais en exterieur
+     */
     public void setNewActionOutside() {
-        Action a = new Action(null, null, null);
+        Action a = new Action(null,true, null, null);
         PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
         if(maxPerso instanceof Extraversion){
             a.setId("sport d'équipe");
@@ -68,21 +73,20 @@ public class LifeManager {
         a.setStart(Clock.getInstance().getHoraire());
         a.setEnd(ActionRepository.getInstance().getRandomTimer(person, a.getId()));
         person.setCurrentAction(a);
+        Reaction react = new Reaction(person);
+        react.changeState(a);
     }
 
     public void refreshRoutine() {
-        ActionRepository ar = ActionRepository.getInstance();
         Time time = Clock.getInstance().getHoraire();
         SocialState ss = person.getSocialState();
         if(person.isWorker()){
             Worker w = (Worker) person.getSocialState();
             if(time.equals(w.getStartTime())){
                 goWork();
-                person.setCurrentAction(ar.getAction("travail"));
             }
             else if(time.equals(w.getEndTime())){
                 goHome();
-                person.setCurrentAction(ar.getAction("travail"));
             }
             else{
                 refreshLocation(ss);
@@ -94,9 +98,15 @@ public class LifeManager {
                 goWork();
             }
             else if(time.equals(p.getEndTime())){
-                goHome();
+                goHome("devoirs");
             }
         }
+        if(person.isUnemployed()){
+            lifeIsGood();
+        }
+    }
+
+    private void lifeIsGood() {
     }
 
     private void refreshLocation(SocialState ss) {
@@ -104,17 +114,29 @@ public class LifeManager {
     }
 
     private void goHome() {
+        person.setLocation(person.getHouse().getRandomBlock());
+        setNewActionInside();
+    }
+
+    private void goHome(String id){
+        person.setLocation(person.getHouse().getRandomBlock());
+        Time start = Clock.getInstance().getActualTime();
+        Time end = ActionRepository.getInstance().getRandomTimer(person, id);
+        Action a = new Action(id, true,start, end);
+        person.setCurrentAction(a);
+        Reaction react = new Reaction(person);
+        react.changeState(a);
     }
 
     private void goWork() {
         person.setLocation(person.getSocialState().getInfrastructure().getRandomBlock());
+        Worker ss = (Worker) person.getSocialState();
+        Time start = ss.getStartTime();
+        Time end = ss.getEndTime();
+        Action a = new Action("travail", true,start, end);
+        person.setCurrentAction(a);
+        Reaction react = new Reaction(person);
+        react.changeState(a);
     }
 
-    private Action getPreferredAction(){
-        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-        if(maxPerso instanceof Neuroticism){
-
-        }
-        return null;
-    }
 }

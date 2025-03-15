@@ -3,8 +3,10 @@ package engine.process;
 import engine.data.event.Action;
 import engine.data.event.ActionRepository;
 import engine.data.map.Clock;
+import engine.data.map.Time;
 import engine.data.person.Person;
 import engine.data.person.personalityTraits.*;
+import engine.data.person.socialState.Pupil;
 import engine.data.person.socialState.SocialState;
 import engine.data.person.socialState.Worker;
 
@@ -68,18 +70,51 @@ public class LifeManager {
         person.setCurrentAction(a);
     }
 
-    /*public void refreshRoutine() {
-        Clock clock = Clock.getInstance();
+    public void refreshRoutine() {
+        ActionRepository ar = ActionRepository.getInstance();
+        Time time = Clock.getInstance().getHoraire();
         SocialState ss = person.getSocialState();
         if(person.isWorker()){
             Worker w = (Worker) person.getSocialState();
-            if(clock.getHoraire().equals(w.getStartTime()){
+            if(time.equals(w.getStartTime())){
                 goWork();
+                person.setCurrentAction(ar.getAction("travail"));
+            }
+            else if(time.equals(w.getEndTime())){
+                goHome();
+                person.setCurrentAction(ar.getAction("travail"));
+            }
+            else{
+                refreshLocation(ss);
+            }
+        }
+        if(person.isPupil()){
+            Pupil p = (Pupil) person.getSocialState();
+            if(time.equals(p.getStartTime())){
+                goWork();
+            }
+            else if(time.equals(p.getEndTime())){
+                goHome();
             }
         }
     }
 
+    private void refreshLocation(SocialState ss) {
+
+    }
+
+    private void goHome() {
+    }
+
     private void goWork() {
-        person.setLocation(person.getSocialState().getInfrastructure().);
-    }*/
+        person.setLocation(person.getSocialState().getInfrastructure().getRandomBlock());
+    }
+
+    private Action getPreferredAction(){
+        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
+        if(maxPerso instanceof Neuroticism){
+
+        }
+        return null;
+    }
 }

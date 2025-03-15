@@ -1,5 +1,7 @@
 package engine.data.map;
 
+import java.util.Random;
+
 /**
  * Classe de donnée stockant les informations liée à une infrastructure
  */
@@ -44,5 +46,12 @@ public class Infrastructure {
 
     public void setZone(Block[][] zone) {
         this.zone = zone;
+    }
+
+    public Block getRandomBlock(){
+        Random rand = new Random();
+        int randomLine = rand.nextInt(zone.length);
+        int randomCol = rand.nextInt(zone[randomLine].length);
+        return zone[randomLine][randomCol];
     }
 }

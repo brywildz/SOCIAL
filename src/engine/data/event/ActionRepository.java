@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class ActionRepository {
-    private HashMap<String, Action> insideActions = new HashMap<>();
-    private HashMap<String, Action> outsideActions = new HashMap<>();
+    private final HashMap<String, Action> insideActions = new HashMap<>();
+    private final HashMap<String, Action> outsideActions = new HashMap<>();
     private static ActionRepository instance;
     private ActionRepository() {
         insideActions.put("méditation", new Action("meditation", null, null));
@@ -31,6 +31,16 @@ public class ActionRepository {
 
     public HashMap<String, Action> getOutsideActions() {
         return outsideActions;
+    }
+
+    public Action getAction(String actionName) {
+        if(insideActions.containsKey(actionName)) {
+            return insideActions.get(actionName);
+        }
+        if(outsideActions.containsKey(actionName)) {
+            return outsideActions.get(actionName);
+        }
+        return null;
     }
 
     public static ActionRepository getInstance() {

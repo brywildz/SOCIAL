@@ -1,11 +1,14 @@
 package config;
 
+import java.awt.*;
+
 /**
  *Classe gérant les différentes possibilités de configuration
  */
 public class GameConfiguration {
-    public static final int WINDOW_WIDTH = 1366;
-    public static final int WINDOW_HEIGHT = 900;
+
+    public static final int WINDOW_WIDTH = 1200;
+    public static final int WINDOW_HEIGHT = 800;
 
     public static final int BLOCK_SIZE = 10;
 
@@ -24,7 +27,7 @@ public class GameConfiguration {
     public static final int HOUSING_HUB_WIDTH = 39;
     public static final int HOUSING_HUB_HEIGHT = 21;
 
-    public static final int BUILDING_X =  9;
+    public static final int BUILDING_X = 9;
     public static final int BUILDING_Y = 7;
     public static final int BUILDING_WIDTH = 5;
     public static final int BUILDING_HEIGHT = 5;

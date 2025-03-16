@@ -100,8 +100,25 @@ public class Time {
         return this.hour >= other.getHour() && this.minute >= other.getMinute() && this.second >= other.getSecond();
     }
 
+    public boolean isLowerThan(Time other){
+        return this.hour <= other.getHour() && this.minute <= other.getMinute() && this.second <= other.getSecond();
+    }
+    public boolean isDuring(Time start, Time end){
+        return isHigherThan(start) && isLowerThan(end);
+    }
+
     @Override
     public String toString() {
         return "Date : "+date.toString()+"\nHeure : "+String.format("%d:%d:%d", hour, minute, second);
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setNew(Time time){
+        this.hour = time.hour;
+        this.minute = time.minute;
+        this.second = time.second;
     }
 }

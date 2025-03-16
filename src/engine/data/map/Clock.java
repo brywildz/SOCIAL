@@ -9,7 +9,7 @@ package engine.data.map;
 
 public class Clock {
     private Time h;
-    private Clock(){h=new Time(0,0,0, new Date(0,0,0));}
+    private Clock(){h=new Time(0,0,0, new Date(2025,1,1));}
     private static Clock instance = new Clock();
 
     public static Clock getInstance(){return instance;};
@@ -29,5 +29,10 @@ public class Clock {
     @Override
     public String toString() {
         return h.toString();
+    }
+
+    public static boolean isWeekend(){
+        int day = Clock.getInstance().getHoraire().getDate().getDay();
+        return day+1 % 7 == 0 || day % 7 == 0;
     }
 }

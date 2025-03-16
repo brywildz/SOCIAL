@@ -2,16 +2,15 @@ package engine.data.person;
 
 import engine.data.event.Action;
 import engine.data.map.Block;
+import engine.data.map.Clock;
 import engine.data.map.Infrastructure;
 import engine.data.event.Event;
+import engine.data.map.Time;
 import engine.data.person.socialState.Pupil;
 import engine.data.person.socialState.SocialState;
 import engine.data.person.socialState.Unemployed;
 import engine.data.person.socialState.Worker;
-import engine.data.person.vitality.Vitality;
 import engine.data.person.personalityTraits.*;
-
-import java.util.HashMap;
 
 /**
  * Classe de donnée stockant l'entierté des informations liée à un individu
@@ -148,12 +147,25 @@ public class Person {
                 '}';
     }
 
-    public boolean isInHisHoouse() {
+    public boolean isInHisHouse() {
         return true;
     }
 
     public boolean isWorker(){
         return socialState instanceof Worker;
+    }
+
+    public boolean isWorking(){
+        if(isWorker() || isPupil()){
+            Time t = Clock.getInstance().getHoraire();
+            Worker w = (Worker) socialState;
+            Time start = w.getStartTime();
+            Time end = w.getEndTime();
+            return t.isDuring(start, end);
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean isPupil(){
@@ -162,5 +174,9 @@ public class Person {
 
     public boolean isUnemployed(){
         return socialState instanceof Unemployed;
+    }
+
+    public boolean isSleeping() {
+        return true;
     }
 }

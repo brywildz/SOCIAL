@@ -1,4 +1,5 @@
 package engine.data.person;
+import engine.data.map.Time;
 import engine.data.person.vitality.*;
 
 import java.util.HashMap;
@@ -49,4 +50,5 @@ public class PersonState {
     public Sleep getSleep() {
         return sleep;
     }
+
 }

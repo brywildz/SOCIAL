@@ -38,13 +38,14 @@ public class GameBuilder {
 
     public static Person createIndividuTest(){
         Personality p = new Personality(8, 6, 2, 5, 5);
-
         Hunger hu = new Hunger(0, "couscous", "lentilles");
         Mood m = new Mood(6, "joviale");
         Health h = new Health(2, 56, false);
         Sleep s = new Sleep(5, false);
         PersonState personState = new PersonState(h,s,m,hu);
-
-        return new Person("Dylan,", 20, null, personState,null, new Block(20,20), 8 ,6 ,2 ,5 ,5 );
+        Person per = new Person("Dylan,", 20, null, personState,null,
+                new Block(20,20), 8 ,6 ,2 ,5 ,5 );
+        Reaction.createPersonState(per);
+        return per;
     }
 }

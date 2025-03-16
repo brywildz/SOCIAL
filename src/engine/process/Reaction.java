@@ -7,10 +7,8 @@ import engine.data.map.Time;
 import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.Personality;
-import engine.data.person.personalityTraits.Neuroticism;
+import engine.data.person.personalityTraits.*;
 import engine.data.person.vitality.*;
-import engine.data.person.personalityTraits.PersonalityTrait;
-import engine.data.person.personalityTraits.Openness;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,8 +166,19 @@ public class Reaction {
     }
 
     public static boolean lifeStyleReact(Person p){
-        PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
-
+        ActionRepository actionRepo = ActionRepository.getInstance();
+        Action prefAction = actionRepo.getPreferredAction(p.getPersonality().getMaxPerso());
+        if(p.isWorker() || p.isPupil()){
+            if(p.isWorking()){
+                return false;
+            }
+        }
+        if(p.isSleeping()){
+            return false;
+        }
+        if(p.getCurrentAction().getId().equals(prefAction.getId())){
+            return false;
+        }
         return true;
     }
 
@@ -329,6 +338,32 @@ public class Reaction {
             if(per.getOuverture().isHigh()){
                 hunger.add(+1);
             }
+        }
+    }
+
+    public static void createPersonState(Person person){
+        Time start = person.getPersonState().getSleep().getSleepTime();
+        Time end = person.getPersonState().getSleep().getWakeUpTime();
+        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
+        if(maxPerso instanceof Extraversion){
+            start.setNew(new Time(2,0,0));
+            end.setNew(new Time(10,0,0));
+        }
+        if(maxPerso instanceof Agreeableness){
+            start.setNew(new Time(23,0,0));
+            end.setNew(new Time(8,0,0));
+        }
+        if(maxPerso instanceof Conscientiousness){
+            start.setNew(new Time(22,30,0));
+            end.setNew(new Time(6,30,0));
+        }
+        if(maxPerso instanceof Neuroticism){
+            start.setNew(new Time(2,30,0));
+            end.setNew(new Time(8,0,0));
+        }
+        if(maxPerso instanceof Openness){
+            start.setNew(new Time(3,0,0));
+            end.setNew(new Time(11,0,0));
         }
     }
 }

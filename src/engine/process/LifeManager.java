@@ -8,6 +8,7 @@ import engine.data.map.Clock;
 import engine.data.map.InfrastructureRepository;
 import engine.data.map.Time;
 import engine.data.person.Person;
+import engine.data.person.PersonState;
 import engine.data.person.personalityTraits.*;
 import engine.data.person.socialState.Pupil;
 import engine.data.person.socialState.SocialState;
@@ -83,29 +84,70 @@ public class LifeManager {
     public void refreshRoutine() {
         Time time = Clock.getInstance().getHoraire();
         SocialState ss = person.getSocialState();
-        if(person.isWorker()){
-            Worker w = (Worker) person.getSocialState();
-            if(time.equals(w.getStartTime())){
-                goWork();
+        if (!Clock.isWeekend()) {
+            if(person.isWorker()){
+                Worker w = (Worker) person.getSocialState();
+                if(time.equals(w.getStartTime())){
+                    goWork();
+                }
+                else if(time.equals(w.getEndTime())){
+                    goHome();
+                }
+                else if(person.getCurrentAction() == null){
+                    setNewAction();
+                }
+                else{
+                    refreshLocation(ss);
+                }
             }
-            else if(time.equals(w.getEndTime())){
-                goHome();
+            else if(person.isPupil()){
+                Pupil p = (Pupil) person.getSocialState();
+                PersonState ps = person.getPersonState();
+                if(time.equals(p.getStartTime())){
+                    goWork(); //preicsé que si il dors il doit se reveiller pour y aller
+                }
+                else if(time.equals(p.getEndTime())){
+                    goHome("devoirs");
+                }
+                else if(time.equals(ps.getSleep().getSleepTime())){
+                    goSleep();
+                }
+                else if (time.equals(ps.getSleep().getWakeUpTime())) {
+                    goWakeUp();
+                }
+                else if(person.getCurrentAction() == null){
+                    setNewAction();
+                }
+                else{
+                    refreshLocation(ss);
+                }
+            }
+            else if(person.isUnemployed()){
+                lifeIsGood();
+            }
+        }
+        else{
+            if (person.getCurrentAction() == null) {
+                lifeIsGood();
             }
             else{
                 refreshLocation(ss);
             }
         }
-        if(person.isPupil()){
-            Pupil p = (Pupil) person.getSocialState();
-            if(time.equals(p.getStartTime())){
-                goWork();
-            }
-            else if(time.equals(p.getEndTime())){
-                goHome("devoirs");
-            }
+    }
+
+    private void goWakeUp() {
+    }
+
+    private void goSleep() {
+    }
+
+    private void setNewAction() {
+        if(person.isInHisHouse()){
+            setNewActionInside();
         }
-        if(person.isUnemployed()){
-            lifeIsGood();
+        else{
+            setNewActionOutside();
         }
     }
 

@@ -1,5 +1,7 @@
 package engine.data.person.vitality;
 
+import engine.data.map.Time;
+
 /**
  * Classe de donnée stockant les différente information liée au sommeil d'un individu
  *
@@ -8,6 +10,8 @@ package engine.data.person.vitality;
  */
 public class Sleep extends Vitality {
     private Boolean isSleeping;
+    Time SleepTime;
+    Time WakeUpTime;
 
     public Sleep(int niveau, Boolean isSleeping) {
         super(niveau);
@@ -20,5 +24,25 @@ public class Sleep extends Vitality {
 
     public void setSleeping(Boolean sleeping) {
         isSleeping = sleeping;
+    }
+
+    public Boolean getSleeping() {
+        return isSleeping;
+    }
+
+    public Time getSleepTime() {
+        return SleepTime;
+    }
+
+    public Time getWakeUpTime() {
+        return WakeUpTime;
+    }
+
+    public void setSleepTime(Time sleepTime) {
+        SleepTime = sleepTime;
+    }
+
+    public void setWakeUpTime(Time wakeUpTime) {
+        WakeUpTime = wakeUpTime;
     }
 }

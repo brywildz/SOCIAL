@@ -1,5 +1,6 @@
 package engine.data.event;
 
+import engine.data.map.Clock;
 import engine.data.map.Time;
 
 public class Action {
@@ -48,6 +49,11 @@ public class Action {
 
     public boolean isOutside() {
         return isOutside;
+    }
+
+    public boolean isFinished() {
+        Time c = Clock.getInstance().getHoraire();
+        return c.isHigherThan(end);
     }
 
 

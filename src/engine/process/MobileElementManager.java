@@ -42,7 +42,7 @@ public class MobileElementManager implements MobileInterface {
 
     public void nextSecond(){
         Clock.getInstance().newSecond();
-        List<Person> personList = new ArrayList(individus.values());
+        List<Person> personList = new ArrayList<>(individus.values());
         for(Person person : personList){
             refreshLifeStyle(person);
             refreshEvent(person);
@@ -53,17 +53,10 @@ public class MobileElementManager implements MobileInterface {
 
     private void refreshLifeStyle(Person person) {
         LifeManager lf = new LifeManager(person);
-        if(person.getCurrentAction() == null){
-            if(person.isInHisHoouse()){
-                lf.setNewActionInside();
-            }
-            else{
-                lf.setNewActionOutside();
-            }
+        if(person.getCurrentAction().isFinished()){
+            person.setCurrentAction(null);
         }
-        else{
-            lf.refreshRoutine();
-        }
+        lf.refreshRoutine();
     }
 
     private void refreshEvent(Person person) {

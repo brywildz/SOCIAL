@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * Classe de traitement traitant la gestion des evennement vis à vis des individus
+ * Classe inutile à ce jour, mais sera utilisé surement plus tard
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
@@ -32,7 +32,7 @@ public class EventManager {
 
     public EventManager(String idEvent){
         this.idEvent = idEvent;
-        HashMap<Block, Person> listInd = indRepo.getIndividus();
+        HashMap<String, Person> listInd = indRepo.getIndividus();
         WeatherEvent em = (WeatherEvent) eventRepo.getEvent(idEvent);
         Iterator<Person> it = listInd.values().iterator();
         while(it.hasNext()){
@@ -52,19 +52,11 @@ public class EventManager {
 
     }
 
-    /**
-     * Methode qui s'utilise dans le cas où l'event n'est pas terminé et que l'individu n'est pas en sitution d'immobilité
-     * elle fait bouger l'individu tout en le laissant dans son lieu d'evennement (ex : bouger dans sa maison)
-     */
+
     //private void stayAtLocation(Person ind) {
         Event e = ind.getEvent();
     }
 
-    /**
-     * Methode centralisant l'ensemble des methode liée à l'execution d'un evenennement donc le changement de reaction et
-     * le changement de localisation
-     * @param ind
-     */
     /*public void executeEvent(Person ind)  {
         if(ind.getEvent()==null){
             Event event = EventRepository.getRandomEvent();
@@ -92,3 +84,4 @@ public class EventManager {
 
 
 }
+     */

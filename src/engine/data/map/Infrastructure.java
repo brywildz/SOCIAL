@@ -11,15 +11,13 @@ public class Infrastructure {
     private Block base;
     private Block[][] zone;
 
-    public Infrastructure(String nom, int x, int y, int width, int height) {
+    public Infrastructure(String nom, int column, int line, int width, int height) {
         this.nom = nom;
-        base = new Block(x, y);
+        base = new Block(line, column);
         zone = new Block[height][width];
         for(int i=0; i < height; i++){
             for(int j = 0; j < width; j++){
-                zone[i][j] = new Block(x+i, y+j);
-                int e=x+i; int s=y+j;
-                System.out.println(e+" / "+s);
+                zone[i][j] = new Block(line+i, column+j);
             }
         }
     }

@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * Classe de traitement traitant les différents reaction d'un individu dépendament de son caractère
+ * Classe de traitement traitant les différents reaction d'un individu dépendamment de son caractère
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
@@ -168,6 +168,7 @@ public class Reaction {
     public static boolean lifeStyleReact(Person p){
         ActionRepository actionRepo = ActionRepository.getInstance();
         Action prefAction = actionRepo.getPreferredAction(p.getPersonality().getMaxPerso());
+        //System.out.println(p.getNom() + "action pref : "+prefAction);
         if(p.isWorker() || p.isPupil()){
             if(p.isWorking()){
                 return false;
@@ -308,6 +309,9 @@ public class Reaction {
             }
         }
         if(action.getId().equals("travail")){
+            if(ps.getSleep().isSleeping()){
+                ps.getSleep().setSleeping(false);
+            }
             if(per.getConscienciosite().isHigh()){
                 mood.add(+2);
             }
@@ -338,6 +342,7 @@ public class Reaction {
             if(per.getOuverture().isHigh()){
                 hunger.add(+1);
             }
+            ps.getSleep().setSleeping(true);
         }
     }
 

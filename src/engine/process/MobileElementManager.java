@@ -6,6 +6,7 @@ import engine.data.event.WeatherEvent;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.map.Clock;
+import engine.data.map.Time;
 import engine.data.person.Person;
 import engine.data.person.PersonRepository;
 
@@ -24,47 +25,52 @@ import static engine.process.Reaction.weatherReact;
 
 public class MobileElementManager implements MobileInterface {
     private Map map;
-    private HashMap<Block, Person> individus = PersonRepository.getInstance().getIndividus();
+    private final PersonRepository personRepo = PersonRepository.getInstance();
     private WeatherEvent weather;
 
     public MobileElementManager(Map map){
+
         this.map = map;
+        Time start = Clock.getInstance().getActualTime();
+        Time end = start;
+        end.addHour(2);
+        weather = new WeatherEvent("soleil", start, end, "il fait beau");
     }
 
-    public HashMap<Block, Person> getIndividus() {
-        return individus;
+    public HashMap<String, Person> getIndividus() {
+        return personRepo.getIndividus();
     }
 
     @Override
-    public void set(HashMap<Block, Person> individus) {
-        this.individus = individus;
+    public void set(HashMap<String, Person> individus) {
+        this.personRepo.setIndividus(individus);
     }
 
     public void nextSecond(){
-        Clock.getInstance().newSecond();
-        List<Person> personList = new ArrayList<>(individus.values());
+        Clock.getInstance().getHoraire().addMinute(15);
+        List<Person> personList = new ArrayList<>(personRepo.getIndividus().values());
         for(Person person : personList){
             refreshLifeStyle(person);
             refreshEvent(person);
             refreshState(person);
-            refreshLocation(person);
         }
     }
 
     private void refreshLifeStyle(Person person) {
         LifeManager lf = new LifeManager(person);
-        if(person.getCurrentAction().isFinished()){
-            person.setCurrentAction(null);
-        }
         lf.refreshRoutine();
     }
 
     private void refreshEvent(Person person) {
-        if(person.getEvent() == null && weatherReact(person, weather) && lifeStyleReact(person)){
+        Random random = new Random();
+        int randomIndex = random.nextInt(3);
+        if(weatherReact(person, weather) && lifeStyleReact(person) && randomIndex == 1 && person.getEvent()==null){
             Event e = EventRepository.getRandomEvent();
             person.setEvent(e);
         }
-        else{
+        else if (person.getEvent()==null) {
+            return;
+        } else{
             Event e = person.getEvent();
             if(e.isFinish() || Clock.getInstance().getHoraire().isHigherThan(e.getFin())){
                 person.setEvent(null);
@@ -81,37 +87,6 @@ public class MobileElementManager implements MobileInterface {
             //react.changeState();
         }
     }
-
-    private void refreshLocation(Person person) {
-        if(person.getEvent() == null){
-            return;
-        }
-        if(person.getLocation() != person.getEvent().getLocation()){
-            person.setLocation(person.getEvent().getLocation());
-        }
-    }
-
-
-
-    /*private void moveEnemies() {
-
-        for (Individu individu : individus.values()) {
-            Block position = individu.getLocation();
-
-            if (!map.isOnBottom(position)) {
-                Block newPosition = map.getBlock(position.getLine() + 1, position.getColumn());
-                enemy.setPosition(newPosition);
-            } else {
-                outOfBoundEnemies.add(enemy);
-            }
-
-        }
-
-        for (Enemy enemy : outOfBoundEnemies) {
-            enemies.remove(enemy);
-        }
-
-    }*/
 
 }
 

@@ -1,8 +1,5 @@
 package gui;
 
-import engine.data.map.Clock;
-import engine.data.person.Person;
-import engine.process.EventManager;
 import engine.data.person.PersonRepository;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -36,7 +33,8 @@ public class ControlPanel extends JPanel {
         box.setPreferredSize(new Dimension(600, 600));
         this.add(box, BorderLayout.CENTER);
         Eventbutton.addActionListener((event)-> chooseEvent(box));
-        showDate();
+        Indbutton.addActionListener((event)-> createIndividu());
+        //showDate();
     }
 
     public void showInfoIndividu(String info){
@@ -55,7 +53,7 @@ public class ControlPanel extends JPanel {
     }
 
     public void chooseEvent(JPanel box) {
-        if(box.getComponent(2) instanceof JComboBox){
+        if(box.getComponent(1) instanceof JComboBox){
             return;
         }
         String[] listEvent = {"Pluie", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit"};
@@ -63,7 +61,7 @@ public class ControlPanel extends JPanel {
         box.add(choiceBox, 2);
         JButton okButton = new JButton("OK");
         box.add(okButton, 3);
-        okButton.addActionListener( e-> {
+        /*okButton.addActionListener( e-> {
             try{
                 String critereActuel = (String) choiceBox.getSelectedItem();
                 if(critereActuel.equals("Pluie")){
@@ -72,12 +70,12 @@ public class ControlPanel extends JPanel {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-        });
+        });*/
         this.revalidate();
         this.repaint();
     }
 
-    public void showDate(){
+    /*public void showDate(){
         if (datePanel!=null){
             box.remove(datePanel);
             this.revalidate();
@@ -90,20 +88,9 @@ public class ControlPanel extends JPanel {
         box.add(datePanel);
         this.revalidate();
         this.repaint();
-    }
+    }*/
 
     public void createIndividu(){
-            String name = JOptionPane.showInputDialog(this, "Entrez le nom de l'individu :");
-            if (name != null && !name.isEmpty()) {
-                String ageStr = JOptionPane.showInputDialog(this, "Entrez l'âge de l'individu :");
-                try {
-                    int age = Integer.parseInt(ageStr);
-                    Person person = new Person(name, age, null, null, null, null, 0, 0,0 ,0 ,0);
-                    PersonRepository.getInstance().addIndividu(person);
-                    JOptionPane.showMessageDialog(this, "Individu '" + name + "' ajouté !");
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Erreur : Veuillez entrer un nombre valide pour l'âge.");
-                }
-            }
+            PersonRepository.getInstance().randomCreation();
     }
 }

@@ -1,12 +1,14 @@
 package engine.process;
 
 import config.GameConfiguration;
-import engine.data.map.Block;
-import engine.data.map.Map;
+import engine.data.event.Action;
+import engine.data.map.*;
 import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.PersonRepository;
 import engine.data.person.Personality;
+import engine.data.person.socialState.Pupil;
+import engine.data.person.socialState.SocialState;
 import engine.data.person.vitality.*;
 
 import java.util.HashMap;
@@ -37,14 +39,20 @@ public class GameBuilder {
     }
 
     public static Person createIndividuTest(){
+        InfrastructureRepository ir = InfrastructureRepository.getInstance();
+        Infrastructure taff = ir.get("école");
+        Infrastructure house = ir.get("apartment1");
         Personality p = new Personality(8, 6, 2, 5, 5);
         Hunger hu = new Hunger(0, "couscous", "lentilles");
         Mood m = new Mood(6, "joviale");
         Health h = new Health(2, 56, false);
         Sleep s = new Sleep(5, false);
         PersonState personState = new PersonState(h,s,m,hu);
-        Person per = new Person("Dylan,", 20, null, personState,null,
-                new Block(20,20), 8 ,6 ,2 ,5 ,5 );
+        Pupil pupil = new Pupil(ir.get("école"),new Time(8,30,0), new Time(17,0,0));
+        Person per = new Person("Dylan", 20, pupil, personState,null,
+                house.getBase(), 8 ,6 ,2 ,5 ,5 );
+        per.setHouse(house);
+        per.getSocialState().setInfrastructure(taff);
         Reaction.createPersonState(per);
         return per;
     }

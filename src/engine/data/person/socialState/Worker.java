@@ -28,4 +28,8 @@ public class Worker extends SocialState{
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
+
+    public String toString() {
+        return "Travailleur";
+    }
 }

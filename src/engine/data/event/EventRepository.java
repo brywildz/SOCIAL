@@ -24,16 +24,16 @@ public class EventRepository {
     private EventRepository() { //permet d'avoir déjà des evenements au lancement du jeu
         Time rainStart = new Time(12, 0,0);
         Time rainEnd = new Time(16, 0,0);
-        addEvent(new WeatherEvent("rain", rainStart, rainEnd, "Il pleut abondement", createEtatPluie()));
+        addEvent(new WeatherEvent("rain", rainStart, rainEnd, "Il pleut abondement"));
 
         Time startRomanticBreakup = new Time(23, 0,0);
         Time endRomanticBreakup = new Time(9, 0,0);
-        addEvent(new PersonalEvent("romantic_breakup", startRomanticBreakup, endRomanticBreakup, "Ils ont rompu, leur couple ne marchait pas", createEtatCambriolage(), null, 90));
+        addEvent(new PersonalEvent("romantic_breakup", startRomanticBreakup, endRomanticBreakup, "Ils ont rompu, leur couple ne marchait pas", null, 90));
 
         Time startParty = new Time(18, 0,0);
         Time endParty = new Time(23, 0,0);
         Infrastructure event_hall = InfrastructureRepository.getInstance().get("event_hall");
-        addEvent(new SocialEvent("party", startParty, endParty, "Banquet de la ville", createEtatFete(), null, event_hall));
+        addEvent(new SocialEvent("party", startParty, endParty, "Banquet de la ville", null, event_hall));
     }
     public static EventRepository getInstance() {
         return instance;
@@ -75,11 +75,6 @@ public class EventRepository {
 
     public Event getEvent(String id){
         return evenements.get(id);
-    }
-
-    public PersonState getEtat(String id){
-        PersonState e = getEvent(id).getEtat();
-        return e;
     }
 
     public static Event getRandomEvent(){

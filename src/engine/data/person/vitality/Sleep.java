@@ -10,8 +10,8 @@ import engine.data.map.Time;
  */
 public class Sleep extends Vitality {
     private Boolean isSleeping;
-    Time SleepTime;
-    Time WakeUpTime;
+    Time SleepTime = new Time(0,0,0);
+    Time WakeUpTime = new Time(0,0,0);
 
     public Sleep(int niveau, Boolean isSleeping) {
         super(niveau);

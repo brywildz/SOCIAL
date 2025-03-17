@@ -4,6 +4,8 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
+import engine.data.person.PersonRepository;
+import engine.data.person.vitality.Mood;
 import engine.process.MobileInterface;
 
 import javax.swing.*;
@@ -36,15 +38,33 @@ public class GameDisplay extends JPanel {
             throw new RuntimeException(e);
         }
         try {
-            paintStrategy.paintBuilding((Graphics2D)g);
+            //paintStrategy.paintBuilding((Graphics2D)g);
+            paintStrategy.paintCity((Graphics2D)g);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        HashMap<Block, Person> individu = manager.getIndividus();
+        paintStrategy.paintHour((Graphics2D)g);
+        this.revalidate();
+        this.repaint();
+        HashMap<String, Person> individu = PersonRepository.getInstance().getIndividus();
         Iterator<Person> it = individu.values().iterator();
         while(it.hasNext()){
+            Color c = Color.YELLOW;
             Person ind = it.next();
-            paintStrategy.paint(ind, g);
+            Mood m = ind.getPersonState().getMood();
+            if(ind.isSleeping()){
+                paintStrategy.paint(ind, g, Color.GRAY);
+            }
+            else if(m.getNiveau()>6){
+                paintStrategy.paint(ind, g, Color.GREEN);
+            }
+            else if(m.getNiveau()<4){
+                paintStrategy.paint(ind, g, Color.RED);
+            }
+            else{
+                paintStrategy.paint(ind, g, Color.YELLOW);
+            }
+
         }
 
     }

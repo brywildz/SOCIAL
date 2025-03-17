@@ -17,14 +17,12 @@ public abstract class Event {
     private Time debut;
     private Time fin;
     private String description;
-    private PersonState personState;
 
-    public Event(String id, Time debut, Time fin, String description, PersonState personState) {
+    public Event(String id, Time debut, Time fin, String description) {
         this.id = id;
         this.debut = debut;
         this.fin = fin;
         this.description = description;
-        this.personState = personState;
     }
 
     public Time getDebut() {
@@ -49,9 +47,6 @@ public abstract class Event {
         return "L'énennement "+ id +" debute à "+debut+" fini à " +fin+ " et a pour description"+description;
     }
 
-    public PersonState getEtat() {
-        return personState;
-    }
 
     public boolean isFinish(){
         return fin.equals(Clock.getInstance().getHoraire());

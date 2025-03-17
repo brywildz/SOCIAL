@@ -78,4 +78,11 @@ public class Personality {
     public Extraversion getExtraversion() {
         return extraversion;
     }
+
+    @Override
+    public String toString() {
+        return "Ouverture=" + openness.getLevel() + ", Conscienciosité=" + conscientiousness.getLevel() +
+                ", Agreabilité=" + agreeableness.getLevel() + ", Nervosité=" + neuroticism.getLevel() +
+                ", Extraversion=" + extraversion.getLevel();
+    }
 }

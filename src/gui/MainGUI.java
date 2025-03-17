@@ -4,8 +4,8 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
+import engine.data.person.PersonRepository;
 import engine.process.GameBuilder;
-import engine.process.MobileElementManager;
 import engine.process.MobileInterface;
 
 import javax.swing.*;
@@ -13,7 +13,6 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
 
 /**
  * Classe d'affichage de la fenêtre principale, celle-ci contient la carte, les individus, les lieux
@@ -69,7 +68,7 @@ public class MainGUI extends JFrame implements Runnable {
                 System.out.println(e.getMessage());
             }
             manager.nextSecond();
-            controlPanel.showDate();
+            //controlPanel.showDate();
             dashboard.repaint();
             this.revalidate();
             this.repaint();
@@ -84,14 +83,11 @@ public class MainGUI extends JFrame implements Runnable {
             int y = e.getY();
 
             Block clicPosition = dashboard.getBlockPosition(y, x);
-            HashMap<Block, Person> individus = map.getIndividus();
-            System.out.println(clicPosition);
-            System.out.println(x+" "+y);
-            if(individus.containsKey(clicPosition)) {
-                controlPanel.showInfoIndividu(individus.get(clicPosition).toString());
-            }
-            else{
-                System.out.println("personne");
+            PersonRepository individus = PersonRepository.getInstance();
+            //System.out.println(clicPosition);
+            Person p = individus.isHere(clicPosition);
+            if(!(p==null)) {
+                controlPanel.showInfoIndividu(p.toString());
             }
         }
 

@@ -16,10 +16,10 @@ import java.util.HashMap;
  */
 
 public class WeatherEvent extends Event {
-    HashMap<Block, Person> individus = PersonRepository.getInstance().getIndividus();
+    HashMap<String, Person> individus = PersonRepository.getInstance().getIndividus();
 
-    public WeatherEvent(String id, Time debut, Time fin, String description, PersonState personState) {
-        super(id, debut, fin, description, personState);
+    public WeatherEvent(String id, Time debut, Time fin, String description) {
+        super(id, debut, fin, description);
         this.individus = individus;
     }
 }

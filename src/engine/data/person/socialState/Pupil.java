@@ -28,4 +28,9 @@ public class Pupil extends SocialState{
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
+
+    @Override
+    public String toString() {
+        return "Etudiant";
+    }
 }

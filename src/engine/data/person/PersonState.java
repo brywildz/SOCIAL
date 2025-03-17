@@ -27,12 +27,10 @@ public class PersonState {
 
     @Override
     public String toString() {
-        return "PersonState{" +
-                "health=" + health +
-                ", hunger=" + hunger +
-                ", mood=" + mood +
-                ", sleep=" + sleep +
-                '}';
+        return "Santé=" + health.getNiveau() +
+                ", Faim=" + hunger.getNiveau() +
+                ", Humeur=" + mood.getNiveau() +
+                ", Sommeil=" + sleep.getNiveau();
     }
 
     public Health getHealth() {

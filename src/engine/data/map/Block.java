@@ -28,7 +28,7 @@ public class Block {
 
     @Override
     public String toString() {
-        return "Block [line=" + line + ", column=" + column + "]";
+        return "Block [column=" + column + ", line=" + line + "]";
     }
 
     @Override

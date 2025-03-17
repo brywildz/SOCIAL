@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public interface MobileInterface {
 
-    public HashMap<Block, Person> getIndividus();
+    public HashMap<String, Person> getIndividus();
 
-    void set(HashMap<Block, Person> individus);
+    void set(HashMap<String, Person> individus);
 
     void nextSecond();
 }

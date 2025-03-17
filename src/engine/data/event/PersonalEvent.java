@@ -14,8 +14,8 @@ public class PersonalEvent extends Event {
     private Person person;
     private int day; //nombre de jours où le pnj subit l'event
 
-    public PersonalEvent(String id, Time debut, Time fin, String description, PersonState personState, Person person, int day) {
-        super(id, debut, fin, description, personState);
+    public PersonalEvent(String id, Time debut, Time fin, String description,  Person person, int day) {
+        super(id, debut, fin, description);
         this.person = person;
         this.day = day;
     }

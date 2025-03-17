@@ -135,16 +135,16 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Individu{" +
-                "nom='" + nom + '\'' +
-                ", age=" + age +
-                ", socialState='" + socialState + '\'' +
-                ", personality=" + personality +
-                ", etat=" + personState +
-                ", relation=" + personRelationships +
-                ", location=" + location +
-                ", currentEvent=" + currentEvent +
-                '}';
+        String s = "Nom : " + nom + ", age : " + age + ", Statut social : "+socialState;
+        if(currentAction != null){
+            s+="\nAction : "+ currentAction.getId();
+        }
+        if(currentEvent != null){
+            s+="\nEvent : " + currentEvent.getId();
+        }
+        s+="\n"+ personality;
+        s+="\n" + personState;
+        return s;
     }
 
     public boolean isInHisHouse() {
@@ -156,14 +156,20 @@ public class Person {
     }
 
     public boolean isWorking(){
-        if(isWorker() || isPupil()){
+        if(isWorker()){
             Time t = Clock.getInstance().getHoraire();
             Worker w = (Worker) socialState;
             Time start = w.getStartTime();
             Time end = w.getEndTime();
             return t.isDuring(start, end);
         }
-        else{
+        else if (isPupil()) {
+            Time t = Clock.getInstance().getHoraire();
+            Pupil w = (Pupil) socialState;
+            Time start = w.getStartTime();
+            Time end = w.getEndTime();
+            return t.isDuring(start, end);
+        } else{
             return false;
         }
     }
@@ -177,6 +183,10 @@ public class Person {
     }
 
     public boolean isSleeping() {
-        return true;
+        return personState.getSleep().isSleeping();
+    }
+
+    public void setHouse(Infrastructure house) {
+        this.house = house;
     }
 }

@@ -12,15 +12,15 @@ import java.util.Random;
 public class ActionRepository {
     private final HashMap<String, Action> insideActions = new HashMap<>();
     private final HashMap<String, Action> outsideActions = new HashMap<>();
-    private static ActionRepository instance;
+    public static ActionRepository instance = new ActionRepository();
 
     private ActionRepository() {
-        insideActions.put("méditation", new Action("sport intense", false, null, null));
+        insideActions.put("sport intense", new Action("sport intense", false, null, null));
         insideActions.put("arts créatifs", new Action("arts créatifs", false, null, null));
         insideActions.put("apprentissage", new Action("apprentissage", false, null, null));
         insideActions.put("dormir", new Action("dormir", false, null, null));
 
-        outsideActions.put("sport d'équipe", new Action("jeux d'équipes", true, null, null));
+        outsideActions.put("jeux d'équipes", new Action("jeux d'équipes", true, null, null));
         outsideActions.put("travail", new Action("travail", true, null, null));
         outsideActions.put("activité bénévole", new Action("activité bénévole", true, null, null));
         outsideActions.put("activité culturelle", new Action("activité culturelle", true, null, null));

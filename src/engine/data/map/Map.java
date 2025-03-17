@@ -17,7 +17,7 @@ public class Map {
     private int columnCount;
     private HashMap<Integer, String> espaces;
     private Block[][] blocks;
-    private HashMap<Block, Person> individus;
+    private HashMap<String, Person> individus;
 
     public Map(int lineCount, int columnCount){
         this.columnCount = columnCount;
@@ -58,11 +58,11 @@ public class Map {
         this.blocks = blocks;
     }
 
-    public HashMap<Block, Person> getIndividus() {
+    public HashMap<String, Person> getIndividus() {
         return individus;
     }
 
-    public void setIndividus(HashMap<Block, Person> individus) {
+    public void setIndividus(HashMap<String, Person> individus) {
         this.individus = individus;
     }
 

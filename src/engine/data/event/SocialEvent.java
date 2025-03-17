@@ -17,8 +17,8 @@ public class SocialEvent extends Event {
     private ArrayList<Person> persons;
     private Infrastructure infrastructure;
 
-    public SocialEvent(String id, Time debut, Time fin, String description, PersonState personState, ArrayList<Person> persons, Infrastructure i) {
-        super(id, debut, fin, description, personState);
+    public SocialEvent(String id, Time debut, Time fin, String description, ArrayList<Person> persons, Infrastructure i) {
+        super(id, debut, fin, description);
         this.persons = persons;
         this.infrastructure = i;
 

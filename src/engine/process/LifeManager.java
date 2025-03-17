@@ -3,11 +3,9 @@ package engine.process;
 import config.GameConfiguration;
 import engine.data.event.Action;
 import engine.data.event.ActionRepository;
-import engine.data.map.Block;
-import engine.data.map.Clock;
-import engine.data.map.InfrastructureRepository;
-import engine.data.map.Time;
+import engine.data.map.*;
 import engine.data.person.Person;
+import engine.data.person.PersonRepository;
 import engine.data.person.PersonState;
 import engine.data.person.personalityTraits.*;
 import engine.data.person.socialState.Pupil;
@@ -23,6 +21,7 @@ import java.util.Random;
  */
 public class LifeManager {
     private Person person;
+    private PersonRepository personRepo = PersonRepository.getInstance();
 
     public LifeManager(Person person) {
         this.person = person;
@@ -84,27 +83,30 @@ public class LifeManager {
     public void refreshRoutine() {
         Time time = Clock.getInstance().getHoraire();
         SocialState ss = person.getSocialState();
+        PersonState ps = person.getPersonState();
         if (!Clock.isWeekend()) {
             if(person.isWorker()){
                 Worker w = (Worker) person.getSocialState();
-                if(time.equals(w.getStartTime())){
+                if(time.equals(w.getStartTime())) {
                     goWork();
                 }
                 else if(time.equals(w.getEndTime())){
                     goHome();
                 }
+                else if(time.equals(ps.getSleep().getSleepTime())){
+                    goSleep();
+                }
                 else if(person.getCurrentAction() == null){
                     setNewAction();
                 }
                 else{
-                    refreshLocation(ss);
+                    refreshLocation();
                 }
             }
             else if(person.isPupil()){
                 Pupil p = (Pupil) person.getSocialState();
-                PersonState ps = person.getPersonState();
                 if(time.equals(p.getStartTime())){
-                    goWork(); //preicsé que si il dors il doit se reveiller pour y aller
+                    goWork();
                 }
                 else if(time.equals(p.getEndTime())){
                     goHome("devoirs");
@@ -112,14 +114,11 @@ public class LifeManager {
                 else if(time.equals(ps.getSleep().getSleepTime())){
                     goSleep();
                 }
-                else if (time.equals(ps.getSleep().getWakeUpTime())) {
-                    goWakeUp();
-                }
                 else if(person.getCurrentAction() == null){
                     setNewAction();
                 }
                 else{
-                    refreshLocation(ss);
+                    refreshLocation();
                 }
             }
             else if(person.isUnemployed()){
@@ -131,15 +130,9 @@ public class LifeManager {
                 lifeIsGood();
             }
             else{
-                refreshLocation(ss);
+                refreshLocation();
             }
         }
-    }
-
-    private void goWakeUp() {
-    }
-
-    private void goSleep() {
     }
 
     private void setNewAction() {
@@ -185,7 +178,7 @@ public class LifeManager {
             Random rand = new Random();
             int randomLine = rand.nextInt(GameConfiguration.LINE_COUNT);
             int randomCol = rand.nextInt(GameConfiguration.COLUMN_COUNT);
-            person.setLocation(new Block(randomLine, randomCol));
+            personRepo.setNewLocation(person ,new Block(randomLine, randomCol));
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
@@ -214,7 +207,7 @@ public class LifeManager {
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
-        person.setLocation(person.getHouse().getRandomBlock());
+        personRepo.setNewLocation(person, person.getHouse().getRandomBlock());
     }
 
     private void goOutside(Action a, boolean randomTime) {
@@ -224,32 +217,32 @@ public class LifeManager {
             Random rand = new Random();
             int randomLine = rand.nextInt(GameConfiguration.LINE_COUNT);
             int randomCol = rand.nextInt(GameConfiguration.COLUMN_COUNT);
-            person.setLocation(new Block(randomLine, randomCol));
+            personRepo.setNewLocation(person,new Block(randomLine, randomCol));
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
         if(id.equals("apprentissage")){
-            person.setLocation(InfrastructureRepository.getInstance().get("bibliothèque").getRandomBlock());
+            personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("bibliothèque").getRandomBlock());
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
         if(id.equals("activité culturelle")){
-            person.setLocation(InfrastructureRepository.getInstance().get("musée").getRandomBlock());
+            personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("musée").getRandomBlock());
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
         if(id.equals("arts créatifs")){
-            person.setLocation(InfrastructureRepository.getInstance().get("Cinéma").getRandomBlock());
+            personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("Cinéma").getRandomBlock());
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
         if(id.equals("jeux d'équipe")){
-            person.setLocation(InfrastructureRepository.getInstance().get("Stade").getRandomBlock());
+            personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("Stade").getRandomBlock());
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
         if(id.equals("sport intense")){
-            person.setLocation(InfrastructureRepository.getInstance().get("Salle").getRandomBlock());
+            personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("Salle").getRandomBlock());
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }
@@ -269,31 +262,61 @@ public class LifeManager {
         a.setEnd(end);
     }
 
-    private void refreshLocation(SocialState ss) {
-        person.setLocation(ss.getInfrastructure().getRandomBlock());
+    private void refreshLocation() {
+        if(person.isSleeping()){
+            return;
+        }
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(5);
+        if(randomNumber == 4){
+            InfrastructureRepository iRepo = InfrastructureRepository.getInstance();
+            Infrastructure actualPlace = iRepo.get(person.getLocation());
+            personRepo.setNewLocation(person,actualPlace.getRandomBlock());
+        }
+    }
+
+    private void goSleep() {
+        personRepo.setNewLocation(person,person.getHouse().getRandomBlock());
+        PersonState ps = person.getPersonState();
+        Time start = ps.getSleep().getSleepTime();
+        Time end = ps.getSleep().getWakeUpTime();
+        Action a = new Action("dormir",false,start,end);
+        person.setCurrentAction(a);
+        Reaction react = new Reaction(person);
+        react.changeState(a);
     }
 
     private void goHome() {
-        person.setLocation(person.getHouse().getRandomBlock());
+        personRepo.setNewLocation(person,person.getHouse().getRandomBlock());
         setNewActionInside();
     }
 
     private void goHome(String id){
-        person.setLocation(person.getHouse().getRandomBlock());
+        personRepo.setNewLocation(person,person.getHouse().getRandomBlock());
         Time start = Clock.getInstance().getActualTime();
         Time end = ActionRepository.getInstance().getRandomTimer(person, id);
-        Action a = new Action(id, true,start, end);
+        Action a = new Action(id, false,start, end);
         person.setCurrentAction(a);
         Reaction react = new Reaction(person);
         react.changeState(a);
     }
 
     private void goWork() {
-        person.setLocation(person.getSocialState().getInfrastructure().getRandomBlock());
-        Worker ss = (Worker) person.getSocialState();
-        Time start = ss.getStartTime();
-        Time end = ss.getEndTime();
-        Action a = new Action("travail", true,start, end);
+        person.getPersonState().getSleep().setSleeping(false);
+        personRepo.setNewLocation(person,person.getSocialState().getInfrastructure().getRandomBlock());
+        Action a;
+        if(person.isWorker()){
+            Worker ss = (Worker) person.getSocialState();
+            Time start = ss.getStartTime();
+            Time end = ss.getEndTime();
+            a = new Action("travail", true,start, end);
+        }
+        else{
+            Pupil ss = (Pupil) person.getSocialState();
+            Time start = ss.getStartTime();
+            Time end = ss.getEndTime();
+            a = new Action("travail", true,start, end);
+        }
         person.setCurrentAction(a);
         Reaction react = new Reaction(person);
         react.changeState(a);

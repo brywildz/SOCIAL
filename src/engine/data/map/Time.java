@@ -13,7 +13,7 @@ public class Time {
     private int second;
     private Date date;
 
-    public Time(int hour, int second, int minute, Date date) {
+    public Time(int hour, int minute,int second , Date date) {
         this.hour = hour;
         this.second = second;
         this.minute = minute;
@@ -24,6 +24,7 @@ public class Time {
         this.hour = hour;
         this.minute = minute;
         this.second = second;
+        this.date = new Date(0,0,0);
     }
 
     public void newSecond(){
@@ -47,7 +48,7 @@ public class Time {
     }
 
     private void newHour() {
-        if(hour ==24){
+        if(hour ==23){
             hour =0;
             newDay();
         }
@@ -72,6 +73,8 @@ public class Time {
         return second;
     }
 
+
+
     public void addHour(int hour) {
         for(int i = 0 ; i < hour ; i++){
             newHour();
@@ -93,6 +96,8 @@ public class Time {
     @Override
     public boolean equals(Object obj){
         Time h = (Time) obj;
+        /*System.out.println(h.getHour()+" "+h.getMinute()+" "+h.getSecond());
+        System.out.println(this.getHour()+" "+this.getMinute()+" "+this.getSecond());*/
         return this.hour == h.hour && this.minute == h.minute && this.second == h.second;
     }
 

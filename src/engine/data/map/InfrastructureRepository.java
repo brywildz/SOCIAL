@@ -33,6 +33,7 @@ public class InfrastructureRepository {
         infrastructures.put("apartment3", new Infrastructure("apartment3",APARTMENT_X-10,APARTMENT_Y, APARTMENT_WIDTH,APARTMENT_HEIGHT));
         infrastructures.put("cinema", new Infrastructure("cinema", CINEMA_X,CINEMA_Y, CINEMA_WIDTH, CINEMA_HEIGHT));
     }
+
     private static InfrastructureRepository instance;
 
     public static InfrastructureRepository getInstance() {

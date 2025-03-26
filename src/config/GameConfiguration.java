@@ -5,8 +5,8 @@ package config;
  */
 public class GameConfiguration {
 
-    public static final int WINDOW_WIDTH = 950;
-    public static final int WINDOW_HEIGHT = 550;
+    public static final int WINDOW_WIDTH = 1900;
+    public static final int WINDOW_HEIGHT = 950;
 
     public static final int BLOCK_SIZE = 10;
 

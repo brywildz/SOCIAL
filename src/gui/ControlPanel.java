@@ -1,6 +1,8 @@
 package gui;
 
 import engine.data.person.PersonRepository;
+import engine.process.GameBuilder;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -25,7 +27,7 @@ public class ControlPanel extends JPanel {
         this.setPreferredSize(new Dimension(300, 0));
         this.setLayout(new BorderLayout());
         box = new JPanel();
-        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+        box.setLayout(new BoxLayout(box, BoxLayout.X_AXIS));
         Indbutton.setPreferredSize(new Dimension(200, 50));
         Eventbutton.setPreferredSize(new Dimension(200, 50));
         box.add(Indbutton);
@@ -91,6 +93,6 @@ public class ControlPanel extends JPanel {
     }*/
 
     public void createIndividu(){
-            PersonRepository.getInstance().randomCreation();
+        GameBuilder.randomCreation();
     }
 }

@@ -12,4 +12,8 @@ public class PersonRelationships {
         this.familiale = familiale;
         this.pro = pro;
     }
+
+    public void addFriend(Person person) {
+        amicale.add(person);
+    }
 }

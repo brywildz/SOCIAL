@@ -40,7 +40,8 @@ public class MainGUI extends JFrame implements Runnable {
         UIManager.setLookAndFeel(new NimbusLookAndFeel());
         contentPane.setLayout(new BorderLayout());
         controlPanel = new ControlPanel(contentPane);
-        add(controlPanel, BorderLayout.EAST);
+        controlPanel.setPreferredSize(new Dimension(0,50));
+        add(controlPanel, BorderLayout.NORTH);
 
         map = GameBuilder.buildCarte();
         manager = GameBuilder.buildInitMobile(map);

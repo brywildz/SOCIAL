@@ -1,5 +1,7 @@
 package engine.data.map;
 
+import engine.data.person.Person;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
@@ -95,5 +97,9 @@ public class InfrastructureRepository {
             return infrastructures.get("apartment2");
         }
         return infrastructures.get("apartment3");
+    }
+
+    public void addPerson(Person per, Infrastructure activityPlace) {
+        infrastructures.get(activityPlace.getNom()).addPerson(per);
     }
 }

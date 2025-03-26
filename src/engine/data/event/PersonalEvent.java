@@ -4,7 +4,7 @@ import engine.data.person.Person;
 import engine.data.person.PersonState;
 /**
  * Classe représentant un événement personnel affectant un individu spécifique
- * Cette classe hérite de @Evenement  et permet de gérer les événements individuels
+ * Cette classe hérite de @Evenement et permet de gérer les événements individuels
  *
  * @author Manseri Bawol
  * @version 0.1

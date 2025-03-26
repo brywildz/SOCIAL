@@ -5,7 +5,7 @@ import gui.MainGUI;
 import javax.swing.*;
 
 /**
- * Classe principale instanciant les classes néccessaires au lancement du jeu
+ * Classe principale instanciant les classes nécessaires au lancement du jeu
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1

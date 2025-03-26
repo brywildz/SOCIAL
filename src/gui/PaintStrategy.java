@@ -23,7 +23,7 @@ public class PaintStrategy {
     public void paint(Map map, Graphics g) throws IOException {
         int blockSize = BLOCK_SIZE;
         //g.setColor(new Color(34, 139, 34));
-        g.drawImage(ImageIO.read(new File("src/images/map.png")),0,0,map.getColumnCount() * blockSize, map.getLineCount() * blockSize, null);
+        g.drawImage(ImageIO.read(new File("src/images/map1.png")),0,0,map.getColumnCount() * blockSize, map.getLineCount() * blockSize, null);
         //g.fillRect(0, 0, map.getColumnCount() * blockSize, map.getLineCount() * blockSize);
         Block[][] blocks = map.getBlocks();
         g.setColor(Color.GRAY);

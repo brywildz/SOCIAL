@@ -1,5 +1,8 @@
 package engine.data.map;
 
+import engine.data.person.Person;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -10,6 +13,7 @@ public class Infrastructure {
     private String nom;  // Ajout du nom du lieu
     private Block base;
     private Block[][] zone;
+    private ArrayList<Person> persons;
 
     public Infrastructure(String nom, int column, int line, int width, int height) {
         this.nom = nom;
@@ -51,5 +55,13 @@ public class Infrastructure {
         int randomLine = rand.nextInt(zone.length);
         int randomCol = rand.nextInt(zone[randomLine].length);
         return zone[randomLine][randomCol];
+    }
+
+    public ArrayList<Person> getPersons() {
+        return persons;
+    }
+
+    public void addPerson(Person per) {
+        persons.add(per);
     }
 }

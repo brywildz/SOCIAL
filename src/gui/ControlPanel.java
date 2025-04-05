@@ -1,7 +1,9 @@
 package gui;
 
-import engine.data.person.PersonRepository;
+import engine.StatsDisplay;
+import engine.data.person.Person;
 import engine.process.GameBuilder;
+import engine.process.repository.PersonRepository;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -37,6 +39,14 @@ public class ControlPanel extends JPanel {
         Eventbutton.addActionListener((event)-> chooseEvent(box));
         Indbutton.addActionListener((event)-> createIndividu());
         //showDate();
+        box.add(showCityStatsButton);
+        box.add(showPersonStatsButton);
+
+        showCityStatsButton.addActionListener(e -> StatsDisplay.showGlobalStats());
+        showPersonStatsButton.addActionListener(e -> {
+            Person randomPerson = PersonRepository.getInstance().getIndividus().values().iterator().next();
+            StatsDisplay.showPersonStats(randomPerson);
+        });
     }
 
     public void showInfoIndividu(String info){
@@ -91,6 +101,10 @@ public class ControlPanel extends JPanel {
         this.revalidate();
         this.repaint();
     }*/
+
+    private JButton showCityStatsButton = new JButton("Statistiques de la ville");
+
+    private JButton showPersonStatsButton = new JButton("Statistiques individu");
 
     public void createIndividu(){
         GameBuilder.randomCreation();

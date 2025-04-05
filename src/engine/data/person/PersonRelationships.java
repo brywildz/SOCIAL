@@ -16,4 +16,12 @@ public class PersonRelationships {
     public void addFriend(Person person) {
         amicale.add(person);
     }
+
+    public void addFamily(Person person) {
+        familiale.add(person);
+    }
+
+    public void addPro(Person person) {
+        pro.add(person);
+    }
 }

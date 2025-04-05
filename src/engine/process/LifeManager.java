@@ -2,15 +2,16 @@ package engine.process;
 
 import config.GameConfiguration;
 import engine.data.event.Action;
-import engine.data.event.ActionRepository;
+import engine.process.repository.ActionRepository;
 import engine.data.map.*;
 import engine.data.person.Person;
-import engine.data.person.PersonRepository;
+import engine.process.repository.PersonRepository;
 import engine.data.person.PersonState;
 import engine.data.person.personalityTraits.*;
 import engine.data.person.socialState.Pupil;
 import engine.data.person.socialState.SocialState;
 import engine.data.person.socialState.Worker;
+import engine.process.repository.InfrastructureRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,7 +223,7 @@ public class LifeManager {
             person.setCurrentAction(a);
         }
         if(id.equals("apprentissage")){
-            personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("bibliothèque").getRandomBlock());
+            personRepo.setNewLocation(person, InfrastructureRepository.getInstance().get("bibliothèque").getRandomBlock());
             setActionTime(a, randomTime);
             person.setCurrentAction(a);
         }

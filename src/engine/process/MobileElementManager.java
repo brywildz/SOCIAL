@@ -1,14 +1,13 @@
 package engine.process;
 
 import engine.data.event.Event;
-import engine.data.event.EventRepository;
+import engine.process.repository.EventRepository;
 import engine.data.event.WeatherEvent;
-import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.map.Clock;
 import engine.data.map.Time;
 import engine.data.person.Person;
-import engine.data.person.PersonRepository;
+import engine.process.repository.PersonRepository;
 
 import java.util.*;
 

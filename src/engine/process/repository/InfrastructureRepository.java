@@ -1,9 +1,10 @@
-package engine.data.map;
+package engine.process.repository;
 
+import engine.data.map.Block;
+import engine.data.map.Infrastructure;
 import engine.data.person.Person;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Random;
 
 import static config.GameConfiguration.*;

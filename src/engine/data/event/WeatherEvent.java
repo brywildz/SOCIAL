@@ -1,10 +1,8 @@
 package engine.data.event;
 
-import engine.data.map.Block;
 import engine.data.map.Time;
 import engine.data.person.Person;
-import engine.data.person.PersonRepository;
-import engine.data.person.PersonState;
+import engine.process.repository.PersonRepository;
 
 import java.util.HashMap;
 /**

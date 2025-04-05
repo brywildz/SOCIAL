@@ -1,20 +1,9 @@
-package engine.data.person;
+package engine.process.repository;
 
 import engine.data.map.Block;
-import engine.data.map.Infrastructure;
-import engine.data.map.InfrastructureRepository;
-import engine.data.map.Time;
-import engine.data.person.socialState.Pupil;
-import engine.data.person.socialState.SocialState;
-import engine.data.person.socialState.Worker;
-import engine.data.person.vitality.Health;
-import engine.data.person.vitality.Hunger;
-import engine.data.person.vitality.Mood;
-import engine.data.person.vitality.Sleep;
-import engine.process.Reaction;
+import engine.data.person.Person;
 
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * Singleton gerant le stockage tous les individus présents sur la carte

@@ -1,14 +1,11 @@
 package engine.process;
 
-import engine.data.map.Block;
 import engine.data.event.Event;
 import engine.data.event.WeatherEvent;
-import engine.data.event.EventRepository;
+import engine.process.repository.EventRepository;
 import engine.data.person.Person;
-import engine.data.person.PersonRepository;
-import engine.data.person.vitality.Vitality;
+import engine.process.repository.PersonRepository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 

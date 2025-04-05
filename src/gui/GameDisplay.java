@@ -4,7 +4,7 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
-import engine.data.person.PersonRepository;
+import engine.process.repository.PersonRepository;
 import engine.data.person.vitality.Mood;
 import engine.process.MobileInterface;
 

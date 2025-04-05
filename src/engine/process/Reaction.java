@@ -1,19 +1,13 @@
 package engine.process;
 
 import engine.data.event.*;
-import engine.data.map.Block;
-import engine.data.map.Clock;
 import engine.data.map.Time;
 import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.Personality;
 import engine.data.person.personalityTraits.*;
 import engine.data.person.vitality.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
+import engine.process.repository.ActionRepository;
 
 /**
  * Classe de traitement traitant les différents reaction d'un individu dépendamment de son caractère

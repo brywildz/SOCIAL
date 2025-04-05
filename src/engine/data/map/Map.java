@@ -1,7 +1,7 @@
 package engine.data.map;
 
 import engine.data.person.Person;
-import engine.data.person.PersonRepository;
+import engine.process.repository.PersonRepository;
 
 import java.util.HashMap;
 

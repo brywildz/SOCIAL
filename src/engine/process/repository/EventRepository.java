@@ -11,6 +11,8 @@ import engine.data.person.vitality.*;
 
 import java.util.*;
 
+import static engine.process.GameBuilder.random;
+
 /**
  * Classe de donnée stockant tous les évennement et leur réaction PAR DEFAUT
  *
@@ -79,8 +81,7 @@ public class EventRepository {
 
     public static Event getRandomEvent(){
         List<Event> events = new ArrayList<>(evenements.values());
-        Random r = new Random();
-        return events.get(r.nextInt(events.size()));
+        return events.get(random(events.size()));
     }
 
 }

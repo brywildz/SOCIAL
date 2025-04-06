@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * Classe d'affichage gérant la strategie d'affichage (comment les composants  vont être dessiné sur l'écran)
@@ -35,14 +34,16 @@ public class PaintStrategy {
         }
     }
 
-    public void paintHour(Graphics graphics){
+    public void paintDate(Graphics graphics){
+        int positionX = 135;
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(80 * BLOCK_SIZE, 0 * BLOCK_SIZE, 150, 50);
+        graphics.fillRect(positionX * BLOCK_SIZE, 0 * BLOCK_SIZE, 150, 65);
         graphics.setFont(new Font("Monospaced", Font.BOLD, 25));
         graphics.setColor(Color.BLACK);
         Clock clock = Clock.getInstance();
-        graphics.drawString(clock.showDate(), 80*BLOCK_SIZE, 2*BLOCK_SIZE);
-        graphics.drawString(clock.showTime(), 80*BLOCK_SIZE, 4*BLOCK_SIZE);
+        graphics.drawString(clock.showDayName(), positionX*BLOCK_SIZE, 2*BLOCK_SIZE);
+        graphics.drawString(clock.showDate(), positionX*BLOCK_SIZE, 4*BLOCK_SIZE);
+        graphics.drawString(clock.showTime(), positionX*BLOCK_SIZE, 6*BLOCK_SIZE);
     }
 
     public void paint(Person person, Graphics graphics, Color color) {

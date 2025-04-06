@@ -339,30 +339,4 @@ public class Reaction {
             ps.getSleep().setSleeping(true);
         }
     }
-
-    public static void createPersonState(Person person){
-        Time start = person.getPersonState().getSleep().getSleepTime();
-        Time end = person.getPersonState().getSleep().getWakeUpTime();
-        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-        if(maxPerso instanceof Extraversion){
-            start.setNew(new Time(2,0,0));
-            end.setNew(new Time(10,0,0));
-        }
-        if(maxPerso instanceof Agreeableness){
-            start.setNew(new Time(23,0,0));
-            end.setNew(new Time(8,0,0));
-        }
-        if(maxPerso instanceof Conscientiousness){
-            start.setNew(new Time(22,30,0));
-            end.setNew(new Time(6,30,0));
-        }
-        if(maxPerso instanceof Neuroticism){
-            start.setNew(new Time(2,30,0));
-            end.setNew(new Time(8,0,0));
-        }
-        if(maxPerso instanceof Openness){
-            start.setNew(new Time(3,0,0));
-            end.setNew(new Time(11,0,0));
-        }
-    }
 }

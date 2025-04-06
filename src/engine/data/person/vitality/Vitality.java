@@ -38,5 +38,16 @@ public abstract class Vitality {
         if(niveau > 10){
             niveau = 10;
         }
+        if(niveau < 1){
+            niveau = 1;
+        }
+    }
+
+    public boolean isHigh(){
+        return niveau > 6;
+    }
+
+    public boolean isLow(){
+        return niveau < 4;
     }
 }

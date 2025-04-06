@@ -1,4 +1,4 @@
-package engine;
+package engine.process;
 
 import java.util.HashMap;
 
@@ -33,7 +33,7 @@ public class Stats {
         traitCounts.put('n', 0); // Neuroticism
         traitCounts.put('o', 0); // Openness
 
-        for (Person p : personRepo.getIndividus().values()) {
+        for (Person p : personRepo.getPersons().values()) {
             PersonalityTrait maxTrait = p.getPersonality().getMaxPerso();
             if (maxTrait instanceof Agreeableness) traitCounts.put('a', traitCounts.get('a') + 1);
             else if (maxTrait instanceof Conscientiousness) traitCounts.put('c', traitCounts.get('c') + 1);
@@ -55,13 +55,13 @@ public class Stats {
     public JFreeChart getPersonalityPie(Person person) {
         DefaultPieDataset dataset = new DefaultPieDataset();
 
-        dataset.setValue("Agreeableness", person.getAgreeableness().getLevel());
-        dataset.setValue("Conscientiousness", person.getConscientiousness().getLevel());
+        dataset.setValue("Agréabilité", person.getAgreeableness().getLevel());
+        dataset.setValue("Conscienciosité", person.getConscientiousness().getLevel());
         dataset.setValue("Extraversion", person.getExtraversion().getLevel());
-        dataset.setValue("Neuroticism", person.getNeuroticism().getLevel());
-        dataset.setValue("Openness", person.getOpenness().getLevel());
+        dataset.setValue("Nervosité", person.getNeuroticism().getLevel());
+        dataset.setValue("Ouverture", person.getOpenness().getLevel());
 
-        return ChartFactory.createPieChart("Personnalite de " + person.getNom(), dataset, true, true, false);
+        return ChartFactory.createPieChart("Personnalite de " + person.getName(), dataset, true, true, false);
     }
 
 
@@ -75,7 +75,7 @@ public class Stats {
         int count = 0;
 
 
-        for (Person p : personRepo.getIndividus().values()) {
+        for (Person p : personRepo.getPersons().values()) {
             PersonState state = p.getPersonState();
             totalHealth += state.getHealth().getNiveau();
             totalMood += state.getMood().getNiveau();
@@ -95,10 +95,10 @@ public class Stats {
 
         // Création du graphique
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(avgHealth, "States", "Health");
-        dataset.setValue(avgMood, "States", "Mood");
-        dataset.setValue(avgSleep, "States", "Sleep");
-        dataset.setValue(avgHunger, "States", "Hunger");
+        dataset.setValue(avgHealth, "States", "Santé");
+        dataset.setValue(avgMood, "States", "Humeur");
+        dataset.setValue(avgSleep, "States", "Sommeil");
+        dataset.setValue(avgHunger, "States", "Faim");
 
 
         return ChartFactory.createBarChart(
@@ -119,13 +119,13 @@ public class Stats {
         int sleep = person.getPersonState().getSleep().getNiveau();
         int hunger = person.getPersonState().getHunger().getNiveau();
 
-        dataset.setValue(health, "State", "Health");
-        dataset.setValue(mood, "State", "Mood");
-        dataset.setValue(sleep, "State", "Sleep");
-        dataset.setValue(hunger, "State", "Hunger");
+        dataset.setValue(health, "State", "Santé");
+        dataset.setValue(mood, "State", "Humeur");
+        dataset.setValue(sleep, "State", "Sommeil");
+        dataset.setValue(hunger, "State", "Faim");
 
         return ChartFactory.createBarChart(
-                "État de " + person.getNom(),
+                "État de " + person.getName(),
                 "Catégories",
                 "Niveau",
                 dataset,
@@ -136,7 +136,7 @@ public class Stats {
     // méthodes pour voir les activitées des individus
     public JFreeChart getActivityDistributionPie() {
 
-        for (Person p : personRepo.getIndividus().values()) {
+        for (Person p : personRepo.getPersons().values()) {
             if (p.getCurrentAction() != null) {
                 String action = p.getCurrentAction().getId();
                 activityCounts.put(action, activityCounts.getOrDefault(action, 0) + 1);
@@ -151,23 +151,14 @@ public class Stats {
         return ChartFactory.createPieChart("Répartition des Activités", dataset, true, true, false);
     }
 
+    public JFreeChart getRelationPie(Person person) {
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Amicales", person.getRelation().getAmicale().size());
+        dataset.setValue("Familiales", person.getRelation().getFamiliale().size());
+        dataset.setValue("Professionnelles", person.getRelation().getPro().size());
 
-
-
-
-    /**
-    public JFreeChart getHeightEvolutionChart() {
-        XYSeries serie = new XYSeries("Height Evolution");
-        for (int index = 0; index < heights.size(); index++) {
-            serie.add(index, heights.get(index));
-        }
-
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(serie);
-
-        return ChartFactory.createXYLineChart("", "Visit step", "Height", dataset, PlotOrientation.VERTICAL, true, true, false);
+        return ChartFactory.createPieChart("Graphique des relations", dataset, true, true, false);
     }
-    **/
 }
 
 

@@ -40,7 +40,7 @@ public class MainGUI extends JFrame implements Runnable {
         UIManager.setLookAndFeel(new NimbusLookAndFeel());
         contentPane.setLayout(new BorderLayout());
         controlPanel = new ControlPanel(contentPane);
-        controlPanel.setPreferredSize(new Dimension(0,50));
+        controlPanel.setPreferredSize(new Dimension(0,70));
         add(controlPanel, BorderLayout.NORTH);
 
         map = GameBuilder.buildCarte();
@@ -71,8 +71,6 @@ public class MainGUI extends JFrame implements Runnable {
             manager.nextSecond();
             //controlPanel.showDate();
             dashboard.repaint();
-            this.revalidate();
-            this.repaint();
         }
     }
 
@@ -85,10 +83,10 @@ public class MainGUI extends JFrame implements Runnable {
 
             Block clicPosition = dashboard.getBlockPosition(y, x);
             PersonRepository individus = PersonRepository.getInstance();
-            //System.out.println(clicPosition);
+            System.out.println(clicPosition);
             Person p = individus.isHere(clicPosition);
             if(!(p==null)) {
-                controlPanel.showInfoIndividu(p.toString());
+                controlPanel.showInfoIndividu(p);
             }
         }
 

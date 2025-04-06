@@ -17,12 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static engine.process.GameBuilder.random;
+
 /**
  * Classe de traitement gerant les evennements et les actions de Life Style, c'est-à-dire travail hobbies...
  */
 public class LifeManager {
     private Person person;
     private PersonRepository personRepo = PersonRepository.getInstance();
+    private ActionRepository actionRepo = ActionRepository.getInstance();
 
     public LifeManager(Person person) {
         this.person = person;
@@ -49,7 +52,7 @@ public class LifeManager {
             a = l.get(rand.nextInt(l.size()));
 
         }
-        a.setStart(Clock.getInstance().getHoraire());
+        a.setStart(Clock.getInstance().getTime());
         a.setEnd(ActionRepository.getInstance().getRandomTimer(person, a.getId()));
         person.setCurrentAction(a);
         Reaction react = new Reaction(person);
@@ -74,7 +77,7 @@ public class LifeManager {
             a = l.get(rand.nextInt(l.size()));
 
         }
-        a.setStart(Clock.getInstance().getHoraire());
+        a.setStart(Clock.getInstance().getTime());
         a.setEnd(ActionRepository.getInstance().getRandomTimer(person, a.getId()));
         person.setCurrentAction(a);
         Reaction react = new Reaction(person);
@@ -82,7 +85,7 @@ public class LifeManager {
     }
 
     public void refreshRoutine() {
-        Time time = Clock.getInstance().getHoraire();
+        Time time = Clock.getInstance().getTime();
         SocialState ss = person.getSocialState();
         PersonState ps = person.getPersonState();
         if (!Clock.isWeekend()) {
@@ -127,7 +130,7 @@ public class LifeManager {
             }
         }
         else{
-            if (person.getCurrentAction() == null) {
+            if (person.getCurrentAction().isFinished()) {
                 lifeIsGood();
             }
             else{
@@ -145,107 +148,95 @@ public class LifeManager {
         }
     }
 
-    private void lifeIsGood() {
+    public void lifeIsGood() {
         ActionRepository ar = ActionRepository.getInstance();
-        Random random = new Random();
         PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
         PersonalityTrait minPerso = person.getPersonality().getMinPerso();
-        int r = random.nextInt(3)+1;
-        if(r<3){
-            Action a = ar.getPreferredAction(person.getPersonality().getMaxPerso());
-            if(maxPerso instanceof Neuroticism || minPerso instanceof Extraversion){
-                goInside(a,false);
-            }
-            else{
-                goOutside(a, false);
-            }
+        int r = random(1,3) ;
+        if(r>1){
+            goHaveAGoodDay(false);
         }
         else{
-            if(maxPerso instanceof Neuroticism || minPerso instanceof Extraversion){
-                Action a = ar.getRandomInsideAction();
-                goInside(a,true);
-            }
-            else{
-                Action a = ar.getRandomOutsideAction();
-                goOutside(a, true);
-            }
+            goHaveAGoodDay(true);
         }
     }
 
     private void goInside(Action a, boolean randomTime) {
-        String id = a.getId();
         ActionRepository ar = ActionRepository.getInstance();
+        Action action = a;
+        String id = action.getId();
         if(id.equals("activité bénévole")){
             Random rand = new Random();
             int randomLine = rand.nextInt(GameConfiguration.LINE_COUNT);
             int randomCol = rand.nextInt(GameConfiguration.COLUMN_COUNT);
             personRepo.setNewLocation(person ,new Block(randomLine, randomCol));
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("apprentissage")){
 
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("activité culturelle")){
 
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("arts créatifs")){
 
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("jeux d'équipe")){
 
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("sport intense")){
 
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         personRepo.setNewLocation(person, person.getHouse().getRandomBlock());
     }
 
     private void goOutside(Action a, boolean randomTime) {
         String id = a.getId();
+        Action action = a;
         ActionRepository ar = ActionRepository.getInstance();
         if(id.equals("activité bénévole")){
             Random rand = new Random();
             int randomLine = rand.nextInt(GameConfiguration.LINE_COUNT);
             int randomCol = rand.nextInt(GameConfiguration.COLUMN_COUNT);
             personRepo.setNewLocation(person,new Block(randomLine, randomCol));
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("apprentissage")){
             personRepo.setNewLocation(person, InfrastructureRepository.getInstance().get("bibliothèque").getRandomBlock());
             setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            person.setCurrentAction(action);
         }
         if(id.equals("activité culturelle")){
             personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("musée").getRandomBlock());
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("arts créatifs")){
             personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("Cinéma").getRandomBlock());
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("jeux d'équipe")){
             personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("Stade").getRandomBlock());
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
         if(id.equals("sport intense")){
             personRepo.setNewLocation(person,InfrastructureRepository.getInstance().get("Salle").getRandomBlock());
-            setActionTime(a, randomTime);
-            person.setCurrentAction(a);
+            setActionTime(action, randomTime);
+            person.setCurrentAction(action);
         }
     }
 
@@ -321,6 +312,33 @@ public class LifeManager {
         person.setCurrentAction(a);
         Reaction react = new Reaction(person);
         react.changeState(a);
+    }
+
+    private void goHaveAGoodDay(boolean other){
+        if(person.isSleeping()){
+            person.getPersonState().getSleep().setSleeping(false);
+        }
+        Action action;
+        if(other){
+            int r = random(1);
+            if(r==0){
+                action = actionRepo.getRandomInsideAction();
+            }
+            else{
+                action = actionRepo.getRandomOutsideAction();
+            }
+        }
+        else{
+            action = actionRepo.getPreferredAction(person.getPersonality().getMaxPerso());
+        }
+        if(action.isOutside()){
+            goOutside(action, false);
+        }
+        else{
+            goInside(action, false);
+        }
+        Reaction react = new Reaction(person);
+        react.changeState(action);
     }
 
 }

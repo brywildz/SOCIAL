@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 
 public class PersonRepository {
-    private HashMap<String, Person> individus = new HashMap<>();
+    private HashMap<String, Person> persons = new HashMap<>();
     private static PersonRepository instance;
 
     private PersonRepository() {}
@@ -25,32 +25,32 @@ public class PersonRepository {
         return instance;
     }
 
-    public HashMap<String, Person> getIndividus() {
-        return individus;
+    public HashMap<String, Person> getPersons() {
+        return persons;
     }
 
     public void addIndividu(Person person) {
-        individus.put(person.getNom(), person);
+        persons.put(person.getName(), person);
     }
 
     public Person getIndividu(Block block) {
-        return individus.get(block);
+        return persons.get(block);
     }
 
     public void setNewLocation(Person person, Block newLocation){
-        if(individus.containsKey(person.getNom())){
+        if(persons.containsKey(person.getName())){
             person.setLocation(newLocation);
         }
     }
 
-    public void setIndividus(HashMap<String, Person> persons) {
-        individus = persons;
+    public void setPersons(HashMap<String, Person> persons) {
+        this.persons = persons;
     }
 
 
 
     public Person isHere(Block location) {
-        for(Person p : individus.values()){
+        for(Person p : persons.values()){
             if(p.getLocation().equals(location)){
                 return p;
             }

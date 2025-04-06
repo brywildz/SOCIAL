@@ -5,15 +5,17 @@ package config;
  */
 public class GameConfiguration {
 
-    public static final int WINDOW_WIDTH = 1900;
-    public static final int WINDOW_HEIGHT = 950;
+    public static boolean GAME = false;
+
+    public static final int WINDOW_WIDTH = 1500;
+    public static final int WINDOW_HEIGHT = 750;
 
     public static final int BLOCK_SIZE = 10;
 
     public static final int LINE_COUNT = WINDOW_HEIGHT / BLOCK_SIZE;
     public static final int COLUMN_COUNT = WINDOW_WIDTH / BLOCK_SIZE;
 
-    public static final int GAME_SPEED = 1000;
+    public static int GAME_SPEED = 1000;
 
     public static final int BUILDING_X = 7, BUILDING_Y = 7;
     public static final int BUILDING_WIDTH = 7, BUILDING_HEIGHT = 7;
@@ -21,10 +23,10 @@ public class GameConfiguration {
     public static final int APARTMENT_X = 49, APARTMENT_Y = 11;
     public static final int APARTMENT_WIDTH = 5, APARTMENT_HEIGHT = 5;
 
-    public static final int HOUSE1_WIDTH = 5, HOUSE1_HEIGHT = 5;
+    public static final int HOUSE1_WIDTH = 7, HOUSE1_HEIGHT = 7;
     public static final int HOUSE1_X = 30, HOUSE1_Y = 1;
-    public static final int HOUSE2_X = 36, HOUSE2_Y = 1;
-    public static final int HOUSE3_X = 42, HOUSE3_Y = 1;
+    public static final int HOUSE2_X = 38, HOUSE2_Y = 1;
+    public static final int HOUSE3_X = 46, HOUSE3_Y = 1;
     public static final int HOUSE4_X = 0, HOUSE4_Y = 0;
     public static final int HOUSE5_X = 0, HOUSE5_Y = 0;
 
@@ -72,5 +74,17 @@ public class GameConfiguration {
     public static final int FIRESTATION_WIDTH = 3, FIRESTATION_HEIGHT = 3;
 
     public static final int GOVERNMENT_WIDTH = 4, GOVERNMENT_HEIGHT = 4;
+
+    public static void speedUpGame(){
+        GAME_SPEED = 65;
+    }
+
+    public static void speedNormalGame(){
+        GAME_SPEED = 1000;
+    }
+
+    public static void speedDownGame(){
+        GAME_SPEED = 2000;
+    }
 
 }

@@ -37,17 +37,17 @@ public class MobileElementManager implements MobileInterface {
     }
 
     public HashMap<String, Person> getIndividus() {
-        return personRepo.getIndividus();
+        return personRepo.getPersons();
     }
 
     @Override
     public void set(HashMap<String, Person> individus) {
-        this.personRepo.setIndividus(individus);
+        this.personRepo.setPersons(individus);
     }
 
     public void nextSecond(){
-        Clock.getInstance().getHoraire().addMinute(15);
-        List<Person> personList = new ArrayList<>(personRepo.getIndividus().values());
+        Clock.getInstance().getTime().addMinute(15);
+        List<Person> personList = new ArrayList<>(personRepo.getPersons().values());
         for(Person person : personList){
             refreshLifeStyle(person);
             refreshEvent(person);
@@ -57,7 +57,12 @@ public class MobileElementManager implements MobileInterface {
 
     private void refreshLifeStyle(Person person) {
         LifeManager lf = new LifeManager(person);
-        lf.refreshRoutine();
+        if(!Clock.isWeekend()){
+            lf.refreshRoutine();
+        }
+        else{
+            lf.lifeIsGood();
+        }
     }
 
     private void refreshEvent(Person person) {
@@ -71,7 +76,7 @@ public class MobileElementManager implements MobileInterface {
             return;
         } else{
             Event e = person.getEvent();
-            if(e.isFinish() || Clock.getInstance().getHoraire().isHigherThan(e.getFin())){
+            if(e.isFinish() || Clock.getInstance().getTime().isHigherThan(e.getFin())){
                 person.setEvent(null);
             }
         }
@@ -81,7 +86,7 @@ public class MobileElementManager implements MobileInterface {
         if(person.getEvent() == null){
             return;
         }
-        if(person.getEvent().getDebut().equals(Clock.getInstance().getHoraire())){
+        if(person.getEvent().getDebut().equals(Clock.getInstance().getTime())){
             Reaction react = new Reaction(person, person.getEvent());
             //react.changeState();
         }

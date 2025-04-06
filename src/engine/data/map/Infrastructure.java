@@ -13,7 +13,7 @@ public class Infrastructure {
     private String nom;  // Ajout du nom du lieu
     private Block base;
     private Block[][] zone;
-    private ArrayList<Person> persons;
+    private ArrayList<Person> persons = new ArrayList<>();
 
     public Infrastructure(String nom, int column, int line, int width, int height) {
         this.nom = nom;

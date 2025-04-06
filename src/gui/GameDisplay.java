@@ -10,9 +10,13 @@ import engine.process.MobileInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import static config.GameConfiguration.GAME;
+
 /**
  * Classe d'affichage gérant le dessin des different composant selon la classe paintStrategy
  *
@@ -22,7 +26,8 @@ import java.util.Iterator;
 public class GameDisplay extends JPanel {
     private Map map;
     private MobileInterface manager;
-    private PaintStrategy paintStrategy =new PaintStrategy();
+    private PaintStrategy paintStrategy = new PaintStrategy();
+    private BufferedImage cityImage;
 
     public GameDisplay(Map map, MobileInterface manager) {
         this.map = map;
@@ -32,21 +37,21 @@ public class GameDisplay extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        try {
+        /*try {
             paintStrategy.paint(map, g);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            //paintStrategy.paintBuilding((Graphics2D)g);
             paintStrategy.paintCity((Graphics2D)g);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        paintStrategy.paintHour((Graphics2D)g);
-        this.revalidate();
-        this.repaint();
-        HashMap<String, Person> individu = PersonRepository.getInstance().getIndividus();
+        paintStrategy.paintDate((Graphics2D)g);
+        GAME = true;*/
+        g.drawImage(cityImage, 0, 0, null);
+        paintStrategy.paintDate((Graphics2D)g);
+        HashMap<String, Person> individu = PersonRepository.getInstance().getPersons();
         Iterator<Person> it = individu.values().iterator();
         while(it.hasNext()){
             Color c = Color.YELLOW;
@@ -73,5 +78,26 @@ public class GameDisplay extends JPanel {
         int line= y/GameConfiguration.BLOCK_SIZE;
         int column = x/GameConfiguration.BLOCK_SIZE;
         return map.getBlock(line, column);
+    }
+
+    public void generateCityImage(){
+        int width = 1500;
+        int height = 750;
+        cityImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = cityImage.createGraphics();
+
+        try{
+            paintStrategy.paint(map,g2);
+            paintStrategy.paintCity((Graphics2D)g2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g2.dispose();
+    }
+
+    public void addNotify(){
+        super.addNotify();
+        generateCityImage();
+        repaint();
     }
 }

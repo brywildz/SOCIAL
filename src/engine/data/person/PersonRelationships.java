@@ -24,4 +24,27 @@ public class PersonRelationships {
     public void addPro(Person person) {
         pro.add(person);
     }
+
+    public ArrayList<Person> getPro() {
+        return pro;
+    }
+
+    public ArrayList<Person> getFamiliale() {
+        return familiale;
+    }
+
+    public ArrayList<Person> getAmicale() {
+        return amicale;
+    }
+
+    public boolean isFull(String type, int number){
+        return switch (type) {
+            case "friends" ->
+                    amicale.size() == number;
+            case "work" ->
+                    pro.size() == number;
+            case "family" -> familiale.size() == number;
+            default -> false;
+        };
+    }
 }

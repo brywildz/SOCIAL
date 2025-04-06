@@ -1,7 +1,7 @@
 package engine.data.event;
 import engine.data.map.Time;
 import engine.data.person.Person;
-import engine.data.person.PersonState;
+
 /**
  * Classe représentant un événement personnel affectant un individu spécifique
  * Cette classe hérite de @Evenement et permet de gérer les événements individuels
@@ -22,7 +22,7 @@ public class PersonalEvent extends Event {
 
     @Override
     public String toString() {
-        return super.toString() + "concerne l'individu : " + person.getNom();
+        return super.toString() + "concerne l'individu : " + person.getName();
     }
 
     public void setPerson(Person person) {

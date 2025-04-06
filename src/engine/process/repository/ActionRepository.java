@@ -5,10 +5,9 @@ import engine.data.map.Clock;
 import engine.data.map.Time;
 import engine.data.person.Person;
 import engine.data.person.personalityTraits.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
+import static engine.process.GameBuilder.random;
 
 public class ActionRepository {
     private final HashMap<String, Action> insideActions = new HashMap<>();
@@ -58,42 +57,41 @@ public class ActionRepository {
     public Time getRandomTimer(Person p, String id) { //il manque l'adaptabilité
         PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
         Clock clock = Clock.getInstance();
-        Random rand = new Random();
         Time t = clock.getActualTime();
         if (id.equals("sport intense")) {
-            int randomInt = rand.nextInt(60);
+            int randomInt = random(1,60);
             t.addMinute(randomInt);
             return t;
         } else if (id.equals("arts créatifs")) {
-            int randomInt = rand.nextInt(120);
+            int randomInt = random(1,120);
             t.addMinute(randomInt);
             return t;
         } else if (id.equals("apprentissage")) {
-            int randomInt = rand.nextInt(240);
+            int randomInt = random(1,240);
             t.addMinute(randomInt);
             return t;
         } else if (id.equals("dormir")) {
-            int randomInt = rand.nextInt(10);
+            int randomInt = random(1,10);
             t.addHour(randomInt);
             return t;
         } else if (id.equals("jeux d'équipes")) {
-            int randomInt = rand.nextInt(4);
+            int randomInt = random(1,4);
             t.addHour(randomInt);
             return t;
         } else if (id.equals("travail")) {
-            int randomInt = rand.nextInt(7);
+            int randomInt = random(1,7);
             t.addHour(randomInt);
             return t;
         } else if (id.equals("activité bénévole")) {
-            int randomInt = rand.nextInt(7);
+            int randomInt = random(1,7);
             t.addHour(randomInt);
             return t;
         } else if (id.equals("devoirs")) {
-            int randomInt = rand.nextInt(180);
+            int randomInt = random(1,80);
             t.addMinute(randomInt);
             return t;
         } else { //activité culturelle
-            int randomInt = rand.nextInt(4);
+            int randomInt = random(1,4);
             t.addHour(randomInt);
             return t;
         }
@@ -117,38 +115,26 @@ public class ActionRepository {
 
     public Action getRandomInsideAction() {
         ArrayList<Action> actions = new ArrayList<>(insideActions.values());
-        Random rand = new Random();
-        return actions.get(rand.nextInt(actions.size()));
+        return actions.get(random(actions.size()));
     }
 
     public Action getRandomOutsideAction() {
         ArrayList<Action> actions = new ArrayList<>(outsideActions.values());
-        Random rand = new Random();
-        return actions.get(rand.nextInt(actions.size()));
+        return actions.get(random(actions.size()));
     }
 
     public int getMaxTime(String id) {
-        if (id.equals("sport intense")) {
-            return 60;
-        } else if (id.equals("arts créatifs")) {
-            return 120;
-        } else if (id.equals("apprentissage")) {
-            return 240;
-        } else if (id.equals("dormir")) {
-            return 600;
-        } else if (id.equals("jeux d'équipes")) {
-            return 240;
-        } else if (id.equals("travail")) {
-            return 420;
-        } else if (id.equals("activité bénévole")) {
-            return 420;
-        }
-        else if (id.equals("devoirs")) {
-                return 180;
-            }
-        else { //activité culturelle
-                return 240;
-            }
+        return switch (id) {
+            case "sport intense" -> 60;
+            case "arts créatifs" -> 120;
+            case "apprentissage" -> 240;
+            case "dormir" -> 600;
+            case "jeux d'équipes" -> 240;
+            case "travail", "activité bénévole" -> 420;
+            case "devoirs" -> 180;
+            default ->  //activité culturelle
+                    240;
+        };
         }
     }
 

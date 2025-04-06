@@ -29,7 +29,7 @@ public class EventManager {
 
     public EventManager(String idEvent){
         this.idEvent = idEvent;
-        HashMap<String, Person> listInd = indRepo.getIndividus();
+        HashMap<String, Person> listInd = indRepo.getPersons();
         WeatherEvent em = (WeatherEvent) eventRepo.getEvent(idEvent);
         Iterator<Person> it = listInd.values().iterator();
         while(it.hasNext()){

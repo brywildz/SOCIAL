@@ -59,6 +59,7 @@ public class Time {
 
     private void newDay() {
         date.newDay();
+
     }
 
     public int getHour() {

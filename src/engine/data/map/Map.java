@@ -22,7 +22,7 @@ public class Map {
     public Map(int lineCount, int columnCount){
         this.columnCount = columnCount;
         this.lineCount = lineCount;
-        this.individus = PersonRepository.getInstance().getIndividus();
+        this.individus = PersonRepository.getInstance().getPersons();
         blocks = new Block[this.lineCount][this.columnCount];
 
         for (int lineIndex = 0; lineIndex < this.lineCount; lineIndex++) {

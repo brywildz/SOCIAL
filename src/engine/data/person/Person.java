@@ -13,16 +13,16 @@ import engine.data.person.socialState.Worker;
 import engine.data.person.personalityTraits.*;
 
 /**
- * Classe de donnée stockant l'entierté des informations liée à un individu
+ * Classe de donnée stockant l'entierté des informations liées à un individu
  *
  * @author Dylan Manseri, Amadou Bawol
  * @version 0.1
  */
 public class Person {
-    private final String nom;
-    private final int age;
+    private String name;
+    private int age;
     private SocialState socialState;
-    private final Personality personality;
+    private Personality personality;
     private PersonState personState;
     private PersonRelationships personRelationships;
     private Block location;
@@ -32,7 +32,7 @@ public class Person {
 
     public Person(String nom, int age, SocialState socialState, PersonState personState, PersonRelationships personRelationships,
                   Block location, int agr, int cons, int extra, int neuro, int ouvert) {
-        this.nom = nom;
+        this.name = nom;
         this.age = age;
         this.socialState = socialState;
         this.personState = personState;
@@ -41,6 +41,8 @@ public class Person {
         personality = new Personality(agr, cons, extra, neuro, ouvert);
 
     }
+
+    public Person(){}
 
     // <editor-fold> desc="getter&setter"
     public SocialState getSocialState() {
@@ -83,8 +85,8 @@ public class Person {
         return age;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
     public void setEvent(Event currentEvent) {
@@ -135,7 +137,7 @@ public class Person {
 
     @Override
     public String toString() {
-        String s = "Nom : " + nom + ", age : " + age + ", Statut social : "+socialState;
+        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState;
         if(currentAction != null){
             s+="\nAction : "+ currentAction.getId();
         }
@@ -157,14 +159,14 @@ public class Person {
 
     public boolean isWorking(){
         if(isWorker()){
-            Time t = Clock.getInstance().getHoraire();
+            Time t = Clock.getInstance().getTime();
             Worker w = (Worker) socialState;
             Time start = w.getStartTime();
             Time end = w.getEndTime();
             return t.isDuring(start, end);
         }
         else if (isPupil()) {
-            Time t = Clock.getInstance().getHoraire();
+            Time t = Clock.getInstance().getTime();
             Pupil w = (Pupil) socialState;
             Time start = w.getStartTime();
             Time end = w.getEndTime();
@@ -188,5 +190,22 @@ public class Person {
 
     public void setHouse(Infrastructure house) {
         this.house = house;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setPersonality(Personality personality) {
+        this.personality = personality;
+    }
+
+    public String toStringForPane() {
+        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState + ", Occupation : "+currentAction.getId();
+        return s;
     }
 }

@@ -4,14 +4,23 @@ public class Date {
     private int year;
     private int month;
     private int day;
+    private String dayName;
+    private int indexWeek;
 
     public Date(int year, int month, int day) {
         this.year = year;
         this.month = month;
         this.day = day;
+        this.indexWeek = 3;
+        dayName = daysNameList[indexWeek];
     }
 
     public void newDay(){
+        indexWeek++;
+        if(indexWeek>=7){
+            indexWeek=0;
+        }
+        dayName = daysNameList[indexWeek];
         if(day==30){
             day=1;
             newMonth();
@@ -50,4 +59,10 @@ public class Date {
     public int getDay() {
         return day;
     }
+
+    public String getDayName() {
+        return dayName;
+    }
+
+    public static String[] daysNameList ={"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
 }

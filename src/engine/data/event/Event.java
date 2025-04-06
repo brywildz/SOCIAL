@@ -2,7 +2,6 @@ package engine.data.event;
 import engine.data.map.Block;
 import engine.data.map.Time;
 import engine.data.map.Clock;
-import engine.data.person.PersonState;
 
 /**
  * Classe abstraite représentant un événement dans le système
@@ -49,7 +48,7 @@ public abstract class Event {
 
 
     public boolean isFinish(){
-        return fin.equals(Clock.getInstance().getHoraire());
+        return fin.equals(Clock.getInstance().getTime());
     }
 
     public Block getLocation() {

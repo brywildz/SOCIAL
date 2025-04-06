@@ -18,7 +18,7 @@ public class Clock {
         h.newSecond();
     }
 
-    public Time getHoraire(){
+    public Time getTime(){
         return this.h;
     }
 
@@ -32,24 +32,28 @@ public class Clock {
     }
 
     public static boolean isWeekend(){
-        int day = Clock.getInstance().getHoraire().getDate().getDay();
-        return day+1 % 7 == 0 || day % 7 == 0;
+        String day = Clock.getInstance().getTime().getDate().getDayName();
+        return day.equals("Samedi") || day.equals("Dimanche");
     }
 
     public String showDate() {
-        int day = getHoraire().getDate().getDay();
-        int month = getHoraire().getDate().getMonth();
-        int year = getHoraire().getDate().getYear();
+        int day = getTime().getDate().getDay();
+        int month = getTime().getDate().getMonth();
+        int year = getTime().getDate().getYear();
 
         return String.format("%02d/%02d/%04d", day, month, year);
     }
 
     public String showTime() {
-        int hour = getHoraire().getHour();
-        int minute = getHoraire().getMinute();
-        int second = getHoraire().getSecond();
+        int hour = getTime().getHour();
+        int minute = getTime().getMinute();
+        int second = getTime().getSecond();
 
         return String.format("%02d:%02d:%02d", hour, minute, second);
+    }
+
+    public String showDayName(){
+        return getTime().getDate().getDayName();
     }
 
 }

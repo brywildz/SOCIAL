@@ -52,7 +52,7 @@ public class Action {
     }
 
     public boolean isFinished() {
-        Time c = Clock.getInstance().getHoraire();
+        Time c = Clock.getInstance().getTime();
         return c.isHigherThan(end);
     }
 

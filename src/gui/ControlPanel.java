@@ -1,7 +1,7 @@
 package gui;
 
 import engine.data.person.Person;
-import engine.process.PersonBuilder;
+import engine.process.builder.PersonBuilder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

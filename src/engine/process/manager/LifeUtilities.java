@@ -6,7 +6,7 @@ import engine.data.map.*;
 import engine.data.person.Person;
 import engine.data.person.Personality;
 import engine.data.person.personalityTraits.*;
-import engine.process.HobbyBuilder;
+import engine.process.builder.HobbyBuilder;
 import engine.process.repository.HobbyRepository;
 import engine.process.repository.InfrastructureRepository;
 import engine.process.repository.PersonRepository;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 
 public class LifeUtilities {
     private static PersonRepository personRepo = PersonRepository.getInstance();

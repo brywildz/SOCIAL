@@ -5,7 +5,7 @@ import engine.data.map.Clock;
 import engine.data.map.Time;
 import engine.data.person.Person;
 import engine.data.person.Personality;
-import engine.process.HobbyBuilder;
+import engine.process.builder.HobbyBuilder;
 import engine.process.repository.HobbyRepository;
 import engine.process.repository.PersonRepository;
 import static engine.process.manager.LifeUtilities.*;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 import static engine.process.manager.LifeUtilities.refreshLocation;
 
 /**

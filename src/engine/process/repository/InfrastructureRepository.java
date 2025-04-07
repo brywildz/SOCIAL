@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static config.GameConfiguration.*;
 import static config.GameConfiguration.CITY_Y;
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 
 /**
  * Singleton stockant l'entierté des infrastructures de la carte

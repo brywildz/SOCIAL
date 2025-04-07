@@ -11,7 +11,7 @@ import engine.data.person.vitality.*;
 
 import java.util.*;
 
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 
 /**
  * Classe de donnée stockant tous les évennement et leur réaction PAR DEFAUT

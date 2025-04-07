@@ -1,7 +1,7 @@
 package engine.process.manager;
 
 import engine.data.event.Hobby;
-import engine.process.HobbyBuilder;
+import engine.process.builder.HobbyBuilder;
 import engine.process.repository.HobbyRepository;
 import engine.data.map.*;
 import engine.data.person.Person;

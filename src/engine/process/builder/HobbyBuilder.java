@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.builder;
 
 import engine.data.event.Hobby;
 import engine.data.map.Clock;
@@ -12,7 +12,7 @@ import engine.process.repository.HobbyRepository;
 import engine.process.repository.InfrastructureRepository;
 import engine.process.repository.PersonRepository;
 
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 import static engine.process.manager.LifeUtilities.weatherCheck;
 
 public class HobbyBuilder {

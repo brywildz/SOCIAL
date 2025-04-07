@@ -4,7 +4,7 @@ import engine.data.person.Person;
 
 import java.util.ArrayList;
 
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 
 /**
  * Classe de donnée stockant les informations liée à une infrastructure

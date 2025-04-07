@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.builder;
 
 import engine.data.map.Infrastructure;
 import engine.data.map.Time;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 import static engine.process.manager.LifeUtilities.createSleepTimeWeekEnd;
 import static engine.process.manager.LifeUtilities.createWakeTimeWeekEnd;
 

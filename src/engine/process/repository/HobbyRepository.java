@@ -5,7 +5,7 @@ import engine.data.map.Time;
 import engine.data.person.personalityTraits.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import static engine.process.GameBuilder.random;
+import static engine.process.builder.GameBuilder.random;
 
 public class HobbyRepository {
     private final HashMap<String, Hobby> insideActions = new HashMap<>();

@@ -5,11 +5,11 @@ package config;
  */
 public class GameConfiguration {
 
-    public static final int FIRST_DAY = 4;
+    public static final int FIRST_DAY = 3;
 
     public static final int SECOND_START = 0;
     public static final int MINUTE_START = 0;
-    public static final int HOUR_START = 18;
+    public static final int HOUR_START = 7;
 
     public static final int YEAR_START = 2025;
     public static final int MONTH_START = 1;

@@ -82,8 +82,7 @@ public class InfrastructureRepository {
     }
 
     public Infrastructure randomWorkingPlace(){
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(2);
+        int randomIndex = random(2);
         if(randomIndex == 0){
             return infrastructures.get("office1");
         }
@@ -93,8 +92,7 @@ public class InfrastructureRepository {
     }
 
     public Infrastructure getRandomHouse(){
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(7);
+        int randomIndex = random(9);
         if(randomIndex == 0){
             return infrastructures.get("maison1");
         }
@@ -104,10 +102,10 @@ public class InfrastructureRepository {
         if(randomIndex == 2){
             return infrastructures.get("maison3");
         }
-        if(randomIndex == 5){
+        if(randomIndex == 3 || randomIndex == 4){
             return infrastructures.get("apartment1");
         }
-        if(randomIndex == 6){
+        if(randomIndex == 5 || randomIndex == 6){
             return infrastructures.get("apartment2");
         }
         return infrastructures.get("apartment3");

@@ -55,9 +55,8 @@ public class LifeUtilities {
             a.setId("learning");
         }
         else{
-            Random rand = new Random();
             List<Hobby> l = new ArrayList<>(HobbyRepository.getInstance().getInsideActions().values());
-            a = l.get(rand.nextInt(l.size()));
+            a = l.get(random(l.size()));
 
         }
         a.setStart(Clock.getInstance().getTime());

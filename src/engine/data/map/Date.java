@@ -1,5 +1,7 @@
 package engine.data.map;
 
+import config.GameConfiguration;
+
 public class Date {
     private int year;
     private int month;
@@ -11,7 +13,7 @@ public class Date {
         this.year = year;
         this.month = month;
         this.day = day;
-        this.indexWeek = 3;
+        this.indexWeek = GameConfiguration.FIRST_DAY;
         dayName = daysNameList[indexWeek];
     }
 

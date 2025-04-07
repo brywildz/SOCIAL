@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static engine.process.GameBuilder.random;
+import static engine.process.manager.LifeUtilities.createSleepTimeWeekEnd;
+import static engine.process.manager.LifeUtilities.createWakeTimeWeekEnd;
 
 public class PersonBuilder {
     InfrastructureRepository infraRepo = InfrastructureRepository.getInstance();
@@ -104,13 +106,18 @@ public class PersonBuilder {
         if(randomIndex == 1){
             Time start = new Time(8,30,0);
             Time end = new Time(17,0,0);
-            ss = new Pupil(infraRepo.get("école"), start, end);
+            ss = new Pupil(infraRepo.randomSchool(), start, end);
         }
         return ss;
     }
 
     public Personality createPersonality(){
-        return new Personality(random(1, 11),random(1, 11), random(1, 11), random(1, 11), random(1, 11));
+        Personality per = new Personality(random(1, 11),random(1, 11), random(1, 11), random(1, 11), random(1, 11));
+        Time wakeUpTimeWeekEnd = createWakeTimeWeekEnd(per);
+        Time sleepTimeWeekEnd = createSleepTimeWeekEnd(per);
+        per.setWakeUpTimeWeekEnd(wakeUpTimeWeekEnd);
+        per.setSleepTimeWeekEnd(sleepTimeWeekEnd);
+        return per;
     }
 
     public PersonState createPersonState(){

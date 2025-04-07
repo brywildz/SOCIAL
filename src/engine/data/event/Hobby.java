@@ -1,26 +1,31 @@
 package engine.data.event;
 
 import engine.data.map.Clock;
+import engine.data.map.Infrastructure;
 import engine.data.map.Time;
 
-public class Action {
+public class Hobby {
     private String id;
     private Time start;
     private Time end;
-    private final boolean isOutside;
+    private boolean isOutside;
+    private Infrastructure place;
 
-    public Action(String id, boolean isOutside, Time start, Time end) {
+    public Hobby(String id, boolean isOutside, Time start, Time end) {
         this.id = id;
         this.start = start;
         this.end = end;
         this.isOutside = isOutside;
     }
 
-    public Action(Action action) {
-        this.id = action.getId();
-        this.start = action.getStart();
-        this.end = action.getEnd();
-        this.isOutside = action.isOutside();
+    public Hobby(Hobby hobby) {
+        this.id = hobby.getId();
+        this.start = hobby.getStart();
+        this.end = hobby.getEnd();
+        this.isOutside = hobby.isOutside();
+    }
+
+    public Hobby() {
     }
 
     public String getId() {
@@ -57,4 +62,20 @@ public class Action {
     }
 
 
+    public void setOutside(boolean isOutside) {
+        this.isOutside = isOutside;
+    }
+
+    public void setPlace(Infrastructure place) {
+        this.place = place;
+    }
+
+    public Infrastructure getPlace() {
+        return place;
+    }
+
+    public boolean hasStart() {
+        Time time = Clock.getInstance().getTime();
+        return time.equals(start);
+    }
 }

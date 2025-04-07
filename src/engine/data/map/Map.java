@@ -1,5 +1,7 @@
 package engine.data.map;
 
+import config.GameConfiguration;
+import engine.data.event.WeatherEvent;
 import engine.data.person.Person;
 import engine.process.repository.PersonRepository;
 
@@ -18,6 +20,8 @@ public class Map {
     private HashMap<Integer, String> espaces;
     private Block[][] blocks;
     private HashMap<String, Person> individus;
+    private WeatherEvent weather;
+    private static Map instance;
 
     public Map(int lineCount, int columnCount){
         this.columnCount = columnCount;
@@ -30,6 +34,13 @@ public class Map {
                 blocks[lineIndex][columnIndex] = new Block(lineIndex, columnIndex);
             }
         }
+    }
+
+    public static Map getInstance() {
+        if (instance == null) {
+            instance = new Map(GameConfiguration.LINE_COUNT, GameConfiguration.COLUMN_COUNT);
+        }
+        return instance;
     }
 
     private void init(int lineCount, int columnCount) {
@@ -76,5 +87,13 @@ public class Map {
 
     public int getColumnCount() {
         return columnCount;
+    }
+
+    public WeatherEvent getWeather() {
+        return weather;
+    }
+
+    public void setWeather(WeatherEvent weather) {
+        this.weather = weather;
     }
 }

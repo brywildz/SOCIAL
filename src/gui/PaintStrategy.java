@@ -1,7 +1,5 @@
 package gui;
 
-import static config.GameConfiguration.*;
-
 import engine.data.map.*;
 import engine.data.person.Person;
 
@@ -9,6 +7,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
+import static config.GameConfiguration.*;
 
 /**
  * Classe d'affichage gérant la strategie d'affichage (comment les composants  vont être dessiné sur l'écran)
@@ -59,44 +59,82 @@ public class PaintStrategy {
 
     public void paintCity(Graphics2D g2) throws IOException {
         int blockSize = BLOCK_SIZE;
-        g2.drawImage(ImageIO.read(new File("src/images/apartments1.png")), APARTMENT_X *BLOCK_SIZE, APARTMENT_Y *BLOCK_SIZE,
-                APARTMENT_WIDTH *BLOCK_SIZE, APARTMENT_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/apartments1.png")), APARTMENT1_X * blockSize, APARTMENT1_Y * blockSize,
+                APARTMENT_WIDTH * blockSize, APARTMENT_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/apartments1.png")), (APARTMENT_X-5) *BLOCK_SIZE, APARTMENT_Y *BLOCK_SIZE,
-                APARTMENT_WIDTH *BLOCK_SIZE, APARTMENT_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/apartments4.png")), APARTMENT2_X * blockSize, APARTMENT2_Y * blockSize,
+                APARTMENT_WIDTH * blockSize, APARTMENT_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/apartments1.png")), (APARTMENT_X-10) *BLOCK_SIZE, APARTMENT_Y *BLOCK_SIZE,
-                APARTMENT_WIDTH *BLOCK_SIZE, APARTMENT_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/apartments6.png")), APARTMENT3_X * blockSize, APARTMENT3_Y * blockSize,
+                APARTMENT_WIDTH * blockSize, APARTMENT_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/administrativeBuilding.png")), ADMIN_X *BLOCK_SIZE, ADMIN_Y *BLOCK_SIZE,
-                ADMIN_WIDTH *BLOCK_SIZE, ADMIN_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/administrativeBuilding.png")), ADMIN1_X * blockSize, ADMIN1_Y * blockSize,
+                ADMIN_WIDTH * blockSize, ADMIN_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/administrativeBuilding.png")), (ADMIN_X+4) *BLOCK_SIZE, (ADMIN_Y+3) *BLOCK_SIZE,
-                ADMIN_WIDTH *BLOCK_SIZE, ADMIN_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/administrativeBuilding.png")), ADMIN2_X * blockSize, ADMIN2_Y * blockSize,
+                ADMIN_WIDTH * blockSize, ADMIN_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/bank.png")), BANK_X *BLOCK_SIZE, BANK_Y *BLOCK_SIZE,
-                BANK_WIDTH *BLOCK_SIZE, BANK_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/bank.png")), BANK_X * blockSize, BANK_Y * blockSize,
+                BANK_WIDTH * blockSize, BANK_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/house1.png")), HOUSE1_X *BLOCK_SIZE, HOUSE1_Y *BLOCK_SIZE,
-                HOUSE1_WIDTH *BLOCK_SIZE, HOUSE1_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/house1.png")), HOUSE1_X * blockSize, HOUSE1_Y * blockSize,
+                HOUSE1_WIDTH * blockSize, HOUSE1_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/house2.png")), HOUSE2_X *BLOCK_SIZE, HOUSE2_Y *BLOCK_SIZE,
-                HOUSE1_WIDTH *BLOCK_SIZE, HOUSE1_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/house2.png")), HOUSE2_X * blockSize, HOUSE2_Y * blockSize,
+                HOUSE1_WIDTH * blockSize, HOUSE1_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/house3.png")), HOUSE3_X *BLOCK_SIZE, HOUSE3_Y *BLOCK_SIZE,
-                HOUSE1_WIDTH *BLOCK_SIZE, HOUSE1_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/house3.png")), HOUSE3_X * blockSize, HOUSE3_Y * blockSize,
+                HOUSE1_WIDTH * blockSize, HOUSE1_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/library.png")), LIBRARY_X *BLOCK_SIZE, LIBRARY_Y *BLOCK_SIZE,
-                LIBRARY_WIDTH *BLOCK_SIZE, LIBRARY_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/library.png")), LIBRARY_X * blockSize, LIBRARY_Y * blockSize,
+                LIBRARY_WIDTH * blockSize, LIBRARY_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/school.png")), SCHOOL_X *BLOCK_SIZE, SCHOOL_Y *BLOCK_SIZE,
-                SCHOOL_WIDTH *BLOCK_SIZE, SCHOOL_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/school.png")), SCHOOL1_X * blockSize, SCHOOL1_Y * blockSize,
+                SCHOOL_WIDTH * blockSize, SCHOOL_HEIGHT * blockSize, null);
 
-        /*g2.drawImage(ImageIO.read(new File("src/images/house1.png")), MUSEUM_X *BLOCK_SIZE, MUSEUM_Y *BLOCK_SIZE,
-                MUSEUM_WIDTH *BLOCK_SIZE, MUSEUM_HEIGHT *BLOCK_SIZE, null);
+        g2.drawImage(ImageIO.read(new File("src/images/school1.png")), SCHOOL2_X * blockSize, SCHOOL2_Y * blockSize,
+                SCHOOL_WIDTH * blockSize, SCHOOL_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/house1.png")), CINEMA_X *BLOCK_SIZE, CINEMA_Y *BLOCK_SIZE,
-                CINEMA_WIDTH *BLOCK_SIZE, CINEMA_HEIGHT *BLOCK_SIZE, null);*/
+        g2.drawImage(ImageIO.read(new File("src/images/nightClub.png")), NIGHTCLUB_X * blockSize, NIGHTCLUB_Y * blockSize,
+                NIGHTCLUB_WIDTH * blockSize, NIGHTCLUB_HEIGHT * blockSize, null);
 
+        g2.drawImage(ImageIO.read(new File("src/images/mall.png")), MALL_X * blockSize, MALL_Y * blockSize,
+                MALL_WIDTH * blockSize, MALL_HEIGHT * blockSize, null);
+
+        /*g2.drawImage(ImageIO.read(new File("src/images/policeStation.png")), POLICESTATION_X * blockSize, POLICESTATION_Y * blockSize,
+                POLICESTATION_WIDTH * blockSize, POLICESTATION_HEIGHT * blockSize, null);*/
+
+        g2.drawImage(ImageIO.read(new File("src/images/restaurant.png")), RESTAURANT_X * blockSize, RESTAURANT_Y * blockSize,
+                RESTAURANT_WIDTH * blockSize, RESTAURANT_HEIGHT * blockSize, null);
+
+        g2.drawImage(ImageIO.read(new File("src/images/salle.png")), GYM_X * blockSize, GYM_Y * blockSize,
+                GYM_WIDTH * blockSize, GYM_HEIGHT * blockSize, null);
+
+        g2.drawImage(ImageIO.read(new File("src/images/museum.png")), MUSEE_X * blockSize, MUSEE_Y * blockSize,
+                MUSEE_WIDTH * blockSize, MUSEE_HEIGHT * blockSize, null);
+
+        g2.drawImage(ImageIO.read(new File("src/images/cinema.png")), CINEMA_X * blockSize, CINEMA_Y * blockSize,
+                CINEMA_WIDTH * blockSize, CINEMA_HEIGHT * blockSize, null);
+
+        /*g2.drawImage(ImageIO.read(new File("src/images/shop.png")), SHOP_X * blockSize, SHOP_Y * blockSize,
+                SHOP_WIDTH * blockSize, SHOP_HEIGHT * blockSize, null);*/
+
+        /*g2.drawImage(ImageIO.read(new File("src/images/clothing.png")), CLOTHING_X * blockSize, CLOTHING_Y * blockSize,
+                CLOTHING_WIDTH * blockSize, CLOTHING_HEIGHT * blockSize, null);*/
+
+        /*g2.drawImage(ImageIO.read(new File("src/images/furniture.png")), FURNITURE_X * blockSize, FURNITURE_Y * blockSize,
+                FURNITURE_WIDTH * blockSize, FURNITURE_HEIGHT * blockSize, null);*/
+
+        /*g2.drawImage(ImageIO.read(new File("src/images/tower.png")), TOWER_X * blockSize, TOWER_Y * blockSize,
+                TOWER_WIDTH * blockSize, TOWER_HEIGHT * blockSize, null);*/
+
+        /*g2.drawImage(ImageIO.read(new File("src/images/airport.png")), AIRPORT_X * blockSize, AIRPORT_Y * blockSize,
+                AIRPORT_WIDTH * blockSize, AIRPORT_HEIGHT * blockSize, null);
+
+        g2.drawImage(ImageIO.read(new File("src/images/fireStation.png")), FIRESTATION_X * blockSize, FIRESTATION_Y * blockSize,
+                FIRESTATION_WIDTH * blockSize, FIRESTATION_HEIGHT * blockSize, null);
+
+        g2.drawImage(ImageIO.read(new File("src/images/government.png")), GOVERNMENT_X * blockSize, GOVERNMENT_Y * blockSize,
+                GOVERNMENT_WIDTH * blockSize, GOVERNMENT_HEIGHT * blockSize, null);*/
     }
 }

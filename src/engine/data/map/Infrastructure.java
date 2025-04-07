@@ -3,7 +3,8 @@ package engine.data.map;
 import engine.data.person.Person;
 
 import java.util.ArrayList;
-import java.util.Random;
+
+import static engine.process.GameBuilder.random;
 
 /**
  * Classe de donnée stockant les informations liée à une infrastructure
@@ -51,9 +52,8 @@ public class Infrastructure {
     }
 
     public Block getRandomBlock(){
-        Random rand = new Random();
-        int randomLine = rand.nextInt(zone.length);
-        int randomCol = rand.nextInt(zone[randomLine].length);
+        int randomLine = random(zone.length);
+        int randomCol = random(zone[randomLine].length);
         return zone[randomLine][randomCol];
     }
 

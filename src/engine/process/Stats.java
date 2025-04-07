@@ -137,8 +137,8 @@ public class Stats {
     public JFreeChart getActivityDistributionPie() {
 
         for (Person p : personRepo.getPersons().values()) {
-            if (p.getCurrentAction() != null) {
-                String action = p.getCurrentAction().getId();
+            if (p.getHobby() != null) {
+                String action = p.getHobby().getId();
                 activityCounts.put(action, activityCounts.getOrDefault(action, 0) + 1);
             }
         }

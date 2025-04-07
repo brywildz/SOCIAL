@@ -4,9 +4,9 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
-import engine.process.repository.PersonRepository;
 import engine.data.person.vitality.Mood;
 import engine.process.MobileInterface;
+import engine.process.repository.PersonRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import static config.GameConfiguration.GAME;
-
 /**
  * Classe d'affichage gérant le dessin des different composant selon la classe paintStrategy
  *
@@ -24,13 +22,12 @@ import static config.GameConfiguration.GAME;
  * @version 0.1
  */
 public class GameDisplay extends JPanel {
-    private Map map;
+    private Map map = Map.getInstance();
     private MobileInterface manager;
     private PaintStrategy paintStrategy = new PaintStrategy();
     private BufferedImage cityImage;
 
-    public GameDisplay(Map map, MobileInterface manager) {
-        this.map = map;
+    public GameDisplay(MobileInterface manager) {
         this.manager = manager;
     }
 

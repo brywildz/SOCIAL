@@ -2,11 +2,8 @@ package gui;
 
 import engine.data.person.Person;
 import engine.process.PersonBuilder;
-import engine.process.repository.PersonRepository;
-import config.GameConfiguration.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 

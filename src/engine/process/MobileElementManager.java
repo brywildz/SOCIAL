@@ -1,18 +1,20 @@
 package engine.process;
 
-import engine.data.event.Event;
-import engine.process.repository.EventRepository;
 import engine.data.event.WeatherEvent;
-import engine.data.map.Map;
 import engine.data.map.Clock;
+import engine.data.map.Map;
 import engine.data.map.Time;
 import engine.data.person.Person;
+import engine.process.manager.WeekEndManager;
+import engine.process.manager.WeekManager;
 import engine.process.repository.PersonRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-import static engine.process.Reaction.lifeStyleReact;
-import static engine.process.Reaction.weatherReact;
+import static engine.process.GameBuilder.random;
+import static engine.process.manager.LifeUtilities.refreshLocation;
 
 /**
  * Classe de traitement gérant les déplacements des individus sur la carte
@@ -25,15 +27,9 @@ import static engine.process.Reaction.weatherReact;
 public class MobileElementManager implements MobileInterface {
     private Map map;
     private final PersonRepository personRepo = PersonRepository.getInstance();
-    private WeatherEvent weather;
 
     public MobileElementManager(Map map){
-
         this.map = map;
-        Time start = Clock.getInstance().getActualTime();
-        Time end = start;
-        end.addHour(2);
-        weather = new WeatherEvent("soleil", start, end, "il fait beau");
     }
 
     public HashMap<String, Person> getIndividus() {
@@ -50,25 +46,48 @@ public class MobileElementManager implements MobileInterface {
         List<Person> personList = new ArrayList<>(personRepo.getPersons().values());
         for(Person person : personList){
             refreshLifeStyle(person);
-            refreshEvent(person);
+            //refreshEvent(person);
             refreshState(person);
+            refreshLocation(person);
+            refreshWeather();
+        }
+    }
+
+    private void refreshWeather() {
+        int nbr = random(8);
+        Time start = Clock.getInstance().getActualTime();
+        Time end = Clock.getInstance().getActualTime();
+        if(map.getWeather().isFinish()){
+            if(nbr < 5){
+                end.addHour(random(1,3));
+                map.setWeather(new WeatherEvent("normal", start, end, "Le temps est normal actuellement."));
+            }
+            if(nbr == 5){
+                end.addHour(random(1,4));
+                map.setWeather(new WeatherEvent("snow", start, end, "Il neige, c'est beau."));
+            }
+            else{
+                end.addHour(random(1,2));
+                map.setWeather(new WeatherEvent("rain", start, end, "Il pleut abondement"));
+            }
         }
     }
 
     private void refreshLifeStyle(Person person) {
-        LifeManager lf = new LifeManager(person);
+        WeekManager wm = new WeekManager(person);
         if(!Clock.isWeekend()){
-            lf.refreshRoutine();
+            wm.refreshRoutine();
         }
         else{
-            lf.lifeIsGood();
+            WeekEndManager wem = new WeekEndManager(person);
+            wem.lifeIsGood();
         }
     }
 
-    private void refreshEvent(Person person) {
+    /*private void refreshEvent(Person person) {
         Random random = new Random();
         int randomIndex = random.nextInt(3);
-        if(weatherReact(person, weather) && lifeStyleReact(person) && randomIndex == 1 && person.getEvent()==null){
+        if(weatherReact(person) && lifeStyleReact(person) && randomIndex == 1 && person.getEvent()==null){
             Event e = EventRepository.getRandomEvent();
             person.setEvent(e);
         }
@@ -80,16 +99,20 @@ public class MobileElementManager implements MobileInterface {
                 person.setEvent(null);
             }
         }
-    }
+    }*/
 
     private void refreshState(Person person) {
         if(person.getEvent() == null){
             return;
         }
-        if(person.getEvent().getDebut().equals(Clock.getInstance().getTime())){
-            Reaction react = new Reaction(person, person.getEvent());
-            //react.changeState();
+        if(person.getHobby().hasStart()){
+            Reaction react = new Reaction(person);
+            react.changeState(person.getHobby());
         }
+        /*if(person.getEvent().getDebut().equals(Clock.getInstance().getTime())){
+            Reaction react = new Reaction(person, person.getEvent());
+            react.changeState();
+        }*/
     }
 
 }

@@ -3,8 +3,8 @@ package engine.data.event;
 import engine.data.map.Infrastructure;
 import engine.data.map.Time;
 import engine.data.person.Person;
+
 import java.util.ArrayList;
-import engine.data.person.PersonState;
 
 /**
  * Classe de donnée stockant les information liée aux évennement sociaux (impliquant plusieurs personnes)

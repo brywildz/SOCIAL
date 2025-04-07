@@ -1,6 +1,6 @@
 package engine.data.person;
 
-import engine.data.event.Action;
+import engine.data.event.Hobby;
 import engine.data.map.Block;
 import engine.data.map.Clock;
 import engine.data.map.Infrastructure;
@@ -27,7 +27,7 @@ public class Person {
     private PersonRelationships personRelationships;
     private Block location;
     private Event currentEvent = null;
-    private Action currentAction = null;
+    private Hobby hobby = null;
     private Infrastructure house;
 
     public Person(String nom, int age, SocialState socialState, PersonState personState, PersonRelationships personRelationships,
@@ -101,12 +101,12 @@ public class Person {
         return personality;
     }
 
-    public Action getCurrentAction() {
-        return currentAction;
+    public Hobby getHobby() {
+        return hobby;
     }
 
-    public void setCurrentAction(Action currentAction) {
-        this.currentAction = currentAction;
+    public void setHobby(Hobby hobby) {
+        this.hobby = hobby;
     }
 
     // </editor-fold>
@@ -138,8 +138,8 @@ public class Person {
     @Override
     public String toString() {
         String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState;
-        if(currentAction != null){
-            s+="\nAction : "+ currentAction.getId();
+        if(hobby != null){
+            s+="\nHobby : "+ hobby.getId();
         }
         if(currentEvent != null){
             s+="\nEvent : " + currentEvent.getId();
@@ -205,7 +205,7 @@ public class Person {
     }
 
     public String toStringForPane() {
-        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState + ", Occupation : "+currentAction.getId();
+        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState + ", Occupation : "+ hobby.getId();
         return s;
     }
 }

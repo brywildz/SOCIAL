@@ -1,4 +1,5 @@
 package engine.data.person;
+import engine.data.map.Time;
 import engine.data.person.personalityTraits.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class Personality {
     private Neuroticism neuroticism;
     private Extraversion extraversion;
     private ArrayList<PersonalityTrait> personalities;
+    private Time wakeUpTimeWeekEnd;
+    private Time sleepTimeWeekEnd;
 
     public Personality(int agr, int cons, int extra, int neuro, int ouvert) {
         Agreeableness agreeableness = new Agreeableness(agr);
@@ -84,5 +87,21 @@ public class Personality {
         return "Ouverture=" + openness.getLevel() + ", Conscienciosité=" + conscientiousness.getLevel() +
                 ", Agreabilité=" + agreeableness.getLevel() + ", Nervosité=" + neuroticism.getLevel() +
                 ", Extraversion=" + extraversion.getLevel();
+    }
+
+    public void setWakeUpTimeWeekEnd(Time wakeUpTimeWeekEnd) {
+        this.wakeUpTimeWeekEnd = wakeUpTimeWeekEnd;
+    }
+
+    public void setSleepTimeWeekEnd(Time sleepTimeWeekEnd) {
+        this.sleepTimeWeekEnd = sleepTimeWeekEnd;
+    }
+
+    public Time getWakeUpTimeWeekEnd() {
+        return wakeUpTimeWeekEnd;
+    }
+
+    public Time getSleepTimeWeekEnd() {
+        return sleepTimeWeekEnd;
     }
 }

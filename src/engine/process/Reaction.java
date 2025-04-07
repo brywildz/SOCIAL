@@ -1,13 +1,12 @@
 package engine.process;
 
 import engine.data.event.*;
-import engine.data.map.Time;
 import engine.data.person.PersonState;
 import engine.data.person.Person;
 import engine.data.person.Personality;
 import engine.data.person.personalityTraits.*;
 import engine.data.person.vitality.*;
-import engine.process.repository.ActionRepository;
+import engine.process.repository.HobbyRepository;
 
 /**
  * Classe de traitement traitant les différents reaction d'un individu dépendamment de son caractère
@@ -20,104 +19,9 @@ public class Reaction {
     private String action;
     private Event event;
 
-    public Reaction(Person person, Event event) {
-        this.person = person;
-        this.event = event;
-    }
-
-    public Reaction(String action, Person person) {
-        this.action = action;
-        this.person = person;
-    }
-
     public Reaction(Person person){
         this.person = person;
     }
-
-    /*public PersonState getExpectedState(Person ind, Event ev){
-        PersonalityTrait maxPerso = ind.getPersonality().getMaxPerso();
-        PersonState personState = createEtat();
-        if(maxPerso instanceof Openness){
-            if(ev instanceof WeatherEvent){
-                personState.getMood().add(+2);
-                personState.getSleep().add(+2);
-            }
-            if(ev instanceof PersonalEvent){
-                personState.getMood().add(+2);
-            }
-            if(ev instanceof SocialEvent){
-                personState.getMood().add(+1);
-                personState.getHunger().add(-2);
-                personState.getHealth().add(-4);
-                personState.getSleep().add(-4);
-            }
-            if(ev.getId().equals("pluie")){
-                goHome(ind);
-            }
-        }
-        return personState;
-    }*/
-/*
-    /**
-     * Methode s'occupant du changement d'etat d'un individu en fonction de son etat initial pris dans l'instance d'Individu
-     * et de l'etat "attendu" dependant du caractere de l'individu, elle change l'etat initial en modifiant la valeur à modifier
-     * @param expectedState
-     * @param actualState
-     */
-    /*
-    public void changeState(ArrayList<Vitality> expectedState, HashMap<String, Vitality> actualState){
-        Iterator<Vitality> it = actualState.values().iterator();
-        int i = 0;
-        while(it.hasNext()){
-            Vitality actualIt = it.next();
-            Vitality beAttendu = expectedState.get(i);
-            actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
-            if(actualIt instanceof Sleep && beAttendu instanceof Sleep){
-                ((Sleep) actualIt).setSleeping(((Sleep) beAttendu).isSleeping());
-            }
-            if(actualIt instanceof Health && beAttendu instanceof Health){
-                ((Health) actualIt).setMalade(((Health) beAttendu).isMalade());
-            }
-            i++;
-        }
-    }
-
-    public void changeState(){
-        ArrayList<Vitality> expectedState = new ArrayList<>(getExpectedState(person, event).getList().values());
-        HashMap<String, Vitality> actualState = person.getPersonState().getList();
-        Iterator<Vitality> it = actualState.values().iterator();
-        int i = 0;
-        while(it.hasNext()){
-            Vitality actualIt = it.next();
-            Vitality beAttendu = expectedState.get(i);
-            actualIt.setNiveau(actualIt.getNiveau() + expectedState.get(i).getNiveau()); //faire à l'avenir une methode pour sommer dans individu pour gerer les max
-            if(actualIt instanceof Sleep && beAttendu instanceof Sleep){
-                ((Sleep) actualIt).setSleeping(((Sleep) beAttendu).isSleeping());
-            }
-            if(actualIt instanceof Health && beAttendu instanceof Health){
-                ((Health) actualIt).setMalade(((Health) beAttendu).isMalade());
-            }
-            i++;
-        }
-    }
-
-
-    public PersonState createEtat(){
-        Hunger hunger = new Hunger(0, null, null);
-        Mood mood = new Mood(0, null);
-        Health health = new Health(0, 0, null);
-        Sleep sleep = new Sleep(0, null);
-        return new PersonState(health, sleep, mood, hunger);
-    }
-
-    private void goHome(Person ind) {
-        Block previousLocation = ind.getLocation();
-        //IndividuRepository.getInstance().setNewLocation(ind, previousLocation,new Block(GameConfiguration.HOUSE_X/GameConfiguration.BLOCK_SIZE,GameConfiguration.HOUSE_Y/GameConfiguration.BLOCK_SIZE));
-    }
-
-    public void goWork(Person ind) {
-
-    }*/
 
     public static boolean weatherReact(Person p, WeatherEvent w){
         PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
@@ -160,9 +64,8 @@ public class Reaction {
     }
 
     public static boolean lifeStyleReact(Person p){
-        ActionRepository actionRepo = ActionRepository.getInstance();
-        Action prefAction = actionRepo.getPreferredAction(p.getPersonality().getMaxPerso());
-        //System.out.println(p.getNom() + "action pref : "+prefAction);
+        HobbyRepository actionRepo = HobbyRepository.getInstance();
+        Hobby prefHobby = actionRepo.getPreferredAction(p.getPersonality().getMaxPerso());
         if(p.isWorker() || p.isPupil()){
             if(p.isWorking()){
                 return false;
@@ -171,25 +74,17 @@ public class Reaction {
         if(p.isSleeping()){
             return false;
         }
-        if(p.getCurrentAction().getId().equals(prefAction.getId())){
+        if(p.getHobby().getId().equals(prefHobby.getId())){
             return false;
         }
         return true;
     }
 
-
-    public void refreshLifeStyle() {
-
-    }
-
-    public void changeState(Action action) {
-        Person p = person;
-        PersonalityTrait maxPerso = p.getPersonality().getMaxPerso();
+    public void changeState(Hobby hobby) {
         Personality per = person.getPersonality();
         PersonState ps = person.getPersonState();
         Health health = ps.getHealth(); Hunger hunger = ps.getHunger(); Mood mood = ps.getMood(); Sleep sleep = ps.getSleep();
-        p.setCurrentAction(action);
-        if(action.getId().equals("devoirs")){
+        if(hobby.getId().equals("devoirs")){
             if(per.getConscienciosite().isHigh()){
                 ps.getMood().add(2);
             }
@@ -209,8 +104,9 @@ public class Reaction {
             if(per.getExtraversion().isLow()){
                 ps.getHunger().add(+1);
             }
+            sleep.add(-1);
         }
-        if(action.getId().equals("jeux d'équipe")){
+        if(hobby.getId().equals("team_game")){
             if(per.getExtraversion().isHigh()){
                 ps.getMood().add(+2);
             }
@@ -231,7 +127,7 @@ public class Reaction {
                 ps.getMood().add(-1);
             }
         }
-        if(action.getId().equals("sport intense")){
+        if(hobby.getId().equals("sport")){
             if(per.getExtraversion().isHigh()){
                 ps.getMood().add(+2);
             }
@@ -252,8 +148,10 @@ public class Reaction {
             if(per.getOuverture().isHigh()){
                 ps.getMood().add(+1);
             }
+            health.add(+1);
+            sleep.add(-1);
         }
-        if(action.getId().equals("arts créatifs")){
+        if(hobby.getId().equals("art")){
             if(per.getOuverture().isHigh()){
                 ps.getMood().add(+2);
             }
@@ -271,7 +169,7 @@ public class Reaction {
                 mood.add(+1);
             }
         }
-        if(action.getId().equals("activité bénévole")){
+        if(hobby.getId().equals("volunteering")){
             if(per.getAgreabilite().isHigh()){
                 mood.add(+2);
             }
@@ -285,7 +183,7 @@ public class Reaction {
                 mood.add(-1);
             }
         }
-        if(action.getId().equals("apprentissage")){
+        if(hobby.getId().equals("learning")){
             if(per.getOuverture().isHigh()){
                 mood.add(+2);
             }
@@ -302,7 +200,7 @@ public class Reaction {
                 mood.add(+1);
             }
         }
-        if(action.getId().equals("travail")){
+        if(hobby.getId().equals("work")){
             if(ps.getSleep().isSleeping()){
                 ps.getSleep().setSleeping(false);
             }
@@ -322,8 +220,10 @@ public class Reaction {
             if(per.getNeuroticisme().isHigh()){
                 mood.add(+1);
             }
+            health.add(-1);
+            sleep.add(-1);
         }
-        if(action.getId().equals("dormir")){
+        if(hobby.getId().equals("sleep")){
             if(per.getNeuroticisme().isHigh()){
                 mood.add(+2);
             }
@@ -336,6 +236,8 @@ public class Reaction {
             if(per.getOuverture().isHigh()){
                 hunger.add(+1);
             }
+            health.add(+1);
+            sleep.add(+2);
             ps.getSleep().setSleeping(true);
         }
     }

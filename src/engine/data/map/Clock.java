@@ -1,4 +1,6 @@
 package engine.data.map;
+import static config.GameConfiguration.*;
+
 
 /**
  * Classe de donnée gérant l'horloge du jeu
@@ -9,10 +11,10 @@ package engine.data.map;
 
 public class Clock {
     private final Time h;
-    private Clock(){h=new Time(8,0,0, new Date(2025,1,1));}
+    private Clock(){h=new Time(HOUR_START,MINUTE_START,SECOND_START, new Date(YEAR_START,MONTH_START,DAY_START));}
     private static final Clock instance = new Clock();
 
-    public static Clock getInstance(){return instance;};
+    public static Clock getInstance(){return instance;}
 
     public void newSecond(){
         h.newSecond();

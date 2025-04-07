@@ -1,8 +1,9 @@
 package engine.data.person;
-import engine.data.map.Time;
-import engine.data.person.vitality.*;
 
-import java.util.HashMap;
+import engine.data.person.vitality.Health;
+import engine.data.person.vitality.Hunger;
+import engine.data.person.vitality.Mood;
+import engine.data.person.vitality.Sleep;
 
 /**
  * Classe de donnée regroupant toutes les instance de Vitality d'un individu

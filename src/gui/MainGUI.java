@@ -23,7 +23,7 @@ import java.awt.event.MouseListener;
  */
 
 public class MainGUI extends JFrame implements Runnable {
-    private Map map;
+    private Map map = Map.getInstance();
     private ControlPanel controlPanel;
     private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
     private MobileInterface manager;
@@ -43,9 +43,9 @@ public class MainGUI extends JFrame implements Runnable {
         controlPanel.setPreferredSize(new Dimension(0,70));
         add(controlPanel, BorderLayout.NORTH);
 
-        map = GameBuilder.buildCarte();
+        GameBuilder.buildCarte();
         manager = GameBuilder.buildInitMobile(map);
-        dashboard = new GameDisplay(map, manager);
+        dashboard = new GameDisplay(manager);
 
         MouseControls mouseControls = new MouseControls();
         dashboard.addMouseListener(mouseControls);

@@ -43,13 +43,13 @@ public class MobileElementManager implements MobileInterface {
 
     public void nextSecond(){
         Clock.getInstance().getTime().addMinute(15);
+        refreshWeather();
         List<Person> personList = new ArrayList<>(personRepo.getPersons().values());
         for(Person person : personList){
             refreshLifeStyle(person);
             //refreshEvent(person);
             refreshState(person);
             refreshLocation(person);
-            refreshWeather();
         }
     }
 

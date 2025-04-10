@@ -201,7 +201,7 @@ public class HobbyBuilder {
             case "learning" -> {
                 return infraRepo.get("bibliothèque");
             }
-            case "cultural_activityculturelle" -> {
+            case "cultural_activity" -> {
                 return infraRepo.get("museum");
             }
             case "art" -> {

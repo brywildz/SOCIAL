@@ -94,7 +94,7 @@ public class HobbyRepository {
                 end.addMinute(randomInt);
                 return end;
             }
-            default -> { //cultural_activityculturelle
+            default -> { //cultural_activity
                 int randomInt = random(1, 4);
                 end.addHour(randomInt);
                 return end;
@@ -137,7 +137,7 @@ public class HobbyRepository {
             case "team_game" -> 240;
             case "work", "volunteering" -> 420;
             case "devoirs" -> 180;
-            default ->  //cultural_activityculturelle
+            default ->  //cultural_activity
                     240;
         };
     }

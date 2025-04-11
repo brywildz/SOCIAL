@@ -38,13 +38,15 @@ public class PersonRelationships {
     }
 
     public boolean isFull(String type, int number){
-        return switch (type) {
-            case "friends" ->
-                    amicale.size() == number;
-            case "work" ->
-                    pro.size() == number;
-            case "family" -> familiale.size() == number;
-            default -> false;
-        };
+        switch (type) {
+            case "friends":
+                return amicale.size() == number;
+            case "work":
+                return pro.size() == number;
+            case "family":
+                return familiale.size() == number;
+            default:
+                return false;
+        }
     }
 }

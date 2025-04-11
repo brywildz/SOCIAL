@@ -115,11 +115,11 @@ public class StatsDisplay extends JFrame {
             PieSectionEntity bar = (PieSectionEntity) entity;
             Comparable key = bar.getSectionKey();
             switch(key.toString()){
-                case "Ouverture" -> setOpennessLabel();
-                case "Extraversion" -> setExtraversionLabel();
-                case "Nervosité" -> setNeuroticismLabel();
-                case "Conscienciosité" -> setConscientiousnessLabel();
-                case "Agréabilité" -> setAgreeablenessLabel();
+                case "Ouverture" : setOpennessLabel();
+                case "Extraversion" : setExtraversionLabel();
+                case "Nervosité" : setNeuroticismLabel();
+                case "Conscienciosité" : setConscientiousnessLabel();
+                case "Agréabilité" : setAgreeablenessLabel();
             }
         }
     }
@@ -195,10 +195,10 @@ public class StatsDisplay extends JFrame {
             CategoryItemEntity bar = (CategoryItemEntity) entity;
             Comparable key = bar.getColumnKey();
             switch (key.toString()){
-                case "Santé" -> setHealthLabel();
-                case "Faim" -> setHungerLabel();
-                case "Humeur" -> setMoodLabel();
-                case "Sommeil" -> setSleepLabel();
+                case "Santé" : setHealthLabel();
+                case "Faim" : setHungerLabel();
+                case "Humeur" : setMoodLabel();
+                case "Sommeil" : setSleepLabel();
             }
         }
         this.revalidate();
@@ -293,15 +293,15 @@ public class StatsDisplay extends JFrame {
             PieSectionEntity bar = ( PieSectionEntity) entity;
             Comparable key = bar.getSectionKey();
             switch (key.toString()){
-                case "Familiales" -> {
+                case "Familiales" : {
                     type = "familiales";
                     setFamilyLabel(table);
                 }
-                case "Professionnelles" -> {
+                case "Professionnelles" : {
                     type = "professionnelles";
                     setProLabel(table);
                 }
-                case "Amicales" -> {
+                case "Amicales" : {
                     type = "amicales";
                     setFriendsLabel(table);
                 }

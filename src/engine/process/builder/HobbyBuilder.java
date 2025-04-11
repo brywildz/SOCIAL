@@ -195,25 +195,25 @@ public class HobbyBuilder {
         }
         String id = hobby.getId();
         switch (id) {
-            case "volunteering" -> {
+            case "volunteering" : {
                 return infraRepo.get("city");
             }
-            case "learning" -> {
+            case "learning" : {
                 return infraRepo.get("bibliothèque");
             }
-            case "cultural_activity" -> {
+            case "cultural_activity" : {
                 return infraRepo.get("museum");
             }
-            case "art" -> {
+            case "art" : {
                 return infraRepo.get("cinéma");
             }
-            case "team_game" -> {
+            case "team_game" : {
                 return infraRepo.get("parc");
             }
-            case "sport" -> {
+            case "sport" : {
                 return infraRepo.get("gym");
             }
-            default -> {    //dodo
+            default : {    //dodo
                 return person.getHouse();
             }
         }

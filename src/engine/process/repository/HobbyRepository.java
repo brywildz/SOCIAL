@@ -59,42 +59,47 @@ public class HobbyRepository {
     public Time getRandomEnd(String id, Time start) { //il manque l'adaptabilité
         Time end = new Time(start.getHour(), start.getMinute(), start.getSecond());
         switch (id) {
-            case "sport" -> {
+            case "sport" : {
                 int randomInt = random(1, 60);
                 end.addMinute(randomInt);
                 return end;
             }
-            case "art" -> {
+            case "art" : {
                 int randomInt = random(1, 120);
                 end.addMinute(randomInt);
                 return end;
             }
-            case "learning" -> {
+            case "learning" : {
                 int randomInt = random(1, 240);
                 end.addMinute(randomInt);
                 return end;
             }
-            case "sleep" -> {
+            case "sleep" : {
                 int randomInt = random(1, 10);
                 end.addHour(randomInt);
                 return end;
             }
-            case "team_game" -> {
+            case "team_game" : {
                 int randomInt = random(1, 4);
                 end.addHour(randomInt);
                 return end;
             }
-            case "work", "volunteering" -> {
+            case "work" : {
                 int randomInt = random(1, 7);
                 end.addHour(randomInt);
                 return end;
             }
-            case "devoirs" -> {
+            case "volunteering" : {
+                int randomInt = random(1, 7);
+                end.addHour(randomInt);
+                return end;
+            }
+            case "devoirs" : {
                 int randomInt = random(1, 80);
                 end.addMinute(randomInt);
                 return end;
             }
-            default -> { //cultural_activity
+            default : { //cultural_activity
                 int randomInt = random(1, 4);
                 end.addHour(randomInt);
                 return end;
@@ -129,17 +134,18 @@ public class HobbyRepository {
     }
 
     public int getMaxTime(String id) {
-        return switch (id) {
-            case "sport" -> 60;
-            case "art" -> 120;
-            case "learning" -> 240;
-            case "sleep" -> 600;
-            case "team_game" -> 240;
-            case "work", "volunteering" -> 420;
-            case "devoirs" -> 180;
-            default ->  //cultural_activity
-                    240;
-        };
+        switch (id) {
+            case "sport" :  return 60;
+            case "art" :  return 120;
+            case "learning" :  return 240;
+            case "sleep" : return 600;
+            case "team_game" : return 240;
+            case "work" : return 420;
+            case "volunteering" : return 420;
+            case "devoirs" : return 180;
+            default :  //cultural_activity
+                return 240;
+        }
     }
 
     public Hobby getRandomAction(){

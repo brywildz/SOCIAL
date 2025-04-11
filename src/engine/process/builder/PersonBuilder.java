@@ -168,15 +168,15 @@ public class PersonBuilder {
         int friendsBase = 2;
         int proBase = 2;
         switch (type) {
-            case "friends" -> {
+            case "friends" : {
                 int nbAmis = (int) Math.round(friendsBase + extraversion * 0.6 + agreeableness * 0.4 - neuroticism * 0.3);
                 return nbAmis = Math.max(1,nbAmis);
             }
-            case "work" -> {
+            case "work" : {
                 int nbPro = (int) Math.round(proBase + extraversion * 0.4 + conscientiousness * 0.6 + openness * 0.3 - neuroticism * 0.2);
                 return nbPro = Math.max(1,nbPro);
             }
-            case "family" -> randomIndex = random(1, 10);
+            case "family" : randomIndex = random(1, 10);
         }
         return randomIndex;
     }

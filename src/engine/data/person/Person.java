@@ -11,6 +11,8 @@ import engine.data.person.socialState.SocialState;
 import engine.data.person.socialState.Unemployed;
 import engine.data.person.socialState.Worker;
 import engine.data.person.personalityTraits.*;
+import engine.data.person.vitality.Health;
+import engine.process.repository.HobbyRepository;
 
 /**
  * Classe de donnée stockant l'entierté des informations liées à un individu
@@ -26,9 +28,10 @@ public class Person {
     private PersonState personState;
     private PersonRelationships personRelationships;
     private Block location;
-    private Event currentEvent = null;
+    private Event event = null;
     private Hobby hobby = null;
     private Infrastructure house;
+    private Infrastructure place;
 
     public Person(String nom, int age, SocialState socialState, PersonState personState, PersonRelationships personRelationships,
                   Block location, int agr, int cons, int extra, int neuro, int ouvert) {
@@ -90,11 +93,11 @@ public class Person {
     }
 
     public void setEvent(Event currentEvent) {
-        this.currentEvent = currentEvent;
+        this.event = currentEvent;
     }
 
     public Event getEvent() {
-        return currentEvent;
+        return event;
     }
 
     public Personality getPersonality() {
@@ -107,6 +110,34 @@ public class Person {
 
     public void setHobby(Hobby hobby) {
         this.hobby = hobby;
+    }
+
+    public void setHouse(Infrastructure house) {
+        this.house = house;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setPersonality(Personality personality) {
+        this.personality = personality;
+    }
+
+    public Infrastructure getPlace() {
+        return place;
+    }
+
+    public void setPlace(Infrastructure place) {
+        this.place = place;
+    }
+
+    public void setSick(boolean sick){
+        personState.getHealth().setMalade(sick);
     }
 
     // </editor-fold>
@@ -135,22 +166,9 @@ public class Person {
 
     //</editor-fold>
 
-    @Override
-    public String toString() {
-        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState;
-        if(hobby != null){
-            s+="\nHobby : "+ hobby.getId();
-        }
-        if(currentEvent != null){
-            s+="\nEvent : " + currentEvent.getId();
-        }
-        s+="\n"+ personality;
-        s+="\n" + personState;
-        return s;
-    }
-
-    public boolean isInHisHouse() {
-        return true;
+    // <editor-fold> desc="questions"
+    public boolean isAtHome() {
+        return house.contains(location);
     }
 
     public boolean isWorker(){
@@ -176,6 +194,12 @@ public class Person {
         }
     }
 
+    public boolean isPreferred(){
+        PersonalityTrait maxPerso = personality.getMaxPerso();
+        HobbyRepository hobbyRepo = HobbyRepository.getInstance();
+        return hobbyRepo.getPreferredHobby(maxPerso).getId().equals(hobby.getId());
+    }
+
     public boolean isPupil(){
         return socialState instanceof Pupil;
     }
@@ -188,24 +212,40 @@ public class Person {
         return personState.getSleep().isSleeping();
     }
 
-    public void setHouse(Infrastructure house) {
-        this.house = house;
+    public int getLevelSickness() {
+        Health health = personState.getHealth();
+        if(health.getNiveau() <= 3 && health.getNiveau() > 1){
+            return 1;
+        }
+        if(health.getNiveau() < 1){
+            return 2;
+        }
+        else {
+            return 0;
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean isSick() {
+        Health health = personState.getHealth();
+        return health.isMalade();
     }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setPersonality(Personality personality) {
-        this.personality = personality;
-    }
+    // </editor-fold>
 
     public String toStringForPane() {
         String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState + ", Occupation : "+ hobby.getId();
+        return s;
+    }
+    @Override
+    public String toString() {
+        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState;
+        if(hobby != null){
+            s+="\nHobby : "+ hobby.getId();
+        }
+        if(event != null){
+            s+="\nEvent : " + event.getId();
+        }
+        s+="\n"+ personality;
+        s+="\n" + personState;
         return s;
     }
 }

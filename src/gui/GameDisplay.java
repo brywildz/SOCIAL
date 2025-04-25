@@ -51,7 +51,6 @@ public class GameDisplay extends JPanel {
         HashMap<String, Person> individu = PersonRepository.getInstance().getPersons();
         Iterator<Person> it = individu.values().iterator();
         while(it.hasNext()){
-            Color c = Color.YELLOW;
             Person ind = it.next();
             Mood m = ind.getPersonState().getMood();
             if(ind.isSleeping()){

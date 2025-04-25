@@ -26,6 +26,14 @@ public class Block {
         return column;
     }
 
+    public void addLine(int line) {
+        this.line += line;
+    }
+
+    public void addColumn(int column) {
+        this.column += column;
+    }
+
     @Override
     public String toString() {
         return "Block [column=" + column + ", line=" + line + "]";
@@ -34,9 +42,7 @@ public class Block {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Block) {
-            if(((Block) obj).getLine() == line && ((Block) obj).getColumn() == column) {
-                return true;
-            }
+            return ((Block) obj).getLine() == line && ((Block) obj).getColumn() == column;
         }
         return false;
     }

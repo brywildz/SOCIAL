@@ -13,7 +13,7 @@ public class Sleep extends Vitality {
     Time SleepTime = new Time(0,0,0);
     Time WakeUpTime = new Time(0,0,0);
 
-    public Sleep(int niveau, Boolean isSleeping) {
+    public Sleep(double niveau, Boolean isSleeping) {
         super(niveau);
         this.isSleeping = isSleeping;
     }

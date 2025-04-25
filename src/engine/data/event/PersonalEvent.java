@@ -20,6 +20,10 @@ public class PersonalEvent extends Event {
         this.day = day;
     }
 
+    public PersonalEvent(){
+        super();
+    }
+
     @Override
     public String toString() {
         return super.toString() + "concerne l'individu : " + person.getName();

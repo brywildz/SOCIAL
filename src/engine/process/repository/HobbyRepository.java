@@ -11,7 +11,6 @@ public class HobbyRepository {
     private final HashMap<String, Hobby> insideActions = new HashMap<>();
     private final HashMap<String, Hobby> outsideActions = new HashMap<>();
     public static HobbyRepository instance = new HobbyRepository();
-
     /**
      * Mettre toutes les actions dans une seule hashmap la localité sera geré par le builder
      * et délocaliser les méthodes de traitements si c'est pertinent.
@@ -27,6 +26,8 @@ public class HobbyRepository {
         outsideActions.put("volunteering", new Hobby("volunteering", true, null, null));
         outsideActions.put("cultural_activity", new Hobby("cultural_activity", true, null, null));
     }
+
+    public static HobbyRepository getInstance() { return instance; }
 
     public HashMap<String, Hobby> getInsideActions() {
         return insideActions;
@@ -44,10 +45,6 @@ public class HobbyRepository {
             return new Hobby(outsideActions.get(actionName));
         }
         return null;
-    }
-
-    public static HobbyRepository getInstance() {
-        return instance;
     }
 
     /**
@@ -107,7 +104,7 @@ public class HobbyRepository {
         }
     }
 
-    public Hobby getPreferredAction(PersonalityTrait pt) {
+    public Hobby getPreferredHobby(PersonalityTrait pt) {
         if (pt instanceof Agreeableness) {
             return getAction("volunteering");
         }

@@ -1,10 +1,8 @@
-package engine.process.manager;
+package engine.process.manager.utils;
 
 import engine.data.event.Hobby;
-import engine.data.event.WeatherEvent;
 import engine.data.map.*;
 import engine.data.person.Person;
-import engine.data.person.Personality;
 import engine.data.person.personalityTraits.*;
 import engine.process.builder.HobbyBuilder;
 import engine.process.repository.HobbyRepository;
@@ -13,7 +11,6 @@ import engine.process.repository.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static engine.process.builder.GameBuilder.random;
 
@@ -23,7 +20,13 @@ public class LifeUtilities {
     private static InfrastructureRepository infraRepo = InfrastructureRepository.getInstance();
     private static Map map = Map.getInstance();
 
-
+    /**
+     * Attribut à un individu l'état de sommeil en appelant le HobbyBuilder correspondant.
+     * Reinitialise la valeur de IsDayOff car il n'y a qu'un jour de congé après être sortis de maladie.
+     * Même chose pour l'événement, parce que son impact ne va pas au-delà d'une journée.
+     * @param person La personne qui doit dormir
+     * @param weekEnd Booléen indiquant si nous sommes le week-end, car les heures de sommeils sont différentes.
+     */
     public static void goSleep(Person person, boolean weekEnd) {
         Hobby h;
         if(weekEnd){
@@ -36,7 +39,9 @@ public class LifeUtilities {
         }
         person.setHobby(h);
         person.getPersonState().getSleep().setSleeping(true);
-        personRepo.setNewLocation(person,person.getHobby().getPlace().getRandomBlock());
+        person.getSocialState().setIsTodayOff(false);
+        person.setEvent(null);
+        personRepo.movePerson(person,person.getHobby().getPlace().getRandomBlock());
     }
 
     /**
@@ -106,49 +111,32 @@ public class LifeUtilities {
         person.setHobby(h);
     }
 
-    public static Time createWakeTimeWeekEnd(Personality per) {
-        PersonalityTrait maxPerso = per.getMaxPerso();
-        if(maxPerso instanceof Conscientiousness){
-            return new Time(6,0,0);
+    /**
+     * Déplace la personne à l'hôpital en cas de grave état de santé.
+     * Si l'hôpital est saturé la personne est renvoyé chez elle.
+     * @param person la personne qui doit être prise en charge.
+     */
+    public static void goHospital(Person person) {
+        Block loc = infraRepo.get("hospital").getEmptyBlock();
+        person.getSocialState().setIsTodayOff(true);
+        if(loc == null){
+            personRepo.movePerson(person, person.getHouse().getEmptyBlock());
         }
-        else if(maxPerso instanceof Extraversion){
-            return new Time(random(8,12), 0,0);
+        else{
+            personRepo.movePerson(person, infraRepo.get("hospital").getEmptyBlock());
         }
-        else if(maxPerso instanceof  Neuroticism){
-            return new Time(5,0,0);
-        }
-        else if(maxPerso instanceof Agreeableness){
-            return new Time(8,0,0);
-        }
-        return new Time(10,0,0);
     }
 
-    public static Time createSleepTimeWeekEnd(Personality per) {
-        PersonalityTrait maxPerso = per.getMaxPerso();
-        if(maxPerso instanceof Conscientiousness){
-            return new Time(22,0,0);
-        }
-        else if(maxPerso instanceof Extraversion){
-            return new Time(4, 0,0);
-        }
-        else if(maxPerso instanceof  Neuroticism){
-            return new Time(4,0,0);
-        }
-        else if(maxPerso instanceof Agreeableness){
-            return new Time(23,0,0);
-        }
-        return new Time(2,0,0);
-    }
+
 
     /**
      * Doit être refait avec les event.
      * @param person
      */
     public static void refreshLocation(Person person) {
-        if(person.isSleeping()){
-            return;
+        if(!(person.isSleeping() && person.isSick())){
+            personRepo.movePerson(person,person.getHobby().getPlace().getRandomBlock());
         }
-        personRepo.setNewLocation(person,person.getHobby().getPlace().getRandomBlock());
     }
 
     /**
@@ -166,76 +154,5 @@ public class LifeUtilities {
         }
     }
 
-    /**
-     * verifie si l'action va se faire dehors ou en interieur selon la meteo
-     */
-    public static boolean weatherCheck(Person person) {
-        WeatherEvent weather = map.getWeather();
-        if(weather.getId().equals("rain")){
-            return rainCheck(person);
-        }
-        if(weather.getId().equals("snow")){
-            return snowCheck(person);
-        }
-        else{
-            return sunCheck(person);
-        }
-    }
 
-    private static boolean sunCheck(Person person) {
-        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-        if(maxPerso instanceof Extraversion){
-            return true;
-        }
-        else if(maxPerso instanceof Openness){
-            return true;
-        }
-        else if(maxPerso instanceof Agreeableness){
-            return true;
-        }
-        else if(maxPerso instanceof Conscientiousness){
-            return random(2) == 0;
-        }
-        else{ //nervosité
-            return random(4) == 0;
-        }
-    }
-
-    private static boolean rainCheck(Person person) {
-        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-        if(maxPerso instanceof Extraversion){
-            return true;
-        }
-        else if(maxPerso instanceof Openness){
-            return true;
-        }
-        else if(maxPerso instanceof Agreeableness){
-            return random(2) == 0;
-        }
-        else if(maxPerso instanceof Conscientiousness){
-            return false;
-        }
-        else{ //nervosité
-            return random(4) == 0;
-        }
-    }
-
-    private static boolean snowCheck(Person person) {
-        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-        if(maxPerso instanceof Extraversion){
-            return true;
-        }
-        else if(maxPerso instanceof Openness){
-            return true;
-        }
-        else if(maxPerso instanceof Agreeableness){
-            return random(2) == 0;
-        }
-        else if(maxPerso instanceof Conscientiousness){
-            return false;
-        }
-        else{ //nervosité
-            return false;
-        }
-    }
 }

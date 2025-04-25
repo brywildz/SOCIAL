@@ -5,7 +5,6 @@ import engine.data.map.Infrastructure;
 import engine.data.person.Person;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import static config.GameConfiguration.*;
 import static config.GameConfiguration.CITY_Y;
@@ -19,7 +18,7 @@ public class InfrastructureRepository {
     private HashMap<String, Infrastructure> workHub;
     private HashMap<String, Infrastructure> socialHub;
     private HashMap<String, Infrastructure> lifeHub;
-    private final HashMap<String, Infrastructure> infrastructures = new HashMap<>();;
+    private final HashMap<String, Infrastructure> infrastructures = new HashMap<>();
     private InfrastructureRepository() {
         infrastructures.put("city", new Infrastructure("city", CITY_X, CITY_Y, CITY_WIDTH, CITY_HEIGHT));
         infrastructures.put("parc", new Infrastructure("parc", PARC_X, PARC_Y, PARC_WIDTH, PARC_HEIGHT));
@@ -34,7 +33,7 @@ public class InfrastructureRepository {
         infrastructures.put("apartment1", new Infrastructure("apartment1", APARTMENT1_X, APARTMENT1_Y, APARTMENT_WIDTH, APARTMENT_HEIGHT));
         infrastructures.put("apartment2", new Infrastructure("apartment2", APARTMENT2_X , APARTMENT2_Y, APARTMENT_WIDTH, APARTMENT_HEIGHT));
         infrastructures.put("apartment3", new Infrastructure("apartment3", APARTMENT3_X, APARTMENT3_Y, APARTMENT_WIDTH, APARTMENT_HEIGHT));
-        infrastructures.put("mall", new Infrastructure("mall", MALL_X, MALL_Y, MALL_WIDTH, MALL_HEIGHT));
+        infrastructures.put("hospital", new Infrastructure("hospital", HOSPITAL_X, HOSPITAL_Y, HOSPITAL_WIDTH, HOSPITAL_HEIGHT));
         infrastructures.put("nightclub", new Infrastructure("nightclub", NIGHTCLUB_X, NIGHTCLUB_Y, NIGHTCLUB_WIDTH, NIGHTCLUB_HEIGHT));
         infrastructures.put("policeStation", new Infrastructure("policeStation", POLICESTATION_X, POLICESTATION_Y, POLICESTATION_WIDTH, POLICESTATION_HEIGHT));
         infrastructures.put("restaurant", new Infrastructure("restaurant", RESTAURANT_X, RESTAURANT_Y, RESTAURANT_WIDTH, RESTAURANT_HEIGHT));
@@ -67,7 +66,7 @@ public class InfrastructureRepository {
         return infrastructures;
     }
 
-    public Infrastructure get(Block b){
+    public Infrastructure getInfrastructure(Block b){
         for (Infrastructure infrastructure : infrastructures.values()) {
             Block[][] zone = infrastructure.getZone();
             for (Block[] blocks : zone) {

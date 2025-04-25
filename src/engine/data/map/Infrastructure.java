@@ -3,6 +3,7 @@ package engine.data.map;
 import engine.data.person.Person;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static engine.process.builder.GameBuilder.random;
 
@@ -39,6 +40,17 @@ public class Infrastructure {
         return zone;
     }
 
+    public boolean contains(Block block) {
+        for(int i=0; i < zone.length; i++){
+            for(int j = 0; j < zone[i].length; j++){
+                if(zone[i][j].equals(block)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -63,5 +75,29 @@ public class Infrastructure {
 
     public void addPerson(Person per) {
         persons.add(per);
+    }
+
+    public void removePerson(Person per) {
+        persons.remove(per);
+    }
+
+    public Block getEmptyBlock() {
+        for (Block[] blocks : zone) {
+            for (Block block : blocks) {
+                Iterator<Person> it = persons.iterator();
+                boolean found = false;
+                Person person;
+                while (it.hasNext() && !found) {
+                    person = it.next();
+                    if (person.getLocation().equals(block)) {
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    return block;
+                }
+            }
+        }
+        return null;
     }
 }

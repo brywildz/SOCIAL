@@ -2,6 +2,7 @@ package gui;
 
 import engine.data.map.*;
 import engine.data.person.Person;
+import engine.data.person.vitality.Mood;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -98,8 +99,8 @@ public class PaintStrategy {
         g2.drawImage(ImageIO.read(new File("src/images/nightClub.png")), NIGHTCLUB_X * blockSize, NIGHTCLUB_Y * blockSize,
                 NIGHTCLUB_WIDTH * blockSize, NIGHTCLUB_HEIGHT * blockSize, null);
 
-        g2.drawImage(ImageIO.read(new File("src/images/mall.png")), MALL_X * blockSize, MALL_Y * blockSize,
-                MALL_WIDTH * blockSize, MALL_HEIGHT * blockSize, null);
+        g2.drawImage(ImageIO.read(new File("src/images/hospital.png")), HOSPITAL_X * blockSize, HOSPITAL_Y * blockSize,
+                HOSPITAL_WIDTH * blockSize, HOSPITAL_HEIGHT * blockSize, null);
 
         /*g2.drawImage(ImageIO.read(new File("src/images/policeStation.png")), POLICESTATION_X * blockSize, POLICESTATION_Y * blockSize,
                 POLICESTATION_WIDTH * blockSize, POLICESTATION_HEIGHT * blockSize, null);*/
@@ -136,5 +137,24 @@ public class PaintStrategy {
 
         g2.drawImage(ImageIO.read(new File("src/images/government.png")), GOVERNMENT_X * blockSize, GOVERNMENT_Y * blockSize,
                 GOVERNMENT_WIDTH * blockSize, GOVERNMENT_HEIGHT * blockSize, null);*/
+    }
+
+    public Color getColorFor(Person person){
+        Mood m = person.getPersonState().getMood();
+        if(person.isSleeping()){
+            return Color.GRAY;
+        }
+        else if(person.isSick()){
+            return new Color(120, 180, 120);
+        }
+        else if(m.getNiveau()>6){
+            return new Color(0, 200, 0);
+        }
+        else if(m.getNiveau()<4){
+            return Color.RED;
+        }
+        else{
+            return Color.YELLOW;
+        }
     }
 }

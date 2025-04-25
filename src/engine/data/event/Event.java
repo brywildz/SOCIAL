@@ -25,6 +25,8 @@ public abstract class Event {
         this.description = description;
     }
 
+    public Event(){}
+
     public Time getDebut() {
         return debut;
     }
@@ -37,6 +39,9 @@ public abstract class Event {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;

@@ -1,0 +1,58 @@
+Améliorer la cohérence du nombre d'amis
+Améliorer la cohérence des jauges d'etat
+Améliorer la cohérence des personnalités (pas de similarité entre les traits)
+Ajoutez les chômeurs
+Ajoutez les event
+
+Les event :
+
+    Ils sont au nombre de 9 (3 météos, 3 personnels, 3 sociaux)
+        Event météos (impact sur tlm dependant la personnalité):
+            - Neige
+            - Neutre (Soleil)
+            - Pluie
+        Event personnels (impact non partagé) :
+            - Maladie (impact négatifs), lieu : maison/hopital selon le niveau
+            - Nouvelle rencontre (amicale ou amoureuse) (impact dépendant la personnalité), lieu : l'endroit de la rencontre
+            - Réussite professionelle impact positifs, lieu : zone de travail
+        Event Sociaux (impact partagé) :
+            Soiré festive, lieu : salle des fêtes
+            Dinée, lieu : restaurant
+            Balade en groupe, lieu : fôret
+    Ils respectent ces règles
+        Règles de priorité :
+            – Un Event personnel est toujours prioritaire à un hobby et à un Event social.
+            - Un Event social est prioritaire à un hobby seulement si celui-ci n'est pas le préféré de l'individu
+            - Un Event météo intervient par-dessus les autres événements donc pas de priorité
+
+        Règle de lieu :
+            - Un Event personnel a son lieu unique depandant la personne
+            - Un Event Social a son lieu unique
+            - Un Event météo n'a pas de lieu
+
+        Règle d'impact :
+            - Un Event personnel positifs ajoute +1 a tout les etat chaque heure, -1 pour un negatif et +1 ou -1 pour le neutre
+            - Un Event social fait la meme chose pour tout le monde dependament de la personnalité
+            - Un event météo n'impact pas la personnalité mais lex choix de lieu pour les hobby
+			
+		Comment il apparraissent ?
+			Dans la boucle du moteur on applique refreshEvent() à chaque individu:
+				on choisit aléatoirement un index qui va definir le type d'evennemnt
+					Si c'est personnel
+						On lance le builder d'evennement personnel qui va 
+							arrete le hobby en cours
+							definir aléatoirement un event
+							defnir en fonction de l'evennement et de la personne un lieu
+							defnir en focntion de la personnalité un impact
+					Si c'est social  on verifie si le hobby est le prefere ou pas
+						si oui on ne fait rien
+						si non on lance le builder d'event qui va 
+							- arrete le hobby en cours
+							- definir aléatoirement un event
+							- definir le lieu est deja prédéfinis
+							- choisir aléatoirement un nombre qui va definir le nombre d'individu qui seront avec lui et si c'est entre famille ou entre amis ou entre pro
+							- choisir un individu dans a liste d'amis qui n'a pas d'evennement social ou personnel en cours 
+							  ou qui ne fait pas son activité preféré et qui compatibile avec la météo
+							- appliquer l'event a tout les indidivu choisi, les deplacer
+					
+							

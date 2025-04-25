@@ -18,6 +18,9 @@ public class WeatherEvent extends Event {
 
     public WeatherEvent(String id, Time debut, Time fin, String description) {
         super(id, debut, fin, description);
-        this.individus = individus;
+    }
+
+    public WeatherEvent(){
+        super();
     }
 }

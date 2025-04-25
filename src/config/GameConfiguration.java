@@ -47,8 +47,8 @@ public class GameConfiguration {
     public static final int BANK_WIDTH = 7, BANK_HEIGHT = 7;
     public static final int BANK_X = 14, BANK_Y = 5;
 
-    public static final int LIBRARY_WIDTH = 8, LIBRARY_HEIGHT = 9;
-    public static final int LIBRARY_X = 29, LIBRARY_Y = 31;
+    public static final int LIBRARY_WIDTH = 10, LIBRARY_HEIGHT = 5;
+    public static final int LIBRARY_X = 31, LIBRARY_Y = 34;
 
     public static final int SCHOOL_WIDTH = 8, SCHOOL_HEIGHT = 8;
     public static final int SCHOOL1_X = 36, SCHOOL1_Y = 21;
@@ -57,8 +57,8 @@ public class GameConfiguration {
     public static final int PARC_WIDTH = 43, PARC_HEIGHT = 6;
     public static final int PARC_X = 97, PARC_Y = 11;
 
-    public static final int MALL_WIDTH = 10, MALL_HEIGHT = 10;
-    public static final int MALL_X = 14, MALL_Y = 15;
+    public static final int HOSPITAL_WIDTH = 7, HOSPITAL_HEIGHT = 7;
+    public static final int HOSPITAL_X = 17, HOSPITAL_Y = 17;
 
     public static final int NIGHTCLUB_WIDTH = 10, NIGHTCLUB_HEIGHT = 10;
     public static final int NIGHTCLUB_X = 136, NIGHTCLUB_Y = 47;

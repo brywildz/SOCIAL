@@ -13,7 +13,7 @@ import engine.process.repository.InfrastructureRepository;
 import engine.process.repository.PersonRepository;
 
 import static engine.process.builder.GameBuilder.random;
-import static engine.process.manager.LifeUtilities.weatherCheck;
+import static engine.process.manager.utils.ScoringUtilities.weatherCheck;
 
 public class HobbyBuilder {
     InfrastructureRepository infraRepo = InfrastructureRepository.getInstance();
@@ -34,7 +34,7 @@ public class HobbyBuilder {
      * @return
      */
     public Hobby buildHobby(){
-        hobby.setOutside(weatherCheck(person));
+        hobby.setOutside(outsideCheck());
         hobby.setId(createId());
         hobby.setStart(createStart());
         hobby.setEnd(createEnd());
@@ -86,6 +86,15 @@ public class HobbyBuilder {
         hobby.setEnd(createEndSleep(true));
         hobby.setPlace(createInfrastructure());
         return hobby;
+    }
+
+    private boolean outsideCheck() {
+        if(person.isSick()){
+            return false;
+        }
+        else{
+            return weatherCheck(person);
+        }
     }
 
     private Time createEndSleep(boolean weekEnd) {
@@ -163,7 +172,7 @@ public class HobbyBuilder {
         }
         else{
             PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-            id = actionRepo.getPreferredAction(maxPerso).getId();
+            id = actionRepo.getPreferredHobby(maxPerso).getId();
             preferred = true;
         }
         return id;

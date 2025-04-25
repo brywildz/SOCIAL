@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class PersonRepository {
     private HashMap<String, Person> persons = new HashMap<>();
     private static PersonRepository instance;
+    private InfrastructureRepository infraRepo = InfrastructureRepository.getInstance();
 
     private PersonRepository() {}
 
@@ -37,10 +38,19 @@ public class PersonRepository {
         return persons.get(block);
     }
 
-    public void setNewLocation(Person person, Block newLocation){
-        if(persons.containsKey(person.getName())){
-            person.setLocation(newLocation);
+    public void movePerson(Person person, Block newLocation){
+        if(person.getPlace()!=null){
+            person.getPlace().removePerson(person);
         }
+        person.setLocation(newLocation);
+        infraRepo.getInfrastructure(newLocation).addPerson(person);
+
+    }
+
+    public void movePerson(Person person, Person neighbour){
+        Block block = neighbour.getLocation();
+        block.addLine(1);
+        movePerson(person, block);
     }
 
     public void setPersons(HashMap<String, Person> persons) {

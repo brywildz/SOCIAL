@@ -8,13 +8,13 @@ package engine.data.person.vitality;
  */
 public abstract class Vitality {
     private String Id;
-    private int niveau;
+    private double niveau;
 
-    public void setNiveau(int niveau) {
+    public void setNiveau(double niveau) {
         this.niveau = niveau;
     }
 
-    public Vitality(int niveau) {
+    public Vitality(double niveau) {
         this.niveau = niveau;
     }
 
@@ -22,7 +22,7 @@ public abstract class Vitality {
         return Id;
     }
 
-    public int getNiveau() {
+    public double getNiveau() {
         return niveau;
     }
 
@@ -33,13 +33,13 @@ public abstract class Vitality {
                 '}';
     }
 
-    public void add(int s){
+    public void add(double s){
         niveau += s;
         if(niveau > 10){
             niveau = 10;
         }
-        if(niveau < 1){
-            niveau = 1;
+        if(niveau < 0){
+            niveau = 0;
         }
     }
 

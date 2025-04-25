@@ -8,7 +8,7 @@ import engine.data.person.Personality;
 import engine.process.builder.HobbyBuilder;
 import engine.process.repository.HobbyRepository;
 import engine.process.repository.PersonRepository;
-import static engine.process.manager.LifeUtilities.*;
+import static engine.process.manager.utils.LifeUtilities.*;
 
 public class WeekEndManager {
 

@@ -49,6 +49,12 @@ public class GameBuilder {
         mouvement.set(PersonRepository.getInstance().getPersons());
     }
 
+    /**
+     * max non inclus
+     * @param min
+     * @param max
+     * @return
+     */
     public static int random(int min, int max){
         return (int) (Math.random() * (max - min)) + min;
     }

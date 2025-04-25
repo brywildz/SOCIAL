@@ -9,7 +9,7 @@ import engine.process.repository.PersonRepository;
 import engine.data.person.PersonState;
 import engine.data.person.socialState.Pupil;
 import engine.data.person.socialState.Worker;
-import static engine.process.manager.LifeUtilities.*;
+import static engine.process.manager.utils.LifeUtilities.*;
 
 
 /**
@@ -32,9 +32,14 @@ public class WeekManager {
             goSleep(person, false);
         }
         else{
-            if (person.isWorker()) workerRoutine();
-            else if (person.isPupil()) pupilRoutine();
-            else if (person.isUnemployed()) lifeIsGood();
+            if(!person.isSick()){
+                if (person.isWorker()) workerRoutine();
+                else if (person.isPupil()) pupilRoutine();
+                else if (person.isUnemployed()) lifeIsGood();
+            }
+            else if(person.getSocialState().getIsTodayOff()){
+                lifeIsGood();
+            }
         }
     }
 

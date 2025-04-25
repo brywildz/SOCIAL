@@ -61,7 +61,6 @@ public class Hobby {
         return c.isHigherThan(end);
     }
 
-
     public void setOutside(boolean isOutside) {
         this.isOutside = isOutside;
     }

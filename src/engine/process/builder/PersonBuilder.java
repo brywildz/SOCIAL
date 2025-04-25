@@ -23,8 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static engine.process.builder.GameBuilder.random;
-import static engine.process.manager.LifeUtilities.createSleepTimeWeekEnd;
-import static engine.process.manager.LifeUtilities.createWakeTimeWeekEnd;
+import static engine.process.manager.utils.ScoringUtilities.*;
 
 public class PersonBuilder {
     InfrastructureRepository infraRepo = InfrastructureRepository.getInstance();
@@ -53,7 +52,7 @@ public class PersonBuilder {
 
         personRepo.addIndividu(person);
         infraRepo.addPerson(person,person.getSocialState().getInfrastructure());
-        personRepo.setNewLocation(person, person.getHouse().getRandomBlock());
+        personRepo.movePerson(person, person.getHouse().getRandomBlock());
 
         return person;
     }
@@ -70,7 +69,7 @@ public class PersonBuilder {
 
         personRepo.addIndividu(person);
         infraRepo.addPerson(person,person.getSocialState().getInfrastructure());
-        personRepo.setNewLocation(person, person.getHouse().getRandomBlock());
+        personRepo.movePerson(person, person.getHouse().getRandomBlock());
 
         return person;
     }
@@ -179,72 +178,6 @@ public class PersonBuilder {
             case "family" : randomIndex = random(1, 10);
         }
         return randomIndex;
-    }
-
-    private boolean isCompatible(Person person, Person possibleFriend, String type) {
-        PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-        PersonalityTrait maxPerso2 = possibleFriend.getPersonality().getMaxPerso();
-        PersonalityTrait minPerso = person.getPersonality().getMinPerso();
-        PersonalityTrait minPerso2 = possibleFriend.getPersonality().getMinPerso();
-        int max = Math.max(person.getAge(), possibleFriend.getAge());
-        int min = Math.min(person.getAge(), possibleFriend.getAge());
-        boolean compatible = false;
-        if(maxPerso instanceof Extraversion){
-            if(maxPerso2 instanceof Extraversion || maxPerso2 instanceof Agreeableness || maxPerso2 instanceof Openness){
-                compatible =  random(100) > 20;
-            }
-            if(!compatible && max-min <= 20){
-                compatible = random(3) == 1;
-            }
-            if(!compatible && type.equals("friends") && person.getSocialState().getInfrastructure().getPersons().contains(possibleFriend)){
-                compatible = random(5) == 1;
-            }
-        }
-        else if(maxPerso instanceof Agreeableness){
-            if(maxPerso2 instanceof Extraversion || maxPerso2 instanceof Conscientiousness || maxPerso2 instanceof Agreeableness){
-                compatible =  random(100) > 20;
-            }
-            if(!compatible && max-min <= 10){
-                compatible = random(3) == 1;
-            }
-            if(!compatible && type.equals("friends") && person.getSocialState().getInfrastructure().getPersons().contains(possibleFriend)){
-                compatible = random(5) == 1;
-            }
-        }
-        else if(maxPerso instanceof Openness){
-            if(maxPerso2 instanceof Extraversion || maxPerso2 instanceof Openness || maxPerso2 instanceof Agreeableness){
-                compatible = random(100) > 20;
-            }
-            if(!compatible && max-min <= 50){
-                compatible = random(3) == 1;
-            }
-            if(!compatible && type.equals("friends") && person.getSocialState().getInfrastructure().getPersons().contains(possibleFriend)){
-                compatible = random(5) == 1;
-            }
-        }
-        else if(maxPerso instanceof Conscientiousness){
-            if(maxPerso2 instanceof Agreeableness || maxPerso2 instanceof Openness || maxPerso2 instanceof Conscientiousness){
-                compatible = random(100) > 20;
-            }
-            if(!compatible && max-min <= 5){
-                compatible = random(3) == 1;
-            }
-            if(!compatible && type.equals("friends") && person.getSocialState().getInfrastructure().getPersons().contains(possibleFriend)){
-                compatible = random(100) > 20;
-            }
-        }
-        else if(minPerso instanceof Neuroticism){
-            if(maxPerso2 instanceof Agreeableness || maxPerso2 instanceof Openness || maxPerso2 instanceof Conscientiousness){
-                compatible = random(100) > 20;
-            }
-            if(!compatible && max-min <= 30){
-                compatible = random(3) == 1;
-            }
-            if(!compatible && type.equals("friends") && person.getSocialState().getInfrastructure().getPersons().contains(possibleFriend)){
-                compatible = random(5) == 1;
-            }
-        }
-        return compatible;
     }
 
     public void createRelationList(){

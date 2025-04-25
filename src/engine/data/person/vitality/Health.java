@@ -10,7 +10,7 @@ public class Health extends Vitality {
     private Boolean estMalade;
     private int derniereConsultation;
 
-    public Health(int niveau, int derniereConsultation, Boolean estMalade) {
+    public Health(double niveau, int derniereConsultation, Boolean estMalade) {
         super(niveau);
         this.derniereConsultation = derniereConsultation;
         this.estMalade = estMalade;

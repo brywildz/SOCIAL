@@ -24,6 +24,10 @@ public class SocialEvent extends Event {
 
     }
 
+    public SocialEvent(){
+        super();
+    }
+
     @Override
     public String toString() {
         return super.toString() + "concerne les individus : " + persons;

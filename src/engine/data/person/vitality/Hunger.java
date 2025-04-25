@@ -10,7 +10,7 @@ public class Hunger extends Vitality {
     private String repasPrefere;
     private String dernierRepas;
 
-    public Hunger(int niveau, String repasPrefere, String dernierRepas) {
+    public Hunger(double niveau, String repasPrefere, String dernierRepas) {
         super(niveau);
         this.repasPrefere = repasPrefere;
         this.dernierRepas = dernierRepas;

@@ -10,7 +10,7 @@ package engine.data.person.vitality;
 public class Mood extends Vitality {
     private String type;
 
-    public Mood(int niveau, String humeur) {
+    public Mood(float niveau, String humeur) {
         super(niveau);
         this.type = humeur;
     }

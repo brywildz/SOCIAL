@@ -45,7 +45,7 @@ public class LifeUtilities {
         person.getPersonState().getSleep().setSleeping(true);
         person.getSocialState().setIsTodayOff(false);
         person.setEvent(null);
-        personRepo.movePerson(person,person.getHobby().getPlace().getRandomBlock());
+        personRepo.movePerson(person,person.getHouse().getRandomBlock());
     }
 
     /**
@@ -90,15 +90,19 @@ public class LifeUtilities {
             a = actionRepo.getAction((l.get(random(l.size()))).getId());
 
         }
-        //a.setStart(Clock.getInstance().getTime());
-        //a.setEnd(HobbyRepository.getInstance().getRandomTimer(person, a.getId()));
         person.setHobby(a);
     }
 
     public static void goHome(Person person){
         HobbyBuilder hb = new HobbyBuilder(person);
-        Hobby h = hb.buildAfterWorkHobby();
-        person.setHobby(h);
+        if(person.isSick()){
+            Hobby h = hb.buildHobby();
+            person.setHobby(h);
+        }
+        else{
+            Hobby h = hb.buildAfterWorkHobby();
+            person.setHobby(h);
+        }
     }
 
     public static void goWork(Person person) {
@@ -124,10 +128,10 @@ public class LifeUtilities {
         Block loc = infraRepo.get("hospital").getEmptyBlock();
         person.getSocialState().setIsTodayOff(true);
         if(loc == null){
-            personRepo.movePerson(person, person.getHouse().getEmptyBlock());
+            personRepo.movePerson(person, person.getHouse().getRandomBlock());
         }
         else{
-            personRepo.movePerson(person, infraRepo.get("hospital").getEmptyBlock());
+            personRepo.movePerson(person, infraRepo.get("hospital").getRandomBlock());
         }
     }
 
@@ -136,10 +140,10 @@ public class LifeUtilities {
      * @param person
      */
     public static void refreshLocation(Person person) {
-        if(person.getEvent()!=null && person.getEvent() instanceof SocialEvent){
+        if(person.isInSocialEvent()) {
             refreshEventLocation(person);
         }
-        else if(!(person.isSleeping() && person.getHobby()==null) && (person.getEvent()!=null && person.getEvent() instanceof PersonalEvent)){
+        else if(!person.isSleeping() && !person.isInPersonalEvent() && person.getHobby()!=null){
             personRepo.movePerson(person,person.getHobby().getPlace().getRandomBlock());
         }
     }

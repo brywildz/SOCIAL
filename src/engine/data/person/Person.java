@@ -1,6 +1,8 @@
 package engine.data.person;
 
 import engine.data.event.Hobby;
+import engine.data.event.PersonalEvent;
+import engine.data.event.SocialEvent;
 import engine.data.map.Block;
 import engine.data.map.Clock;
 import engine.data.map.Infrastructure;
@@ -232,10 +234,24 @@ public class Person {
         Health health = personState.getHealth();
         return health.isMalade();
     }
+
+    public boolean isInSocialEvent(){
+        return event != null && event instanceof SocialEvent;
+    }
+
+    public boolean isInPersonalEvent(){
+        return event != null && event instanceof PersonalEvent;
+    }
     // </editor-fold>
 
     public String toStringForPane() {
-        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState + ", Occupation : "+ hobby.getId();
+        String s = "Nom : " + name + ", age : " + age + ", Statut social : "+socialState;
+        if(hobby != null){
+            s += ", Occupation : "+ hobby.getId();
+        }
+        if(event != null){
+            s += ", Événement : " + event.toStringForPane();
+        }
         return s;
     }
     @Override

@@ -96,7 +96,7 @@ public class PersonBuilder {
         if(randomIndex == 0){
             int[] min = {0,15,30,45};
             Time start = new Time(random(7,12), min[random(min.length)],0);
-            Time end = new Time(random(17,22), min[random(min.length)],0);
+            Time end = new Time(random(17,21), min[random(min.length)],0);
             ss = new Worker(infraRepo.randomWorkingPlace(), start, end);
         }
         if(randomIndex == 1){

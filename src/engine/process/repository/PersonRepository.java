@@ -60,8 +60,8 @@ public class PersonRepository {
 
     public void movePerson(Person person, Person neighbour){
         Block block = neighbour.getLocation();
-        block.addLine(1);
-        movePerson(person, block, person.getPlace());
+        Block block1 = new Block(block.getLine(), block.getColumn()+1);
+        movePerson(person, block1, person.getPlace());
     }
 
 

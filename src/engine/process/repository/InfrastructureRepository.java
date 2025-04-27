@@ -40,6 +40,7 @@ public class InfrastructureRepository {
         infrastructures.put("museum", new Infrastructure("museum", MUSEE_X, MUSEE_Y, MUSEE_WIDTH, MUSEE_HEIGHT));
         infrastructures.put("cinéma", new Infrastructure("cinéma", CINEMA_X, CINEMA_Y, CINEMA_WIDTH, CINEMA_HEIGHT));
         infrastructures.put("forest", new Infrastructure("forest", FOREST_X, FOREST_Y, FOREST_WIDTH, FOREST_HEIGHT));
+        infrastructures.put("association", new Infrastructure("association", ASSOCIATION_X, ASSOCIATION_Y, ASSOCIATION_WIDTH, ASSOCIATION_HEIGHT));
     }
 
     private static InfrastructureRepository instance;

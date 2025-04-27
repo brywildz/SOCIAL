@@ -38,4 +38,23 @@ public abstract class Event {
     public Block getLocation() {
         return null;
     }
+
+    public boolean itsEndTime() {
+        if(this instanceof SocialEvent){
+            Time c = Clock.getInstance().getTime();
+            return c.equals(((SocialEvent) this).getEndTime());
+        }
+        return false;
+    }
+
+    public boolean hasMove(){
+        if(this instanceof PersonalEvent){
+            return ((PersonalEvent) this).getPerson().getEvent()==null;
+        }
+        return false;
+    }
+
+    public String toStringForPane() {
+        return id;
+    }
 }

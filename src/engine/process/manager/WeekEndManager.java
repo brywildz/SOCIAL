@@ -22,7 +22,7 @@ public class WeekEndManager {
     }
 
 
-    public void lifeIsGood() throws InterruptedException {
+    public void lifeIsGood(){
         Personality personality = person.getPersonality();
         if(time.equals(personality.getWakeUpTimeWeekEnd())){
             person.getPersonState().getSleep().setSleeping(false);

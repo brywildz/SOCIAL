@@ -3,6 +3,7 @@ package gui;
 import engine.data.person.Person;
 import engine.process.builder.PersonBuilder;
 
+import javax.security.auth.login.Configuration;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -69,12 +70,15 @@ public class ControlPanel extends JPanel {
         JButton speedUpButton = new JButton("Accélérer");
         JButton speedNormalButton = new JButton("Rétablir");
         JButton speedDownButton = new JButton("Ralentir");
+        JButton pauseButton = new JButton("Pause");
         speedUpButton.addActionListener(e -> speedUpGame());
         speedNormalButton.addActionListener(e -> speedNormalGame());
         speedDownButton.addActionListener(e -> speedDownGame());
+        pauseButton.addActionListener(e -> GAME=!GAME);
 
-        eastPanel.add(speedDownButton);
         eastPanel.add(speedNormalButton);
+        eastPanel.add(speedDownButton);
+        eastPanel.add(pauseButton);
         eastPanel.add(speedUpButton);
     }
 

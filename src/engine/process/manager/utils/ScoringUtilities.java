@@ -133,19 +133,12 @@ public class ScoringUtilities {
             case "party":
                 return 0.45 * ex + 0.25 * op + 0.15 * agr + 0.10 * (1 - ne) + 0.05 * (1 - cons);
             case "walk":
-                if (ne > 6) {
-                    return 0.35 * op + 0.25 * (1 - ex) + 0.2 * ne + 0.20 * cons + 0.05 * agr;
-                } else if (ne < 4) {
-                    return 0.35 * op + 0.25 * (1 - ex) + 0.2 * (1 - ne) + 0.20 * cons + 0.05 * agr;
-                } else {
-                    return 0.35 * op + 0.25 * (1 - ex) + 0.1 * ne + 0.20 * cons + 0.05 * agr;
-                }
+                    return 0.35 * op + 0.15 * (1 - ex) + 0.3 * ne + 0.20 * cons + 0.05 * agr;
             case "family_dinner":
-                return 0.1 * (1 - op) + 0.25 * (1 - ex) + 0.15 * (1 - ne) + 0.25 * cons + 0.35 * agr;
-            case "1":
+                return 0.1*op+0.05*ex+0.1*(1-ne)+0.25*cons+0.5*agr;
+            default :
                 return 0.1 * op + 0.25 * ex + 0.1 * (1 - ne) + 0.35 * cons + 0.2 * agr;
         }
-        return 0;
     }
 
     public static boolean isCompatible(Person person, Person possibleFriend, String type) {

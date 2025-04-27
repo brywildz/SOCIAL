@@ -77,4 +77,10 @@ public class Hobby {
         Time time = Clock.getInstance().getTime();
         return time.equals(start);
     }
+
+    public boolean isFinishedIn(int minutes) {
+        Time time = Clock.getInstance().getActualTime();
+        time.addMinute(minutes);
+        return time.equals(end);
+    }
 }

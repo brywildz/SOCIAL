@@ -205,7 +205,7 @@ public class HobbyBuilder {
         String id = hobby.getId();
         switch (id) {
             case "volunteering" : {
-                return infraRepo.get("city");
+                return infraRepo.get("association");
             }
             case "learning" : {
                 return infraRepo.get("bibliothèque");

@@ -41,13 +41,11 @@ public class EventManager {
      */
     public void refresh(Person person) {
         Event event = person.getEvent();
-        if(event == null) {
+        if(event == null && random(5)==0 && person.getHobby()!=null && !person.getHobby().hasStart()) {
             newEvent(person);
         }
-        else if(event instanceof SocialEvent) {
-            if(((SocialEvent) event).isFinished()){
-                person.setEvent(null);
-            }
+        if (event instanceof SocialEvent && ((SocialEvent) event).isFinished()) {
+            person.setEvent(null);
         }
     }
 
@@ -60,18 +58,18 @@ public class EventManager {
             eventBuilder.build();
         }
         if (eventIndex == 1) {
-            if (!person.isPreferred() && !person.isWorking()) {
+            if (!person.isPreferred() && !person.isWorking() && weekEndCheck()) {
                 PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
                 PersonalityTrait minPerso = person.getPersonality().getMinPerso();
                 int probaIndex = random(0, 10);
                 if (maxPerso instanceof Neuroticism || minPerso instanceof Extraversion) {
-                    if (probaIndex <= 3) { //30% de chance
+                    if (probaIndex <= 4) { //30% de chance
                         SocialEvent sEvent = new SocialEvent();
                         EventBuilder eventBuilder = new EventBuilder(person, sEvent);
                         eventBuilder.build();
                     }
                 } else {
-                    if (probaIndex <= 6) { //60% de chance
+                    if (probaIndex <= 7) { //60% de chance
                         SocialEvent sEvent = new SocialEvent();
                         EventBuilder eventBuilder = new EventBuilder(person, sEvent);
                         eventBuilder.build();
@@ -81,19 +79,32 @@ public class EventManager {
         }
     }
 
+    private boolean weekEndCheck() {
+        if(!(Clock.isWeekend())) {
+            return Clock.getInstance().getTime().getHour() >= 19;
+        }
+        else{
+            return true;
+        }
+    }
 
-            /**
+
+    /**
              * Gère certains cas particuliers d'événement.
              */
     public void reset(Person person){
-        String id = person.getEvent().getId();
+        Event event = person.getEvent();
         Hobby hobby = person.getHobby();
-        if(id.equals("meet") && hobby.hasStart()){ //Dés qu'il change de lieu, l'événement de rencontre s'arrête
+        if(event.getId().equals("meet") && (hobby.isFinishedIn(15) || event.hasMove())){ //Dés qu'il change de lieu, l'événement de rencontre s'arrête
+            PersonalEvent sEvent = (PersonalEvent) event;
+            sEvent.getPerson().setEvent(null);
             person.setEvent(null);
         }
-        else if(Clock.getInstance().getTime().getHour() > 5 && person.getEvent().getId().equals("party")){ //Après 5h le night club ferme et les gens vont dormir
+        else if(person.getEvent().itsEndTime()){//Après 5h le night club ferme et les gens vont dormir
+            if(person.getEvent().getId().equals("party")){
+                goSleep(person, Clock.isWeekend());
+            }
             person.setEvent(null);
-            goSleep(person, Clock.isWeekend());
         }
     }
 

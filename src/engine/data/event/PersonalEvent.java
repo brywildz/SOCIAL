@@ -29,6 +29,15 @@ public class PersonalEvent extends Event {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    @Override
+    public String toStringForPane(){
+        return super.getId() + " " + person.getName();
+    }
 }
 
 

@@ -118,8 +118,8 @@ public class PaintStrategy {
         g2.drawImage(ImageIO.read(new File("src/images/cinema.png")), CINEMA_X * blockSize, CINEMA_Y * blockSize,
                 CINEMA_WIDTH * blockSize, CINEMA_HEIGHT * blockSize, null);
 
-        /*g2.drawImage(ImageIO.read(new File("src/images/shop.png")), SHOP_X * blockSize, SHOP_Y * blockSize,
-                SHOP_WIDTH * blockSize, SHOP_HEIGHT * blockSize, null);*/
+        g2.drawImage(ImageIO.read(new File("src/images/association.png")), ASSOCIATION_X * blockSize, ASSOCIATION_Y * blockSize,
+                ASSOCIATION_WIDTH * blockSize, ASSOCIATION_HEIGHT * blockSize, null);
 
         /*g2.drawImage(ImageIO.read(new File("src/images/clothing.png")), CLOTHING_X * blockSize, CLOTHING_Y * blockSize,
                 CLOTHING_WIDTH * blockSize, CLOTHING_HEIGHT * blockSize, null);*/
@@ -159,7 +159,9 @@ public class PaintStrategy {
                     return Color.cyan;
                 case "family_dinner":
                     return Color.LIGHT_GRAY;
-                default : //work_dinner
+                case "party":
+                    return new Color(128, 0, 120);
+                case "work_dinner": //work_dinner
                     return Color.DARK_GRAY;
             }
         }
@@ -172,5 +174,6 @@ public class PaintStrategy {
         else{
             return Color.YELLOW;
         }
+        return Color.YELLOW;
     }
 }

@@ -1,6 +1,7 @@
 package engine.process;
 
 import engine.data.event.Event;
+import engine.data.event.SocialEvent;
 import engine.data.map.Clock;
 import engine.data.map.Map;
 import engine.data.person.Person;
@@ -56,7 +57,8 @@ public class MobileElementManager implements MobileInterface {
         eventManager.refreshWeather();
     }
 
-    private void refreshLifeStyle(Person person) throws InterruptedException {
+    private void refreshLifeStyle(Person person){
+        if(!(person.getEvent() != null && (person.getEvent() instanceof SocialEvent))) {
             if(!Clock.isWeekend()){
                 WeekManager wm = new WeekManager(person);
                 wm.refreshRoutine();
@@ -65,12 +67,19 @@ public class MobileElementManager implements MobileInterface {
                 WeekEndManager wem = new WeekEndManager(person);
                 wem.lifeIsGood();
             }
+        }
+
     }
 
     private void refreshEvent(Person person) {
-        eventManager.refresh(person);
+        if(!person.isSleeping()){
+            eventManager.refresh(person);
+        }
         if(person.getEvent()!=null){
             eventManager.reset(person);
+        }
+        if(person.getHobby() == null){
+            refreshLifeStyle(person);
         }
     }
 

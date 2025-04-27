@@ -54,5 +54,12 @@ Les event :
 							- choisir un individu dans a liste d'amis qui n'a pas d'evennement social ou personnel en cours 
 							  ou qui ne fait pas son activité preféré et qui compatibile avec la météo
 							- appliquer l'event a tout les indidivu choisi, les deplacer
-					
+
+event au lieu d'aller au travail
+le malade qui bouge et ne va pas à l'hopital
+aucun evenement or malade apres le taff
+probleme de deplacement avec la rencontre
+
+family dinner
+party
 							

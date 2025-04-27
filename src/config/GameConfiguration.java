@@ -5,7 +5,7 @@ package config;
  */
 public class GameConfiguration {
 
-    public static final int FIRST_DAY = 3;
+    public static final int FIRST_DAY = 5;
 
     public static final int SECOND_START = 0;
     public static final int MINUTE_START = 0;
@@ -15,7 +15,7 @@ public class GameConfiguration {
     public static final int MONTH_START = 1;
     public static final int DAY_START = 1;
 
-    public static boolean GAME = false;
+    public static boolean GAME = true;
 
     public static final int WINDOW_WIDTH = 1500;
     public static final int WINDOW_HEIGHT = 750;
@@ -72,8 +72,8 @@ public class GameConfiguration {
     public static final int FOREST_WIDTH = 149, FOREST_HEIGHT = 7;
     public static final int FOREST_X = 0, FOREST_Y = 67;
 
-    public static final int SHOP_WIDTH = 3, SHOP_HEIGHT = 3;
-    public static final int SHOP_X = 55, SHOP_Y = 30;
+    public static final int ASSOCIATION_WIDTH = 8, ASSOCIATION_HEIGHT = 8;
+    public static final int ASSOCIATION_X = 84, ASSOCIATION_Y = 33;
 
     public static final int CLOTHING_WIDTH = 3, CLOTHING_HEIGHT = 3;
     public static final int CLOTHING_X = 58, CLOTHING_Y = 30;

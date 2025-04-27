@@ -3,6 +3,7 @@ package test;
 import gui.MainGUI;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
 
 /**
  * Classe principale instanciant les classes nécessaires au lancement du jeu
@@ -12,7 +13,7 @@ import javax.swing.*;
  */
 
 public class TestGame {
-    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException, FileNotFoundException {
 
         MainGUI gameMainGUI = new MainGUI("Social");
 

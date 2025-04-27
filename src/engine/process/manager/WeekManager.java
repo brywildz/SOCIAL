@@ -26,9 +26,9 @@ public class WeekManager {
     }
 
 
-    public void refreshRoutine() {
+    public synchronized void refreshRoutine() throws InterruptedException {
         PersonState ps = person.getPersonState();
-        if (time.equals(ps.getSleep().getSleepTime())) {
+        if ((time.equals(ps.getSleep().getSleepTime())) && (person.getEvent()!=null)) {
             goSleep(person, false);
         }
         else{
@@ -37,7 +37,7 @@ public class WeekManager {
                 else if (person.isPupil()) pupilRoutine();
                 else if (person.isUnemployed()) lifeIsGood();
             }
-            else if(person.getSocialState().getIsTodayOff()){
+            else if(person.getSocialState().getIsTodayOff() && !person.getEvent().getId().equals("party")){
                 lifeIsGood();
             }
         }

@@ -13,6 +13,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
 
 /**
  * Classe d'affichage de la fenêtre principale, celle-ci contient la carte, les individus, les lieux
@@ -29,12 +30,12 @@ public class MainGUI extends JFrame implements Runnable {
     private MobileInterface manager;
     private GameDisplay dashboard;
 
-    public MainGUI(String title) throws HeadlessException, UnsupportedLookAndFeelException {
+    public MainGUI(String title) throws HeadlessException, UnsupportedLookAndFeelException, FileNotFoundException {
         super(title);
         init();
     }
 
-    private void init() throws UnsupportedLookAndFeelException {
+    private void init() throws UnsupportedLookAndFeelException, FileNotFoundException {
 
         Container contentPane = getContentPane();
         UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -68,7 +69,11 @@ public class MainGUI extends JFrame implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            manager.nextSecond();
+            try {
+                manager.nextSecond();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             //controlPanel.showDate();
             dashboard.repaint();
         }

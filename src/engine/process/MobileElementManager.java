@@ -11,7 +11,8 @@ import engine.process.repository.PersonRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import static engine.process.manager.utils.LifeUtilities.refreshLocation;
+
+import static engine.process.manager.utils.LifeUtilities.*;
 
 /**
  * Classe de traitement gérant les déplacements des individus sur la carte
@@ -24,6 +25,7 @@ import static engine.process.manager.utils.LifeUtilities.refreshLocation;
 public class MobileElementManager implements MobileInterface {
     private Map map;
     private final PersonRepository personRepo = PersonRepository.getInstance();
+    private EventManager eventManager = new EventManager();
 
     public MobileElementManager(Map map){
         this.map = map;
@@ -38,39 +40,38 @@ public class MobileElementManager implements MobileInterface {
         this.personRepo.setPersons(individus);
     }
 
-    public void nextSecond(){
+    public void nextSecond() throws InterruptedException {
         Clock.getInstance().getTime().addMinute(15);
         refreshWeather();
         List<Person> personList = new ArrayList<>(personRepo.getPersons().values());
         for(Person person : personList){
             refreshLifeStyle(person);
-            //refreshEvent(person);
+            refreshEvent(person);
             refreshState(person);
             refreshLocation(person);
         }
     }
 
     private void refreshWeather() {
-        EventManager em = new EventManager();
-        em.refreshWeather();
+        eventManager.refreshWeather();
     }
 
-    private void refreshLifeStyle(Person person) {
-        WeekManager wm = new WeekManager(person);
-        if(!Clock.isWeekend()){
-            wm.refreshRoutine();
-        }
-        else{
-            WeekEndManager wem = new WeekEndManager(person);
-            wem.lifeIsGood();
-        }
+    private void refreshLifeStyle(Person person) throws InterruptedException {
+            if(!Clock.isWeekend()){
+                WeekManager wm = new WeekManager(person);
+                wm.refreshRoutine();
+            }
+            else{
+                WeekEndManager wem = new WeekEndManager(person);
+                wem.lifeIsGood();
+            }
     }
 
     private void refreshEvent(Person person) {
-        EventManager em = new EventManager();
-        em.refresh(person);
-        em.reset(person);
-
+        eventManager.refresh(person);
+        if(person.getEvent()!=null){
+            eventManager.reset(person);
+        }
     }
 
     private void refreshState(Person person) {
@@ -79,7 +80,7 @@ public class MobileElementManager implements MobileInterface {
         if(event != null){
             react.eventReact(event.getId());
         }
-        if(person.getHobby().hasStart()){
+        if(person.getHobby() != null && person.getHobby().hasStart()){
             react.changeState(person.getHobby());
         }
     }

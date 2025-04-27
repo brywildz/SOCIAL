@@ -4,7 +4,6 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
-import engine.data.person.vitality.Mood;
 import engine.process.MobileInterface;
 import engine.process.repository.PersonRepository;
 
@@ -51,20 +50,8 @@ public class GameDisplay extends JPanel {
         HashMap<String, Person> individu = PersonRepository.getInstance().getPersons();
         Iterator<Person> it = individu.values().iterator();
         while(it.hasNext()){
-            Person ind = it.next();
-            Mood m = ind.getPersonState().getMood();
-            if(ind.isSleeping()){
-                paintStrategy.paint(ind, g, Color.GRAY);
-            }
-            else if(m.getNiveau()>6){
-                paintStrategy.paint(ind, g, Color.GREEN);
-            }
-            else if(m.getNiveau()<4){
-                paintStrategy.paint(ind, g, Color.RED);
-            }
-            else{
-                paintStrategy.paint(ind, g, Color.YELLOW);
-            }
+            Person person = it.next();
+            paintStrategy.paint(person, g, paintStrategy.getColorFor(person));
 
         }
 

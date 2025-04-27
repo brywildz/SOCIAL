@@ -262,6 +262,11 @@ public class Reaction {
         switch(id){
             case "sick": sickReact(); break;
             case "success": successReact(); break;
+            case "meet": meetReact(); break;
+            case "party": partyReact(); break;
+            case "family_dinner": familyDinnerReact(); break;
+            case "work_dinner": workDinnerReact(); break;
+            case "walk": walkReact(); break;
         }
     }
 
@@ -300,6 +305,196 @@ public class Reaction {
             mood.add(+3);
             sleep.add(-1);
             hunger.add(+0.5);
+        }
+    }
+
+    private void meetReact() {
+        PersonalityTrait maxPerso = personality.getMaxPerso();
+        Health health = state.getHealth();
+        Mood mood = state.getMood();
+        Sleep sleep = state.getSleep();
+        Hunger hunger = state.getHunger();
+        if(maxPerso instanceof Openness){
+            health.add(+0.5);
+            mood.add(+2);
+            hunger.add(-0.5);
+            sleep.add(+1);
+        }
+        else if(maxPerso instanceof Conscientiousness){
+            health.add(+0.5);
+            mood.add(+1);
+            hunger.add(+0.5);
+            sleep.add(-0.5);
+        }
+        else if(maxPerso instanceof Extraversion){
+            health.add(+1);
+            mood.add(+2.5);
+            hunger.add(+1);
+            sleep.add(+1);
+        }
+        else if(maxPerso instanceof Neuroticism){
+            health.add(-0.5);
+            mood.add(-1);
+            hunger.add(-1);
+            sleep.add(+1.5);
+        }
+        else if(maxPerso instanceof Agreeableness){
+            health.add(+1.5);
+            mood.add(+2);
+            hunger.add(+0.5);
+            sleep.add(+1);
+        }
+    }
+
+    private void partyReact() {
+        PersonalityTrait maxPerso = personality.getMaxPerso();
+        Health health = state.getHealth();
+        Mood mood = state.getMood();
+        Sleep sleep = state.getSleep();
+        Hunger hunger = state.getHunger();
+        if(maxPerso instanceof Openness){
+            health.add(+0.5);
+            mood.add(+3);
+            hunger.add(-1);
+            sleep.add(+2);
+        }
+        else if(maxPerso instanceof Conscientiousness){
+            health.add(+1);
+            mood.add(+1.5);
+            hunger.add(+0.5);
+            sleep.add(-0.5);
+        }
+        else if(maxPerso instanceof Extraversion){
+            health.add(+1);
+            mood.add(+4);
+            hunger.add(+1);
+            sleep.add(+2.5);
+        }
+        else if(maxPerso instanceof Neuroticism){
+            health.add(-1);
+            mood.add(-2);
+            hunger.add(-1.5);
+            sleep.add(-3);
+        }
+        else if(maxPerso instanceof Agreeableness){
+            health.add(+1.5);
+            mood.add(+2.5);
+            hunger.add(+0.5);
+            sleep.add(+1);
+        }
+    }
+
+    private void familyDinnerReact() {
+        PersonalityTrait maxPerso = personality.getMaxPerso();
+        Health health = state.getHealth();
+        Mood mood = state.getMood();
+        Sleep sleep = state.getSleep();
+        Hunger hunger = state.getHunger();
+        if(maxPerso instanceof Openness){
+            health.add(+0.5);
+            mood.add(+2);
+            hunger.add(+1);
+            sleep.add(+0.5);
+        }
+        else if(maxPerso instanceof Conscientiousness){
+            health.add(+1);
+            mood.add(+1.5);
+            hunger.add(+1);
+            sleep.add(-0.5);
+        }
+        else if(maxPerso instanceof Extraversion){
+            health.add(+1);
+            mood.add(+3);
+            hunger.add(+1.5);
+            sleep.add(+1);
+        }
+        else if(maxPerso instanceof Neuroticism){
+            health.add(-0.5);
+            mood.add(-1);
+            hunger.add(-0.5);
+            sleep.add(+1.5);
+        }
+        else if(maxPerso instanceof Agreeableness){
+            health.add(+1.5);
+            mood.add(+2.5);
+            hunger.add(+1);
+            sleep.add(-0.5);
+        }
+    }
+
+    private void workDinnerReact() {
+        PersonalityTrait maxPerso = personality.getMaxPerso();
+        Health health = state.getHealth();
+        Mood mood = state.getMood();
+        Sleep sleep = state.getSleep();
+        Hunger hunger = state.getHunger();
+        if(maxPerso instanceof Openness){
+            health.add(+0.5);
+            mood.add(+2);
+            hunger.add(+1);
+            sleep.add(-0.5);
+        }
+        else if(maxPerso instanceof Conscientiousness){
+            health.add(+1);
+            mood.add(+1.5);
+            hunger.add(+0.5);
+            sleep.add(-0.5);
+        }
+        else if(maxPerso instanceof Extraversion){
+            health.add(+1);
+            mood.add(+3);
+            hunger.add(+1.5);
+            sleep.add(+1);
+        }
+        else if(maxPerso instanceof Neuroticism){
+            health.add(-0.5);
+            mood.add(-1);
+            hunger.add(-0.5);
+            sleep.add(+1.5);
+        }
+        else if(maxPerso instanceof Agreeableness){
+            health.add(+1.5);
+            mood.add(+2.5);
+            hunger.add(+1);
+            sleep.add(-0.5);
+        }
+    }
+
+    private void walkReact() {
+        PersonalityTrait maxPerso = personality.getMaxPerso();
+        Health health = state.getHealth();
+        Mood mood = state.getMood();
+        Sleep sleep = state.getSleep();
+        Hunger hunger = state.getHunger();
+        if(maxPerso instanceof Openness){
+            health.add(+1.5);
+            mood.add(+3);
+            hunger.add(+0.5);
+            sleep.add(-1);
+        }
+        else if(maxPerso instanceof Conscientiousness){
+            health.add(+1);
+            mood.add(+2);
+            hunger.add(+0.5);
+            sleep.add(-1);
+        }
+        else if(maxPerso instanceof Extraversion){
+            health.add(+1);
+            mood.add(+0.5);
+            hunger.add(+1);
+            sleep.add(-0.5);
+        }
+        else if(maxPerso instanceof Neuroticism){
+            health.add(+2);
+            mood.add(+2);
+            hunger.add(-2);
+            sleep.add(-2);
+        }
+        else if(maxPerso instanceof Agreeableness){
+            health.add(+1.5);
+            mood.add(+2.5);
+            hunger.add(+0.5);
+            sleep.add(-1.5);
         }
     }
 }

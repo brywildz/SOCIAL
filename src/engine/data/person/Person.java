@@ -195,9 +195,12 @@ public class Person {
     }
 
     public boolean isPreferred(){
-        PersonalityTrait maxPerso = personality.getMaxPerso();
-        HobbyRepository hobbyRepo = HobbyRepository.getInstance();
-        return hobbyRepo.getPreferredHobby(maxPerso).getId().equals(hobby.getId());
+        if(hobby != null){
+            PersonalityTrait maxPerso = personality.getMaxPerso();
+            HobbyRepository hobbyRepo = HobbyRepository.getInstance();
+            return hobbyRepo.getPreferredHobby(maxPerso).getId().equals(hobby.getId());
+        }
+        return false;
     }
 
     public boolean isPupil(){

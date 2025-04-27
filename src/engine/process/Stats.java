@@ -114,10 +114,10 @@ public class Stats {
     public JFreeChart getPersonStateBar(Person person) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        int health = person.getPersonState().getHealth().getNiveau();
-        int mood = person.getPersonState().getMood().getNiveau();
-        int sleep = person.getPersonState().getSleep().getNiveau();
-        int hunger = person.getPersonState().getHunger().getNiveau();
+        double health = person.getPersonState().getHealth().getNiveau();
+        double mood = person.getPersonState().getMood().getNiveau();
+        double sleep = person.getPersonState().getSleep().getNiveau();
+        double hunger = person.getPersonState().getHunger().getNiveau();
 
         dataset.setValue(health, "State", "Santé");
         dataset.setValue(mood, "State", "Humeur");

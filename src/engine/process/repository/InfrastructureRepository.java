@@ -7,7 +7,6 @@ import engine.data.person.Person;
 import java.util.HashMap;
 
 import static config.GameConfiguration.*;
-import static config.GameConfiguration.CITY_Y;
 import static engine.process.builder.GameBuilder.random;
 
 /**
@@ -34,19 +33,13 @@ public class InfrastructureRepository {
         infrastructures.put("apartment2", new Infrastructure("apartment2", APARTMENT2_X , APARTMENT2_Y, APARTMENT_WIDTH, APARTMENT_HEIGHT));
         infrastructures.put("apartment3", new Infrastructure("apartment3", APARTMENT3_X, APARTMENT3_Y, APARTMENT_WIDTH, APARTMENT_HEIGHT));
         infrastructures.put("hospital", new Infrastructure("hospital", HOSPITAL_X, HOSPITAL_Y, HOSPITAL_WIDTH, HOSPITAL_HEIGHT));
-        infrastructures.put("nightclub", new Infrastructure("nightclub", NIGHTCLUB_X, NIGHTCLUB_Y, NIGHTCLUB_WIDTH, NIGHTCLUB_HEIGHT));
+        infrastructures.put("night_club", new Infrastructure("nightclub", NIGHTCLUB_X, NIGHTCLUB_Y, NIGHTCLUB_WIDTH, NIGHTCLUB_HEIGHT));
         infrastructures.put("policeStation", new Infrastructure("policeStation", POLICESTATION_X, POLICESTATION_Y, POLICESTATION_WIDTH, POLICESTATION_HEIGHT));
         infrastructures.put("restaurant", new Infrastructure("restaurant", RESTAURANT_X, RESTAURANT_Y, RESTAURANT_WIDTH, RESTAURANT_HEIGHT));
-        infrastructures.put("shop", new Infrastructure("shop", SHOP_X, SHOP_Y, SHOP_WIDTH, SHOP_HEIGHT));
-        infrastructures.put("clothing", new Infrastructure("clothing", CLOTHING_X, CLOTHING_Y, CLOTHING_WIDTH, CLOTHING_HEIGHT));
-        infrastructures.put("furniture", new Infrastructure("furniture", FURNITURE_X, FURNITURE_Y, FURNITURE_WIDTH, FURNITURE_HEIGHT));
-        infrastructures.put("tower", new Infrastructure("tower", TOWER_X, TOWER_Y, TOWER_WIDTH, TOWER_HEIGHT));
-        infrastructures.put("airport", new Infrastructure("airport", AIRPORT_X, AIRPORT_Y, AIRPORT_WIDTH, AIRPORT_HEIGHT));
-        infrastructures.put("fireStation", new Infrastructure("fireStation", FIRESTATION_X, FIRESTATION_Y, FIRESTATION_WIDTH, FIRESTATION_HEIGHT));
-        infrastructures.put("government", new Infrastructure("government", GOVERNMENT_X, GOVERNMENT_Y, GOVERNMENT_WIDTH, GOVERNMENT_HEIGHT));
         infrastructures.put("gym", new Infrastructure("gym", GYM_X, GYM_Y, GYM_WIDTH, GYM_HEIGHT));
         infrastructures.put("museum", new Infrastructure("museum", MUSEE_X, MUSEE_Y, MUSEE_WIDTH, MUSEE_HEIGHT));
         infrastructures.put("cinéma", new Infrastructure("cinéma", CINEMA_X, CINEMA_Y, CINEMA_WIDTH, CINEMA_HEIGHT));
+        infrastructures.put("forest", new Infrastructure("forest", FOREST_X, FOREST_Y, FOREST_WIDTH, FOREST_HEIGHT));
     }
 
     private static InfrastructureRepository instance;

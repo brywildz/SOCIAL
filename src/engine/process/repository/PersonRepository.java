@@ -1,6 +1,7 @@
 package engine.process.repository;
 
 import engine.data.map.Block;
+import engine.data.map.Infrastructure;
 import engine.data.person.Person;
 
 import java.util.HashMap;
@@ -43,15 +44,27 @@ public class PersonRepository {
             person.getPlace().removePerson(person);
         }
         person.setLocation(newLocation);
-        infraRepo.getInfrastructure(newLocation).addPerson(person);
+        Infrastructure infra = infraRepo.getInfrastructure(newLocation);
+        infra.addPerson(person);
+        person.setPlace(infra);
+    }
 
+    public void movePerson(Person person, Block newLocation, Infrastructure infrastructure){
+        if(person.getPlace()!=null){
+            person.getPlace().removePerson(person);
+        }
+        person.setLocation(newLocation);
+        infrastructure.addPerson(person);
+        person.setPlace(infrastructure);
     }
 
     public void movePerson(Person person, Person neighbour){
         Block block = neighbour.getLocation();
         block.addLine(1);
-        movePerson(person, block);
+        movePerson(person, block, person.getPlace());
     }
+
+
 
     public void setPersons(HashMap<String, Person> persons) {
         this.persons = persons;

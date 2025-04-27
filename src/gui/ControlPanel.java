@@ -6,6 +6,7 @@ import engine.process.builder.PersonBuilder;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 import static config.GameConfiguration.*;
 
@@ -49,7 +50,13 @@ public class ControlPanel extends JPanel {
 
 
         eventButton.addActionListener((event)-> chooseEvent(westPanel));
-        personButton.addActionListener((event)-> createIndividu());
+        personButton.addActionListener((event)-> {
+            try {
+                createIndividu();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         JButton showCityStatsButton = new JButton("Statistiques de la ville");
         westPanel.add(showCityStatsButton);
@@ -103,7 +110,7 @@ public class ControlPanel extends JPanel {
         westPanel.repaint();
     }
 
-    public void createIndividu(){
+    public void createIndividu() throws FileNotFoundException {
         PersonBuilder personBuilder = new PersonBuilder();
         Person person = personBuilder.buildPerson();
 

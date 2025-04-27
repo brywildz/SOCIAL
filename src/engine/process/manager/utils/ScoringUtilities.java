@@ -142,7 +142,7 @@ public class ScoringUtilities {
                 }
             case "family_dinner":
                 return 0.1 * (1 - op) + 0.25 * (1 - ex) + 0.15 * (1 - ne) + 0.25 * cons + 0.35 * agr;
-            case "work_dinner":
+            case "1":
                 return 0.1 * op + 0.25 * ex + 0.1 * (1 - ne) + 0.35 * cons + 0.2 * agr;
         }
         return 0;

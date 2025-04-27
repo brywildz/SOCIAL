@@ -1,5 +1,6 @@
 package gui;
 
+import engine.data.event.Event;
 import engine.data.map.*;
 import engine.data.person.Person;
 import engine.data.person.vitality.Mood;
@@ -141,11 +142,26 @@ public class PaintStrategy {
 
     public Color getColorFor(Person person){
         Mood m = person.getPersonState().getMood();
+        Event event = person.getEvent();
         if(person.isSleeping()){
             return Color.GRAY;
         }
         else if(person.isSick()){
             return new Color(120, 180, 120);
+        }
+        else if(person.getEvent()!=null){
+            switch (event.getId()) {
+                case "meet":
+                    return Color.PINK;
+                case "success":
+                    return Color.BLUE;
+                case "walk":
+                    return Color.cyan;
+                case "family_dinner":
+                    return Color.LIGHT_GRAY;
+                default : //work_dinner
+                    return Color.DARK_GRAY;
+            }
         }
         else if(m.getNiveau()>6){
             return new Color(0, 200, 0);

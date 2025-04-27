@@ -1,5 +1,4 @@
 package engine.data.event;
-import engine.data.map.Time;
 import engine.data.person.Person;
 
 /**
@@ -12,12 +11,10 @@ import engine.data.person.Person;
 
 public class PersonalEvent extends Event {
     private Person person;
-    private int day; //nombre de jours où le pnj subit l'event
 
-    public PersonalEvent(String id, Time debut, Time fin, String description,  Person person, int day) {
-        super(id, debut, fin, description);
+    public PersonalEvent(String id, String description,  Person person) {
+        super(id, description);
         this.person = person;
-        this.day = day;
     }
 
     public PersonalEvent(){

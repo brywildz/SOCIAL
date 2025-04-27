@@ -69,6 +69,9 @@ public class GameConfiguration {
     public static final int RESTAURANT_WIDTH = 8, RESTAURANT_HEIGHT = 6;
     public static final int RESTAURANT_X = 55, RESTAURANT_Y = 30;
 
+    public static final int FOREST_WIDTH = 149, FOREST_HEIGHT = 7;
+    public static final int FOREST_X = 0, FOREST_Y = 67;
+
     public static final int SHOP_WIDTH = 3, SHOP_HEIGHT = 3;
     public static final int SHOP_X = 55, SHOP_Y = 30;
 

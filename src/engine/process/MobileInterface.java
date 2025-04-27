@@ -8,5 +8,5 @@ public interface MobileInterface {
 
     void set(HashMap<String, Person> individus);
 
-    void nextSecond();
+    void nextSecond() throws InterruptedException;
 }

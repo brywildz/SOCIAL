@@ -1,10 +1,7 @@
 package engine.process.manager;
 
+import engine.data.event.*;
 import engine.data.map.Map;
-import engine.data.event.Hobby;
-import engine.data.event.PersonalEvent;
-import engine.data.event.SocialEvent;
-import engine.data.event.WeatherEvent;
 import engine.data.map.Clock;
 import engine.data.map.Time;
 import engine.data.person.personalityTraits.Extraversion;
@@ -16,6 +13,7 @@ import engine.data.person.Person;
 import engine.process.repository.PersonRepository;
 
 import static engine.process.builder.GameBuilder.random;
+import static engine.process.manager.utils.LifeUtilities.goSleep;
 
 
 /**
@@ -42,45 +40,60 @@ public class EventManager {
      * Les événements sociaux sont prioritaires aux hobbies qui ne sont pas les préférés de la personne dont il est sujet.
      */
     public void refresh(Person person) {
-        int eventIndex = random(0,3);
-        if(eventIndex == 0){ //Événement personnel
+        Event event = person.getEvent();
+        if(event == null) {
+            newEvent(person);
+        }
+        else if(event instanceof SocialEvent) {
+            if(((SocialEvent) event).isFinished()){
+                person.setEvent(null);
+            }
+        }
+    }
+
+
+    public void newEvent(Person person) {
+        int eventIndex = random(0, 3);
+        if (eventIndex == 0) { //Événement personnel
             PersonalEvent pEvent = new PersonalEvent();
             EventBuilder eventBuilder = new EventBuilder(person, pEvent);
             eventBuilder.build();
         }
-        if(eventIndex == 1){
-            PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
-            PersonalityTrait minPerso = person.getPersonality().getMinPerso();
-            int probaIndex = random(0, 10);
-            if(!person.isPreferred()){
-                if(maxPerso instanceof Neuroticism || minPerso instanceof Extraversion){
-                    if(probaIndex <= 3){ //30% de chance
+        if (eventIndex == 1) {
+            if (!person.isPreferred() && !person.isWorking()) {
+                PersonalityTrait maxPerso = person.getPersonality().getMaxPerso();
+                PersonalityTrait minPerso = person.getPersonality().getMinPerso();
+                int probaIndex = random(0, 10);
+                if (maxPerso instanceof Neuroticism || minPerso instanceof Extraversion) {
+                    if (probaIndex <= 3) { //30% de chance
                         SocialEvent sEvent = new SocialEvent();
                         EventBuilder eventBuilder = new EventBuilder(person, sEvent);
                         eventBuilder.build();
                     }
-                }
-                else{
-                    if(probaIndex <= 6){ //60% de chance
+                } else {
+                    if (probaIndex <= 6) { //60% de chance
                         SocialEvent sEvent = new SocialEvent();
                         EventBuilder eventBuilder = new EventBuilder(person, sEvent);
                         eventBuilder.build();
                     }
                 }
             }
-
         }
-
     }
 
-    /**
-     * Gère certains cas particuliers d'événement.
-     */
+
+            /**
+             * Gère certains cas particuliers d'événement.
+             */
     public void reset(Person person){
         String id = person.getEvent().getId();
         Hobby hobby = person.getHobby();
-        if(id.equals("meet") && hobby.hasStart()){
+        if(id.equals("meet") && hobby.hasStart()){ //Dés qu'il change de lieu, l'événement de rencontre s'arrête
             person.setEvent(null);
+        }
+        else if(Clock.getInstance().getTime().getHour() > 5 && person.getEvent().getId().equals("party")){ //Après 5h le night club ferme et les gens vont dormir
+            person.setEvent(null);
+            goSleep(person, Clock.isWeekend());
         }
     }
 

@@ -9,6 +9,7 @@ import engine.process.MobileElementManager;
 import engine.process.MobileInterface;
 import engine.process.repository.PersonRepository;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
@@ -29,13 +30,13 @@ public class GameBuilder {
         m.setWeather(new WeatherEvent("normal", start, end, "Le temps est normal actuellement."));
     }
 
-    public static MobileInterface buildInitMobile(Map map){
+    public static MobileInterface buildInitMobile(Map map) throws FileNotFoundException {
         MobileInterface manager = new MobileElementManager(map);
         initializePersons(manager);
         return manager;
     }
 
-    public static void initializePersons(MobileInterface mouvement){
+    public static void initializePersons(MobileInterface mouvement) throws FileNotFoundException {
         ArrayList<PersonBuilder> personBuilders = new ArrayList<PersonBuilder>();
         for(int i=0; i<51; i++){
             Person person = new Person();

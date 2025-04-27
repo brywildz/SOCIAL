@@ -16,8 +16,13 @@ import engine.data.person.vitality.Hunger;
 import engine.data.person.vitality.Mood;
 import engine.data.person.vitality.Sleep;
 import engine.process.repository.InfrastructureRepository;
+import engine.process.repository.NameRepository;
 import engine.process.repository.PersonRepository;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +44,7 @@ public class PersonBuilder {
         person.setRelation(pr);
     }
 
-    public Person buildPerson() {
+    public Person buildPerson() throws FileNotFoundException {
         person.setName(createName());
         person.setAge(createAge());
         person.setSocialState(createSocialState());
@@ -57,7 +62,7 @@ public class PersonBuilder {
         return person;
     }
 
-    public Person buildFirstPerson(){
+    public Person buildFirstPerson() throws FileNotFoundException {
         person.setName(createName());
         person.setAge(createAge());
         person.setSocialState(createSocialState());
@@ -74,19 +79,11 @@ public class PersonBuilder {
         return person;
     }
 
-    public String createName(){
-        String[] prenoms = {
-                "Alice", "Bob", "Charlie", "David", "Emma", "Felix", "Gabriel", "Hugo", "Isabelle", "Jules",
-                "Katia", "Léo", "Marie", "Nathan", "Olivia", "Paul", "Quentin", "Rose", "Samuel", "Thomas",
-                "Ursula", "Victor", "William", "Xavier", "Yasmine", "Zoé", "Antoine", "Bruno", "Clara", "Damien",
-                "Elodie", "François", "Gisèle", "Henri", "Inès", "Julien", "Karine", "Louis", "Manon", "Nicolas",
-                "Océane", "Pierre", "Raphaël", "Sophie", "Théo", "Ugo", "Valentin", "Wendy", "Xenia", "Yohan",
-                "Zacharie", "Adrien", "Bernard", "Camille", "Dorian", "Estelle", "Florian", "Guillaume", "Hélène",
-                "Ibrahim", "Joséphine", "Kevin", "Laurent", "Margaux", "Noémie", "Olivier", "Pascal", "Rebecca",
-                "Simon", "Tiffany", "Ulrich", "Violette", "Warren", "Xander", "Yvette", "Zinedine"
-        };
-        int randomIndex = random(prenoms.length);
-        return prenoms[randomIndex];
+    public String createName() throws FileNotFoundException {
+        NameRepository nameRepo = NameRepository.getInstance();
+        String name = nameRepo.getNames().get(nameRepo.getNameIndex());
+        nameRepo.setNameIndex(nameRepo.getNameIndex()+1);
+        return name;
     }
 
     public int createAge(){

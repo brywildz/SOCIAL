@@ -1,6 +1,9 @@
 package engine.process.manager.utils;
 
+import engine.data.event.Event;
 import engine.data.event.Hobby;
+import engine.data.event.PersonalEvent;
+import engine.data.event.SocialEvent;
 import engine.data.map.*;
 import engine.data.person.Person;
 import engine.data.person.personalityTraits.*;
@@ -10,6 +13,7 @@ import engine.process.repository.InfrastructureRepository;
 import engine.process.repository.PersonRepository;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static engine.process.builder.GameBuilder.random;
@@ -127,15 +131,46 @@ public class LifeUtilities {
         }
     }
 
-
-
     /**
      * Doit être refait avec les event.
      * @param person
      */
     public static void refreshLocation(Person person) {
-        if(!(person.isSleeping() && person.isSick())){
+        if(person.getEvent()!=null && person.getEvent() instanceof SocialEvent){
+            refreshEventLocation(person);
+        }
+        else if(!(person.isSleeping() && person.getHobby()==null) && (person.getEvent()!=null && person.getEvent() instanceof PersonalEvent)){
             personRepo.movePerson(person,person.getHobby().getPlace().getRandomBlock());
+        }
+    }
+
+    private static void refreshEventLocation(Person person) {
+        SocialEvent event = (SocialEvent) person.getEvent();
+        if(event.getId().equals("party")){
+            personRepo.movePerson(person,infraRepo.get("night_club").getRandomBlock());
+        }
+        else if(event.getId().equals("walk")){
+            Person leader = event.getLeader();
+            if(leader.getName().equals(person.getName())){
+                personRepo.movePerson(person,infraRepo.get("forest").getRandomBlock());
+                Block b = leader.getLocation();
+                Iterator<Person> it = event.getPersons().iterator();
+                int line = 0;
+                int column = 0;
+                Block neighbour;
+                while(it.hasNext()){
+                    Person p = it.next();
+                    if(line < 3){
+                        neighbour  = new Block(b.getLine() + line, b.getColumn());
+                        line++;
+                    }
+                    else{
+                        neighbour  = new Block(b.getLine() + line--, b.getColumn() + column);
+                        column++;
+                    }
+                    personRepo.movePerson(p,neighbour, infraRepo.get("forest"));
+                }
+            }
         }
     }
 
@@ -152,6 +187,10 @@ public class LifeUtilities {
         else{
             setNewActionInside(person);
         }
+    }
+
+    public static boolean eventCheck(Person person){
+        return person.getEvent() == null;
     }
 
 

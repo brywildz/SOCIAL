@@ -14,26 +14,14 @@ import engine.data.map.Time;
  */
 public abstract class Event {
     private String id;
-    private Time debut;
-    private Time fin;
     private String description;
 
-    public Event(String id, Time debut, Time fin, String description) {
+    public Event(String id, String description) {
         this.id = id;
-        this.debut = debut;
-        this.fin = fin;
         this.description = description;
     }
 
     public Event(){}
-
-    public Time getDebut() {
-        return debut;
-    }
-
-    public Time getFin() {
-        return fin;
-    }
 
     public String getId() {
         return id;
@@ -45,16 +33,6 @@ public abstract class Event {
 
     public String getDescription() {
         return description;
-    }
-
-    @Override
-    public String toString() {
-        return "L'énennement "+ id +" debute à "+debut+" fini à " +fin+ " et a pour description"+description;
-    }
-
-
-    public boolean isFinish(){
-        return fin.equals(Clock.getInstance().getTime());
     }
 
     public Block getLocation() {

@@ -115,11 +115,11 @@ public class StatsDisplay extends JFrame {
             PieSectionEntity bar = (PieSectionEntity) entity;
             Comparable key = bar.getSectionKey();
             switch(key.toString()){
-                case "Ouverture" : setOpennessLabel();
-                case "Extraversion" : setExtraversionLabel();
-                case "Nervosité" : setNeuroticismLabel();
-                case "Conscienciosité" : setConscientiousnessLabel();
-                case "Agréabilité" : setAgreeablenessLabel();
+                case "Ouverture" : setOpennessLabel(); break;
+                case "Extraversion" : setExtraversionLabel(); break;
+                case "Nervosité" : setNeuroticismLabel(); break;
+                case "Conscienciosité" : setConscientiousnessLabel(); break;
+                case "Agréabilité" : setAgreeablenessLabel(); break;
             }
         }
     }
@@ -195,10 +195,10 @@ public class StatsDisplay extends JFrame {
             CategoryItemEntity bar = (CategoryItemEntity) entity;
             Comparable key = bar.getColumnKey();
             switch (key.toString()){
-                case "Santé" : setHealthLabel();
-                case "Faim" : setHungerLabel();
-                case "Humeur" : setMoodLabel();
-                case "Sommeil" : setSleepLabel();
+                case "Santé" : setHealthLabel(); break;
+                case "Faim" : setHungerLabel(); break;
+                case "Humeur" : setMoodLabel(); break;
+                case "Sommeil" : setSleepLabel(); break;
             }
         }
         this.revalidate();
@@ -296,14 +296,17 @@ public class StatsDisplay extends JFrame {
                 case "Familiales" : {
                     type = "familiales";
                     setFamilyLabel(table);
+                    break;
                 }
                 case "Professionnelles" : {
                     type = "professionnelles";
                     setProLabel(table);
+                    break;
                 }
                 case "Amicales" : {
                     type = "amicales";
                     setFriendsLabel(table);
+                    break;
                 }
             }
             chartComment.setText("<html><h1>Relations "+type+" de "+person.getName()+"</h1></html>");

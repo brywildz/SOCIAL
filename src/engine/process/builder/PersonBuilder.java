@@ -108,7 +108,14 @@ public class PersonBuilder {
     }
 
     public Personality createPersonality(){
-        Personality per = new Personality(random(1, 11),random(1, 11), random(1, 11), random(1, 11), random(1, 11));
+        ArrayList<Integer> pers = new ArrayList<>();
+        while(pers.size()<5){
+            int randomValue = random(1,11);
+            if(!pers.contains(randomValue)){
+                pers.add(randomValue);
+            }
+        }
+        Personality per = new Personality(pers.get(0),pers.get(1), pers.get(2), pers.get(3), pers.get(4));
         Time wakeUpTimeWeekEnd = createWakeTimeWeekEnd(per);
         Time sleepTimeWeekEnd = createSleepTimeWeekEnd(per);
         per.setWakeUpTimeWeekEnd(wakeUpTimeWeekEnd);
@@ -165,11 +172,11 @@ public class PersonBuilder {
         int proBase = 2;
         switch (type) {
             case "friends" : {
-                int nbAmis = (int) Math.round(friendsBase + extraversion * 0.6 + agreeableness * 0.4 - neuroticism * 0.3);
+                int nbAmis = (int) Math.round(friendsBase + extraversion * 0.6 + agreeableness * 0.4 - neuroticism * 0.6);
                 return nbAmis = Math.max(1,nbAmis);
             }
             case "work" : {
-                int nbPro = (int) Math.round(proBase + extraversion * 0.4 + conscientiousness * 0.6 + openness * 0.3 - neuroticism * 0.2);
+                int nbPro = (int) Math.round(proBase + extraversion * 0.4 + conscientiousness * 0.6 + openness * 0.3 - neuroticism * 0.4);
                 return nbPro = Math.max(1,nbPro);
             }
             case "family" : randomIndex = random(1, 10);

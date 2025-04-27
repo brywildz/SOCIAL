@@ -39,7 +39,7 @@ public class PersonRepository {
         return persons.get(block);
     }
 
-    public void movePerson(Person person, Block newLocation){
+    public synchronized void movePerson(Person person, Block newLocation){
         if(person.getPlace()!=null){
             person.getPlace().removePerson(person);
         }
@@ -49,7 +49,7 @@ public class PersonRepository {
         person.setPlace(infra);
     }
 
-    public void movePerson(Person person, Block newLocation, Infrastructure infrastructure){
+    public synchronized void movePerson(Person person, Block newLocation, Infrastructure infrastructure){
         if(person.getPlace()!=null){
             person.getPlace().removePerson(person);
         }
@@ -58,7 +58,7 @@ public class PersonRepository {
         person.setPlace(infrastructure);
     }
 
-    public void movePerson(Person person, Person neighbour){
+    public synchronized void movePerson(Person person, Person neighbour){
         Block block = neighbour.getLocation();
         Block block1 = new Block(block.getLine(), block.getColumn()+1);
         movePerson(person, block1, person.getPlace());

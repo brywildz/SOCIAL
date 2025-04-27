@@ -33,18 +33,6 @@ public class GameDisplay extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        /*try {
-            paintStrategy.paint(map, g);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            paintStrategy.paintCity((Graphics2D)g);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        paintStrategy.paintDate((Graphics2D)g);
-        GAME = true;*/
         g.drawImage(cityImage, 0, 0, null);
         paintStrategy.paintDate((Graphics2D)g);
         HashMap<String, Person> individu = PersonRepository.getInstance().getPersons();
@@ -54,6 +42,14 @@ public class GameDisplay extends JPanel {
             paintStrategy.paint(person, g, paintStrategy.getColorFor(person));
 
         }
+        if(GameConfiguration.WEB){
+            ControlPanel.showWeb(g);
+            GameConfiguration.WEB = false;
+        }
+
+    }
+
+    public void paintComponent(Graphics g, Person person) {
 
     }
 

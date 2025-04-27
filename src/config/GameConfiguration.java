@@ -5,7 +5,7 @@ package config;
  */
 public class GameConfiguration {
 
-    public static final int FIRST_DAY = 5;
+    public static final int FIRST_DAY = 4;
 
     public static final int SECOND_START = 0;
     public static final int MINUTE_START = 0;
@@ -16,6 +16,7 @@ public class GameConfiguration {
     public static final int DAY_START = 1;
 
     public static boolean GAME = true;
+    public static boolean WEB = false;
 
     public static final int WINDOW_WIDTH = 1500;
     public static final int WINDOW_HEIGHT = 750;

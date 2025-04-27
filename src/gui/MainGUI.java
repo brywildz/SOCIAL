@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import engine.data.map.Block;
 import engine.data.map.Map;
 import engine.data.person.Person;
+import engine.process.MobileElementManager;
 import engine.process.repository.PersonRepository;
 import engine.process.builder.GameBuilder;
 import engine.process.MobileInterface;

@@ -14,9 +14,10 @@ import engine.process.repository.InfrastructureRepository;
 import engine.process.repository.PersonRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import static engine.process.MobileElementManager.refreshState;
 import static engine.process.builder.GameBuilder.random;
-import static engine.process.manager.utils.LifeUtilities.goHome;
-import static engine.process.manager.utils.LifeUtilities.goHospital;
+import static engine.process.manager.utils.LifeUtilities.*;
 import static engine.process.manager.utils.ScoringUtilities.eventScore;
 import static engine.process.manager.utils.ScoringUtilities.isCompatible;
 
@@ -26,6 +27,12 @@ public class EventBuilder {
     EventRepository eventRepo = EventRepository.getInstance();
     Person person;
     Event event;
+    String nameForGui;
+
+    public EventBuilder(Person person, String name) {
+        this.person = person;
+        this.nameForGui = name;
+    }
 
     public EventBuilder(Person person, Event event) {
         this.person = person;
@@ -47,12 +54,67 @@ public class EventBuilder {
         }
     }
 
+    public String buildByGui() {
+        String s = "Cet événement ne peut pas être assigné maintenant !";
+        Time time = Clock.getInstance().getActualTime();
+        String day = time.getDate().getDayName();
+        if(nameForGui.equals("Soirée festive")){
+            if (!(person.isSleeping() && person.isWorking() && person.isInPersonalEvent() && person.isInSocialEvent()) &&
+                    time.getHour() < 5 || time.getHour() >= 22) {
+                buildParty(true);
+            }
+        }
+        else if(nameForGui.equals("Balade en fôret")){
+            if (!(person.isSleeping() && person.isWorking() && person.isInPersonalEvent() && person.isInSocialEvent()) &&
+                    !(time.getHour() < 5 || time.getHour() > 18)) {
+                buildWalk();
+            }
+        }
+        else if(nameForGui.equals("Dîner de famille")){
+            if (!(person.isSleeping() && person.isWorking() && person.isInPersonalEvent() && person.isInSocialEvent()) &&
+                    (time.getHour()<19 && time.getHour()>12) && day.equals("Dimanche")) {
+                buildFamilyDinner();
+            }
+        }
+        else if(nameForGui.equals("Dîner professionnel")){
+            if (!(person.isSleeping() && person.isWorking() && person.isInPersonalEvent() && person.isInSocialEvent()) &&
+                    !Clock.isWeekend() && time.getHour() >= 19 && time.getHour() < 23) {
+                buildWorkDinner();
+            }
+        }
+        else if(nameForGui.equals("Maladie")){
+            person.getPersonState().getHealth().setNiveau(1);
+            buildVerySick();
+        }
+        else if(nameForGui.equals("Nouvelle rencontre")){
+            if (!(person.isSleeping() && person.isWorking() && person.isInPersonalEvent() && person.isInSocialEvent()) &&
+                    person.getHobby() != null && !person.isAtHome()) {
+                buildNewMeet(true);
+            }
+        }
+        else if(nameForGui.equals("Succès")){
+            if (person.isWorking() && !person.isInPersonalEvent() && !person.isInSocialEvent()) {
+                buildSuccess();
+            }
+        }
+        if(event != null){
+            s = "Événement assigné avec succès";
+            refreshState(person);
+            refreshLocation(person);
+            person.setEvent(event);
+            if(event instanceof SocialEvent){
+                person.setHobby(null);
+            }
+        }
+        return s;
+    }
+
     /**
      * Construit un événement personnel dépendamment du trait majoritaire de l'individu.
      * Ils se distinguent par trois niveaux : Maladie, Rencontre, Succès (ordre de priorité).
      * Ils sont prioritaires aux événements sociaux.
      */
-    private void buildPersonalEvent() {
+    private synchronized void buildPersonalEvent() {
         double score;
         Personality perso = person.getPersonality();
         /*
@@ -79,11 +141,11 @@ public class EventBuilder {
                 int meetProba = random(0,5);
                 score = eventScore("meet", perso);
                 if(score>=0.7){
-                    buildNewMeet();
+                    buildNewMeet(false);
                     return;
                 }
                 else if(score>=0.5 && meetProba <= 1){
-                    buildNewMeet();
+                    buildNewMeet(false);
                     return;
                 }
             }
@@ -101,12 +163,12 @@ public class EventBuilder {
         }
     }
 
-    private void buildSuccess() {
+    private synchronized void buildSuccess() {
         event = new PersonalEvent("success", "", person);
 
     }
 
-    private void buildNewMeet() {
+    private synchronized void buildNewMeet(boolean gui) {
         if(person.isAtHome()){
             return;
         }
@@ -126,19 +188,19 @@ public class EventBuilder {
         }
     }
 
-    private boolean canBeFriend(Person possibleFriend) {
+    private synchronized boolean canBeFriend(Person possibleFriend) {
         return !person.getName().equals(possibleFriend.getName()) && possibleFriend.getHobby()!=null
                 && !possibleFriend.getHobby().isFinishedIn(15) && isCompatible(this.person, possibleFriend, "friends");
     }
 
-    private void buildVerySick() {
+    private synchronized void buildVerySick() {
         goHospital(person);
         person.setSick(true);
         person.getPersonState().getMood().add(-3);
         event = new PersonalEvent("sick", "", person);
     }
 
-    private void buildSick() {
+    private synchronized void buildSick() {
         person.setSick(true);
         person.getPersonState().getMood().add(-2);
         event = new PersonalEvent("sick", "", person);
@@ -148,7 +210,7 @@ public class EventBuilder {
     }
 
 
-    private void buildSocialEvent() {
+    private synchronized void buildSocialEvent() {
         double score;
         Personality perso = person.getPersonality();
         Time time = Clock.getInstance().getTime();
@@ -174,10 +236,10 @@ public class EventBuilder {
             if(time.getHour() < 5 || time.getHour() >= 22){
                 score = eventScore("party", perso);
                 if(score>=7 && persoProba <= 5){
-                    buildParty();
+                    buildParty(false);
                 }
                 else if(persoProba <= 3){
-                    buildParty();
+                    buildParty(false);
                 }
             }
         } else {
@@ -193,7 +255,7 @@ public class EventBuilder {
         }
     }
 
-    private void buildWorkDinner() {
+    private synchronized void buildWorkDinner() {
         ArrayList<Person> work = person.getRelation().getPro();
         ArrayList<Person> present = new ArrayList<>();
         Time start = Clock.getInstance().getActualTime();
@@ -223,7 +285,7 @@ public class EventBuilder {
         }
     }
 
-    private void buildFamilyDinner() {
+    private synchronized void buildFamilyDinner() {
         ArrayList<Person> family = person.getRelation().getFamiliale();
         ArrayList<Person> present = new ArrayList<>();
         Time start = Clock.getInstance().getActualTime();
@@ -253,7 +315,7 @@ public class EventBuilder {
         }
     }
 
-    private void setLocationDinner(Person leader, Person familyMember, int line) {
+    private synchronized void setLocationDinner(Person leader, Person familyMember, int line) {
         Block b = leader.getLocation();
         Block neighbour;
         if(line == 1){
@@ -268,7 +330,7 @@ public class EventBuilder {
         personRepo.movePerson(familyMember,neighbour, leader.getHouse());
     }
 
-    private void setLocationWorkDinner(Person leader, Person familyMember, int line) {
+    private synchronized void setLocationWorkDinner(Person leader, Person familyMember, int line) {
         Block b = leader.getLocation();
         Block neighbour;
         if(line == 1){
@@ -283,7 +345,7 @@ public class EventBuilder {
         personRepo.movePerson(familyMember,neighbour, infraRepo.get("restaurant"));
     }
 
-    private void buildWalk() {
+    private synchronized void buildWalk() {
         ArrayList<Person> friends = person.getRelation().getAmicale();
         Person friend;
         ArrayList<Person> present = new ArrayList<>();
@@ -322,7 +384,7 @@ public class EventBuilder {
      * sinon c'est 1 chance sur trois
      * il y a 5 personnes max
      */
-    private void buildParty() {
+    private synchronized void buildParty(boolean gui) {
         ArrayList<Person> friends = person.getRelation().getAmicale();
         Person friend;
         ArrayList<Person> present = new ArrayList<>();
@@ -349,10 +411,7 @@ public class EventBuilder {
         }
     }
 
-    private boolean canCome(Person friend){
+    private synchronized boolean canCome(Person friend){
         return !friend.isPreferred() && friend.getEvent() == null && !friend.isSleeping() && !friend.isWorking() && !friend.isSick();
     }
-
-
-
 }

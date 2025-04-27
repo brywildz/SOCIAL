@@ -1,9 +1,9 @@
 package gui;
 
 import engine.data.person.Person;
+import engine.process.builder.EventBuilder;
 import engine.process.builder.PersonBuilder;
-
-import javax.security.auth.login.Configuration;
+import engine.process.repository.NameRepository;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class ControlPanel extends JPanel {
     private JPanel eastPanel;
     private JPanel centerPanel;
     private JButton showPersonStatsButton;
-    private Person personClicked;
+    private static Person personClicked;
 
     public ControlPanel(Container base) {
         this.setBorder(new EmptyBorder(10,10,10,10));
@@ -33,24 +33,19 @@ public class ControlPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         westPanel = new JPanel();
-        westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.X_AXIS));
+        westPanel.setLayout(new GridLayout(2,2));
         JButton personButton = new JButton("Ajouter un individu");
         personButton.setPreferredSize(new Dimension(200, 50));
-        JButton eventButton = new JButton("Ajouter un événement");
-        eventButton.setPreferredSize(new Dimension(200, 50));
         westPanel.add(personButton);
-        westPanel.add(eventButton);
         westPanel.setPreferredSize(new Dimension(570, 600));
         this.add(westPanel, BorderLayout.WEST);
 
         centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.add(centerPanel, BorderLayout.CENTER);
-        centerPanel.setPreferredSize(new Dimension(450, 600));
+        centerPanel.setPreferredSize(new Dimension(300, 600));
         eastPanel = new JPanel();
         this.add(eastPanel, BorderLayout.EAST);
 
-
-        eventButton.addActionListener((event)-> chooseEvent(westPanel));
         personButton.addActionListener((event)-> {
             try {
                 createIndividu();
@@ -60,26 +55,60 @@ public class ControlPanel extends JPanel {
         });
 
         JButton showCityStatsButton = new JButton("Statistiques de la ville");
+        JButton showSocialButton = new JButton("Réseau social");
         westPanel.add(showCityStatsButton);
+        westPanel.add(showSocialButton);
         showPersonStatsButton = new JButton("En savoir plus");
         showPersonStatsButton.setPreferredSize(new Dimension(110, 30));
         showPersonStatsButton.addActionListener(e -> new StatsDisplay(personClicked));
 
+        showSocialButton.addActionListener(e -> showSocial());
         showCityStatsButton.addActionListener(e -> StatsDisplay.showGlobalStats());
 
-        JButton speedUpButton = new JButton("Accélérer");
-        JButton speedNormalButton = new JButton("Rétablir");
-        JButton speedDownButton = new JButton("Ralentir");
-        JButton pauseButton = new JButton("Pause");
-        speedUpButton.addActionListener(e -> speedUpGame());
+        JButton speedUpButton = new JButton("⏩");
+        JButton speedNormalButton = new JButton("↺");
+        JButton speedDownButton = new JButton("⏪");
+        JButton pauseButton = new JButton("▶|❚❚");
         speedNormalButton.addActionListener(e -> speedNormalGame());
+        speedUpButton.addActionListener(e -> speedUpGame());
         speedDownButton.addActionListener(e -> speedDownGame());
         pauseButton.addActionListener(e -> GAME=!GAME);
 
-        eastPanel.add(speedNormalButton);
+        eastPanel.setLayout(new GridLayout(2,2));
         eastPanel.add(speedDownButton);
-        eastPanel.add(pauseButton);
         eastPanel.add(speedUpButton);
+        eastPanel.add(pauseButton);
+        eastPanel.add(speedNormalButton);
+    }
+
+    private void showSocial() {
+        GAME=false;
+        centerPanel.removeAll();
+        if(infoIndividu == null){
+            infoIndividu = new JLabel();
+            centerPanel.add(this.infoIndividu, BorderLayout.CENTER);
+        }
+        infoIndividu.setText("<html><font color='blue' size=6><b>Merci de choisir une personne pour voir son réseau.<b></font></html>");
+        JButton validateButton = new JButton("OK");
+        validateButton.addActionListener(e -> {
+            callWeb();});
+        westPanel.add(validateButton);
+        this.revalidate();
+        this.repaint();
+    }
+
+    private void callWeb() {
+        if(personClicked != null && !GAME){
+            WEB = true;
+            base.revalidate();
+            base.repaint();
+        }
+    }
+
+    public static void showWeb(Graphics g) {
+        PaintStrategy paintStrategy = new PaintStrategy();
+        System.out.println(personClicked.getName());
+        paintStrategy.paintWeb(personClicked, g);
     }
 
     public void showInfoIndividu(Person p){
@@ -100,23 +129,58 @@ public class ControlPanel extends JPanel {
         
     }
 
-    public void chooseEvent(JPanel box) {
-        if(box.getComponent(2) instanceof JComboBox){
+    private void showErrorEvent() {
+        centerPanel.removeAll();
+        if(infoIndividu == null){
+            infoIndividu = new JLabel();
+            centerPanel.add(this.infoIndividu, BorderLayout.CENTER);
+        }
+        infoIndividu.setText("<html><font color='red' size=6><b>Merci de choisir une personne puis un événement.<b></font></html>");
+    }
+
+    private void newEvent(Object selectedItem) throws InterruptedException {
+        if(personClicked == null){
+            showErrorEvent();
             return;
         }
-        String[] listEvent = {"Pluie", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit", "Non définit"};
-        JComboBox<String> choiceBox = new JComboBox<>(listEvent);
-        box.add(choiceBox, 2);
-        JButton okButton = new JButton("OK");
-        box.add(okButton, 3);
+        GAME=false;
+        EventBuilder eb = new EventBuilder(personClicked, (String) selectedItem);
+        String s = eb.buildByGui();
+        showRespond(s);
+        GAME=true;
+    }
 
-        westPanel.revalidate();
-        westPanel.repaint();
+    private void showRespond(String s) {
+        centerPanel.removeAll();
+        if(infoIndividu == null){
+            infoIndividu = new JLabel();
+            centerPanel.add(this.infoIndividu, BorderLayout.CENTER);
+        }
+        infoIndividu.setText("<html><font color='green' size=6><b>"+s+"<b></font></html>");
+        centerPanel.add(this.infoIndividu, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
     }
 
     public void createIndividu() throws FileNotFoundException {
+        if(NameRepository.getInstance().getNameIndex() > 100){
+            showErrorCreation();
+            return;
+        }
         PersonBuilder personBuilder = new PersonBuilder();
         Person person = personBuilder.buildPerson();
 
+    }
+
+    private void showErrorCreation() {
+        centerPanel.removeAll();
+        if(infoIndividu == null){
+            infoIndividu = new JLabel();
+            centerPanel.add(this.infoIndividu, BorderLayout.CENTER);
+        }
+        infoIndividu.setText("<html><font color='red' size=6><b>Taille limite atteinte (103)<b></font></html>");
+        centerPanel.add(this.infoIndividu, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
     }
 }

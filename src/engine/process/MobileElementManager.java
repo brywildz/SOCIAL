@@ -83,7 +83,7 @@ public class MobileElementManager implements MobileInterface {
         }
     }
 
-    private void refreshState(Person person) {
+    public synchronized static void refreshState(Person person) {
         Reaction react = new Reaction(person);
         Event event = person.getEvent();
         if(event != null){

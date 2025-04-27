@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static config.GameConfiguration.*;
 
@@ -175,5 +176,33 @@ public class PaintStrategy {
             return Color.YELLOW;
         }
         return Color.YELLOW;
+    }
+
+    public void paintWeb(Person personClicked, Graphics g) {
+        ArrayList<Person> family = personClicked.getRelation().getFamiliale();
+        ArrayList<Person> work = personClicked.getRelation().getPro();
+        ArrayList<Person> friends = personClicked.getRelation().getAmicale();
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+        int x1 = personClicked.getLocation().getColumn() * BLOCK_SIZE;
+        int y1 = personClicked.getLocation().getLine() * BLOCK_SIZE;
+        g2.setColor(new Color(255, 100, 100));
+        for(Person p1 : family){
+            int x2 = p1.getLocation().getColumn() * BLOCK_SIZE;
+            int y2 = p1.getLocation().getLine() * BLOCK_SIZE;
+            g2.drawLine(x1, y1, x2, y2);
+        }
+        g2.setColor(new Color(100, 200, 100));
+        for(Person p2 : work){
+            int x2 = p2.getLocation().getColumn() * BLOCK_SIZE;
+            int y2 = p2.getLocation().getLine() * BLOCK_SIZE;
+            g2.drawLine(x1, y1, x2, y2);
+        }
+        g2.setColor(new Color(100, 150, 255));
+        for(Person p3 : friends){
+            int x2 = p3.getLocation().getColumn() * BLOCK_SIZE;
+            int y2 = p3.getLocation().getLine() * BLOCK_SIZE;
+            g2.drawLine(x1, y1, x2, y2);
+        }
     }
 }

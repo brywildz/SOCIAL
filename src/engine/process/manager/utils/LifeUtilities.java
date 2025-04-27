@@ -139,7 +139,7 @@ public class LifeUtilities {
      * Doit être refait avec les event.
      * @param person
      */
-    public static void refreshLocation(Person person) {
+    public synchronized static void refreshLocation(Person person) {
         if(person.isInSocialEvent()) {
             refreshEventLocation(person);
         }

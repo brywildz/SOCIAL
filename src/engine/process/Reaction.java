@@ -91,17 +91,17 @@ public class Reaction {
                 state.getMood().add(1);
             }
             if(personality.getConscienciosite().isLow()){
-                state.getMood().add(-1);
+                state.getMood().add(-4);
             }
             if(personality.getOuverture().isLow()){
                 state.getMood().add(-1);
             }
             if(personality.getNeuroticisme().isHigh()){
-                state.getMood().add(-0.5);
+                state.getMood().add(-4);
                 state.getHunger().add(+0.5);
             }
             if(personality.getExtraversion().isHigh()){
-                state.getMood().add(-0.5);
+                state.getMood().add(-2);
             }
             if(personality.getExtraversion().isLow()){
                 state.getHunger().add(+0.5);
@@ -113,20 +113,20 @@ public class Reaction {
                 state.getMood().add(+1);
             }
             if(personality.getExtraversion().isLow()){
-                state.getMood().add(-1);
+                state.getMood().add(-2);
             }
             if(personality.getAgreabilite().isLow()){
-                state.getMood().add(-1);
+                state.getMood().add(-2);
             }
             if(personality.getNeuroticisme().isHigh()){
-                state.getMood().add(-1);
+                state.getMood().add(-3);
                 state.getHunger().add(+0.5);
             }
             if(personality.getConscienciosite().isHigh()){
                 state.getHealth().add(+0.5);
             }
             if(personality.getConscienciosite().isLow()){
-                state.getMood().add(-0.5);
+                state.getMood().add(-3);
             }
         }
         if(hobby.getId().equals("sport")){
@@ -135,7 +135,7 @@ public class Reaction {
             }
             if(personality.getNeuroticisme().isHigh()){
                 state.getMood().add(+1);
-                state.getHunger().add(-1);
+                state.getHunger().add(-3);
             }
             if(personality.getNeuroticisme().isLow()){
                 state.getHealth().add(+0.5);
@@ -145,7 +145,7 @@ public class Reaction {
                 state.getMood().add(+0.5);
             }
             if(personality.getOuverture().isLow()){
-                state.getMood().add(-0.5);
+                state.getMood().add(-2);
             }
             if(personality.getOuverture().isHigh()){
                 state.getMood().add(+0.5);
@@ -158,10 +158,10 @@ public class Reaction {
                 state.getMood().add(+1);
             }
             if(personality.getOuverture().isLow()){
-                state.getMood().add(-0.5);
+                state.getMood().add(-2);
             }
             if(personality.getNeuroticisme().isHigh()){
-                state.getMood().add(-0.5);
+                state.getMood().add(-3);
                 state.getHunger().add(+0.5);
             }
             if(personality.getConscienciosite().isHigh()){
@@ -176,13 +176,13 @@ public class Reaction {
                 mood.add(+1);
             }
             if(personality.getAgreabilite().isLow()){
-                mood.add(-1);
+                mood.add(-4);
             }
             if(personality.getExtraversion().isHigh()){
                 mood.add(+0.5);
             }
             if(personality.getNeuroticisme().isHigh()){
-                mood.add(-0.5);
+                mood.add(-3);
             }
         }
         if(hobby.getId().equals("learning")){
@@ -190,10 +190,10 @@ public class Reaction {
                 mood.add(+1);
             }
             if(personality.getOuverture().isLow()){
-                mood.add(-1);
+                mood.add(-2);
             }
             if(personality.getNeuroticisme().isHigh()){
-                hunger.add(+0.5);
+                hunger.add(+1);
             }
             if(personality.getConscienciosite().isHigh()){
                 mood.add(+0.5);
@@ -210,20 +210,20 @@ public class Reaction {
                 mood.add(+1);
             }
             if(personality.getConscienciosite().isLow()){
-                mood.add(-1);
+                mood.add(-3);
             }
             if(personality.getNeuroticisme().isHigh()){
-                hunger.add(+0.5);
-                mood.add(-0.5);
+                hunger.add(+1);
+                mood.add(-3);
             }
             if(personality.getExtraversion().isLow()){
-                mood.add(-0.5);
+                mood.add(-2);
             }
             if(personality.getNeuroticisme().isHigh()){
                 mood.add(+0.5);
             }
-            health.add(-0.5);
-            sleep.add(-0.5);
+            health.add(-2);
+            sleep.add(-3);
         }
         if(hobby.getId().equals("sleep")){
             if(personality.getNeuroticisme().isHigh()){
@@ -240,6 +240,7 @@ public class Reaction {
             }
             health.add(+0.5);
             sleep.add(+1);
+            hunger.add(+3);
             state.getSleep().setSleeping(true);
         }
     }

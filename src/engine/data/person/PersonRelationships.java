@@ -33,7 +33,7 @@ public class PersonRelationships {
         return familiale;
     }
 
-    public ArrayList<Person> getAmicale() {
+    public synchronized ArrayList<Person> getAmicale() {
         return amicale;
     }
 

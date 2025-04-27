@@ -70,7 +70,7 @@ public class Person {
         this.location = location;
     }
 
-    public PersonRelationships getRelation() {
+    public synchronized PersonRelationships getRelation() {
         return personRelationships;
     }
 
@@ -94,7 +94,7 @@ public class Person {
         return name;
     }
 
-    public void setEvent(Event currentEvent) {
+    public synchronized void setEvent(Event currentEvent) {
         this.event = currentEvent;
     }
 
